@@ -10,7 +10,7 @@ class Funcionario {
         string nome;
         string endereco;
         string telefone;
-        string ingresso;
+        string dataIngresso;
         string designacao;
         double salario;
 
