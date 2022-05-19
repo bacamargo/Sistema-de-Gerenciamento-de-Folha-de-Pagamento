@@ -10,9 +10,9 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
-    void EditarFuncionario(int alteracao, string atributo);
-    void ExcluirFuncionario();
-    void ExibirFuncionario();
+    void EditarFuncionario(int change, string code);
+    void ExcluirFuncionario(string code);
+    int ExibirFuncionario(string code);
     void ExibirListaFuncionario();
     void ExibirTipoFuncionario();
     void Aumento();

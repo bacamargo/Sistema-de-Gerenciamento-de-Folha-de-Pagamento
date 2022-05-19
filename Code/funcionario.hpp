@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Funcionario {
+class Funcionario{
     protected:
         string codigo;
         string nome;
