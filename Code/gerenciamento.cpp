@@ -140,13 +140,65 @@ int Gerenciamento::ExibirFuncionario(string code){
 
 void Gerenciamento::ExibirListaFuncionario(){
 
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        cout << "-----------------Funcionario " << i+1 << "-----------------" << endl;
+
+        cout << "Código: " << listaFunc[i].getCodigo() << "\pNome: " << listaFunc[i].getNome() << endl;
+        cout << "Endereço: " << listaFunc[i].getEndereco() << "\pTelefone: " << listaFunc[i].getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[i].getIngresso() << "\pDesignação: " << listaFunc[i].getDesignacao() << endl;  
+        cout << "Salário: " << listaFunc[i].getSalario() << endl;  
+    }
+
 }
 
-void Gerenciamento::ExibirTipoFuncionario(){
+void Gerenciamento::ExibirTipoFuncionario(string designation){
 
+    if(designation == "operador"){
+
+        cout << "Lista de " << designation << "(es): ";
+    }else{
+
+        cout << "Lista de " << designation << "(s): ";
+    }
+    
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        if(listaFunc[i].getDesignacao() == designation){
+        
+        cout << "-----------------Funcionário-----------------" << endl;
+        cout << "Código: " << listaFunc[i].getCodigo() << "\pNome: " << listaFunc[i].getNome() << endl;
+        cout << "Endereço: " << listaFunc[i].getEndereco() << "\pTelefone: " << listaFunc[i].getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[i].getIngresso() << "\pSalário: " << listaFunc[i].getSalario() << endl;  
+
+        }
+    }
 }
 
-void Gerenciamento::BuscarFuncionario(){
+void Gerenciamento::BuscarFuncionario(string search){
+
+    int indBuscado;
+    bool existeFunc= false;
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        if(listaFunc[i].getNome() == search || listaFunc[i].getIngresso() == search || listaFunc[i].getEndereco()== search){
+
+            existeFunc= true;
+            indBuscado= i;
+            break;
+        }
+    }
+
+    if(existeFunc){
+        cout << "O funcionário existe. Seu código é " << listaFunc[indBuscado].getCodigo() << "." << endl;  
+
+    }else{
+
+        cout << "Não existe nenhum funcionário com a informacao \" "<< search << " \" fornecida." << endl;
+    }
 
 }
 

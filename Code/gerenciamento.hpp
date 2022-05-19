@@ -14,12 +14,13 @@ class Gerenciamento{
     void ExcluirFuncionario(string code);
     int ExibirFuncionario(string code);
     void ExibirListaFuncionario();
-    void ExibirTipoFuncionario();
-    void Aumento();
+    void ExibirTipoFuncionario(string designation);
+    void BuscarFuncionario(string search);
+    virtual void Aumento()= 0;
     void CalcularFolhaSalarial();
     void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
-    void BuscarFuncionario();
+    
 
     private:
     std::vector <Funcionario> listaFunc;
