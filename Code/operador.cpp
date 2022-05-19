@@ -11,7 +11,7 @@ void Operador::Aumento(){
 
     double novoSalario;
 
-    novoSalario= operador.getSalario() + (operador.getSalario() * 0.1);
+    novoSalario= operador.getSalario() + (operador.getSalario() * 0.05);
 
     operador.setSalario(novoSalario);
 }

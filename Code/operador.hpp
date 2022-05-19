@@ -1,11 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include "instituicao.hpp"
+#include "funcionario.hpp"
 
 using namespace std;
 
-class Operador : public Instituicao {
+class Operador : public Funcionario {
 
     public:
         Funcionario operador;
