@@ -1,14 +1,14 @@
 #include <iostream>
-#include "instituicao.hpp"
+#include "gerenciamento.hpp"
 
 using namespace std;
 
 
-Instituicao::Instituicao(){
+Gerenciamento::Gerenciamento(){
 
 }
 
-void Instituicao::EditarFuncionario(int change, string code){
+void Gerenciamento::EditarFuncionario(int change, string code){
     
     int indice;
     string novo;
@@ -16,7 +16,7 @@ void Instituicao::EditarFuncionario(int change, string code){
     
     for(int i= 0; i < listaFunc.size(); i++){
         
-        if(listaFunc[i].getCodigo() == code){
+        if(listaFunc[i]->getCodigo() == code){
             indice= i;
             break;
         }
@@ -25,42 +25,42 @@ void Instituicao::EditarFuncionario(int change, string code){
     switch(change){
         case 1:                        //alterar codigo 
             cin >> novo;
-            listaFunc[indice].setCodigo(novo);
+            listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:                       //alterar dataIngresso
             cin >> novo;
-            listaFunc[indice].setIngresso(novo);
+            listaFunc[indice]->setDesignacao(novo);
             break;
 
         case 3:                         //alterar nome
             getline(cin, novo);
-            listaFunc[indice].setNome(novo);
+            listaFunc[indice]->setNome(novo);
             break;
         
         case 4:                         //alterar endereco
             getline(cin, novo);
-            listaFunc[indice].setEndereco(novo);
+            listaFunc[indice]->setEndereco(novo);
             break;
 
         case 5:                         //alterar telefone
             getline(cin, novo);
-            listaFunc[indice].setTelefone(novo);
+            listaFunc[indice]->setTelefone(novo);
             break;
 
         case 6:                         //alterar designacao
             getline(cin, novo);
-            listaFunc[indice].setDesignacao(novo);
+            listaFunc[indice]->setDesignacao(novo);
             break;
 
         case 7:                         //alterar  salario
             cin >> novoSal;
-            listaFunc[indice].setSalario(novoSal);
+            listaFunc[indice]->setSalario(novoSal);
             break;
     }
 }
 
-void Instituicao::ExcluirFuncionario(string code){
+void Gerenciamento::ExcluirFuncionario(string code){
 
     string desigRemovida;
     int indRemovido;
@@ -70,10 +70,10 @@ void Instituicao::ExcluirFuncionario(string code){
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        if(listaFunc[i].getCodigo() == code){
+        if(listaFunc[i]->getCodigo() == code){
 
             existeCod= true;
-            desigRemovida= listaFunc[i].getDesignacao();
+            desigRemovida= listaFunc[i]->getDesignacao();
 
             if(desigRemovida == "diretor" || desigRemovida == "Diretor" || desigRemovida == "gerente" || desigRemovida == "Gerente"){
 
@@ -88,7 +88,7 @@ void Instituicao::ExcluirFuncionario(string code){
 
     if(existeCod == 1){
 
-        cout << "Você tem certeza que quer apagar o funcionário " << listaFunc[indRemovido].getNome() << "?   (Digite 's' para SIM e 'n' para NÃO)" << endl;
+        cout << "Você tem certeza que quer apagar o funcionário " << listaFunc[indRemovido]->getNome() << "?   (Digite 's' para SIM e 'n' para NÃO)" << endl;
         
         while(1){
             cin >> confirmacao;
@@ -113,14 +113,14 @@ void Instituicao::ExcluirFuncionario(string code){
 
 }
 
-int Instituicao::ExibirFuncionario(string code){
+int Gerenciamento::ExibirFuncionario(string code){
 
     int indImprimir;
     bool existeFunc= false;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        if(listaFunc[i].getCodigo() == code){
+        if(listaFunc[i]->getCodigo() == code){
 
             existeFunc= true;
             indImprimir= i;
@@ -138,22 +138,22 @@ int Instituicao::ExibirFuncionario(string code){
 
 }
 
-void Instituicao::ExibirListaFuncionario(){
+void Gerenciamento::ExibirListaFuncionario(){
 
 
     for(int i= 0; i < listaFunc.size(); i++){
 
         cout << "-----------------Funcionario " << i+1 << "-----------------" << endl;
 
-        cout << "Código: " << listaFunc[i].getCodigo() << "\pNome: " << listaFunc[i].getNome() << endl;
-        cout << "Endereço: " << listaFunc[i].getEndereco() << "\pTelefone: " << listaFunc[i].getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i].getIngresso() << "\pDesignação: " << listaFunc[i].getDesignacao() << endl;  
-        cout << "Salário: " << listaFunc[i].getSalario() << endl;  
+        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
+        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pDesignação: " << listaFunc[i]->getDesignacao() << endl;  
+        cout << "Salário: " << listaFunc[i]->getSalario() << endl;  
     }
 
 }
 
-void Instituicao::ExibirTipoFuncionario(string designation){
+void Gerenciamento::ExibirTipoFuncionario(string designation){
 
     if(designation == "operador"){
 
@@ -166,25 +166,25 @@ void Instituicao::ExibirTipoFuncionario(string designation){
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        if(listaFunc[i].getDesignacao() == designation){
+        if(listaFunc[i]->getDesignacao() == designation){
         
         cout << "-----------------Funcionário-----------------" << endl;
-        cout << "Código: " << listaFunc[i].getCodigo() << "\pNome: " << listaFunc[i].getNome() << endl;
-        cout << "Endereço: " << listaFunc[i].getEndereco() << "\pTelefone: " << listaFunc[i].getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i].getIngresso() << "\pSalário: " << listaFunc[i].getSalario() << endl;  
+        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
+        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pSalário: " << listaFunc[i]->getSalario() << endl;  
 
         }
     }
 }
 
-void Instituicao::BuscarFuncionario(string search){
+void Gerenciamento::BuscarFuncionario(string search){
 
     int indBuscado;
     bool existeFunc= false;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        if(listaFunc[i].getNome() == search || listaFunc[i].getIngresso() == search || listaFunc[i].getEndereco()== search){
+        if(listaFunc[i]->getNome() == search || listaFunc[i]->getIngresso() == search || listaFunc[i]->getEndereco()== search){
 
             existeFunc= true;
             indBuscado= i;
@@ -193,7 +193,7 @@ void Instituicao::BuscarFuncionario(string search){
     }
 
     if(existeFunc){
-        cout << "O funcionário existe. Seu código é " << listaFunc[indBuscado].getCodigo() << "." << endl;  
+        cout << "O funcionário existe. Seu código é " << listaFunc[indBuscado]->getCodigo() << "." << endl;  
 
     }else{
 
@@ -202,16 +202,16 @@ void Instituicao::BuscarFuncionario(string search){
 
 }
 
-double Instituicao::CalcularFolhaSalarial(int mes){
+double Gerenciamento::CalcularFolhaSalarial(int mes){
 
 
 }
 
-void Instituicao::ImprimirFolhaSalarial(){
+void Gerenciamento::ImprimirFolhaSalarial(){
 
 }
 
-void Instituicao::ImprimirFolhaSalarialEmpresa(){
+void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 
 }
 

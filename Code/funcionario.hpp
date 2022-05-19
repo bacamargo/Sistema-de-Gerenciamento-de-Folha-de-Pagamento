@@ -30,4 +30,5 @@ class Funcionario{
         string getDesignacao();
         void setSalario(double salary);
         double getSalario();
+        virtual void Aumento()=0
 };
