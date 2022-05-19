@@ -1,12 +1,15 @@
 #pragma once
 
 #include <iostream>
-#include "funcionario.hpp"
+#include "instituicao.hpp"
 
 using namespace std;
 
-class Operador : public Funcionario {
+class Operador : public Instituicao {
+
     public:
+        Funcionario operador;
         Operador();
+        void Aumento();
 
 };

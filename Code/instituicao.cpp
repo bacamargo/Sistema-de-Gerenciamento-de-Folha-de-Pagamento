@@ -1,14 +1,14 @@
 #include <iostream>
-#include "gerenciamento.hpp"
+#include "instituicao.hpp"
 
 using namespace std;
 
 
-Gerenciamento::Gerenciamento(){
+Instituicao::Instituicao(){
 
 }
 
-void Gerenciamento::EditarFuncionario(int change, string code){
+void Instituicao::EditarFuncionario(int change, string code){
     
     int indice;
     string novo;
@@ -60,7 +60,7 @@ void Gerenciamento::EditarFuncionario(int change, string code){
     }
 }
 
-void Gerenciamento::ExcluirFuncionario(string code){
+void Instituicao::ExcluirFuncionario(string code){
 
     string desigRemovida;
     int indRemovido;
@@ -75,7 +75,7 @@ void Gerenciamento::ExcluirFuncionario(string code){
             existeCod= true;
             desigRemovida= listaFunc[i].getDesignacao();
 
-            if(desigRemovida == "diretor" || desigRemovida == "Diretor" || desigRemovida == "supervisor" || desigRemovida == "Supervisor"){
+            if(desigRemovida == "diretor" || desigRemovida == "Diretor" || desigRemovida == "gerente" || desigRemovida == "Gerente"){
 
                 throw "nao pode ser apagado"; 
 
@@ -113,7 +113,7 @@ void Gerenciamento::ExcluirFuncionario(string code){
 
 }
 
-int Gerenciamento::ExibirFuncionario(string code){
+int Instituicao::ExibirFuncionario(string code){
 
     int indImprimir;
     bool existeFunc= false;
@@ -138,7 +138,7 @@ int Gerenciamento::ExibirFuncionario(string code){
 
 }
 
-void Gerenciamento::ExibirListaFuncionario(){
+void Instituicao::ExibirListaFuncionario(){
 
 
     for(int i= 0; i < listaFunc.size(); i++){
@@ -153,7 +153,7 @@ void Gerenciamento::ExibirListaFuncionario(){
 
 }
 
-void Gerenciamento::ExibirTipoFuncionario(string designation){
+void Instituicao::ExibirTipoFuncionario(string designation){
 
     if(designation == "operador"){
 
@@ -177,7 +177,7 @@ void Gerenciamento::ExibirTipoFuncionario(string designation){
     }
 }
 
-void Gerenciamento::BuscarFuncionario(string search){
+void Instituicao::BuscarFuncionario(string search){
 
     int indBuscado;
     bool existeFunc= false;
@@ -197,20 +197,21 @@ void Gerenciamento::BuscarFuncionario(string search){
 
     }else{
 
-        cout << "Não existe nenhum funcionário com a informacao \" "<< search << " \" fornecida." << endl;
+        cout << "Não existe nenhum funcionário com a informação \" "<< search << " \" fornecida." << endl;
     }
 
 }
 
-void Gerenciamento::CalcularFolhaSalarial(){
+double Instituicao::CalcularFolhaSalarial(int mes){
+
 
 }
 
-void Gerenciamento::ImprimirFolhaSalarial(){
+void Instituicao::ImprimirFolhaSalarial(){
 
 }
 
-void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
+void Instituicao::ImprimirFolhaSalarialEmpresa(){
 
 }
 

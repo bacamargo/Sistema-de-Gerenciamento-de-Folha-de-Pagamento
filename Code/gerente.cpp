@@ -3,6 +3,25 @@
 
 using namespace std;
 
-Gerente::Gerente() : Funcionario("Gerente"){
+Gerente::Gerente(){
     
+}
+
+void Gerente::setAreaSupervisao(string area){
+
+    areaSupervisao= area;
+}
+
+string Gerente::getAreaSupervisao(){
+
+    return areaSupervisao;
+}
+
+void Gerente::Aumento(){
+
+    double novoSalario;
+
+    novoSalario= gerente.getSalario() + (gerente.getSalario() * 0.1);
+
+    gerente.setSalario(novoSalario);
 }

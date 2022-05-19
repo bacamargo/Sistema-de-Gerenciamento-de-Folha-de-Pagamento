@@ -1,15 +1,21 @@
 #pragma once
 
 #include <iostream>
-#include "funcionario.hpp"
+#include "instituicao.hpp"
 
 using namespace std;
 
-class Diretor : public Funcionario {
+class Diretor : public Instituicao{
+
     private:
         string areaSupervisao;
         string areaFormacao;
 
     public:
-        Diretor();
+        Funcionario diretor;
+        void setAreaSupervisao(string area);
+        void setAreaFormacao(string graduation);
+        string getAreaSupervisao();
+        string getAreaFormacao();
+        void Aumento();
 };

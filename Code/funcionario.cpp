@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Funcionario::Funcionario(string designation){
-    designacao = designation;
+Funcionario::Funcionario(){
+    
 }
 
 void Funcionario::setCodigo(string code){

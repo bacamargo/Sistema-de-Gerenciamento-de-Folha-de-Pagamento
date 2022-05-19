@@ -3,6 +3,15 @@
 
 using namespace std;
 
-Operador::Operador() : Funcionario("Operador") {
+Operador::Operador(){
 
+}
+
+void Operador::Aumento(){
+
+    double novoSalario;
+
+    novoSalario= operador.getSalario() + (operador.getSalario() * 0.1);
+
+    operador.setSalario(novoSalario);
 }

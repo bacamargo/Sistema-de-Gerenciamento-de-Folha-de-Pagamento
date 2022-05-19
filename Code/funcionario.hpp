@@ -5,7 +5,7 @@
 using namespace std;
 
 class Funcionario{
-    protected:
+    private:
         string codigo;
         string nome;
         string endereco;
@@ -15,7 +15,7 @@ class Funcionario{
         double salario;
 
     public:
-        Funcionario(string designation);
+        Funcionario();
         void setCodigo(string code);
         string getCodigo();
         void setNome(string name);
@@ -30,5 +30,4 @@ class Funcionario{
         string getDesignacao();
         void setSalario(double salary);
         double getSalario();
-        virtual void Aumento()= 0;
 };
