@@ -39,11 +39,16 @@ string Funcionario::getTelefone(){
 }
 
 void Funcionario::setIngresso(string date){
-    ingresso = date;
+    dataIngresso = date;
 }
 
 string Funcionario::getIngresso(){
-    return ingresso;
+    return dataIngresso;
+}
+
+string Funcionario::setDesignacao(string designation){
+
+    designacao= designation;
 }
 
 string Funcionario::getDesignacao(){

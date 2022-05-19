@@ -26,7 +26,9 @@ class Funcionario {
         string getTelefone();
         void setIngresso(string date);
         string getIngresso();
+        string setDesignacao(string designation);
         string getDesignacao();
         void setSalario(double salary);
         double getSalario();
+        virtual void Aumento()= 0;
 };

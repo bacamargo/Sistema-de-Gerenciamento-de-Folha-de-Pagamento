@@ -1,14 +1,16 @@
 #pragma once
 
 #include <iostream>
+#include "funcionario.hpp"
+#include <vector>
 
 using namespace std;
 
-class Arquivo{
+class Gerenciamento{
 
- public:
-    Arquivo();
-    void EditarFuncionario();
+    public:
+    Gerenciamento();
+    void EditarFuncionario(int alteracao, string atributo);
     void ExcluirFuncionario();
     void ExibirFuncionario();
     void ExibirListaFuncionario();
@@ -18,4 +20,8 @@ class Arquivo{
     void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void BuscarFuncionario();
+
+    private:
+    std::vector <Funcionario> listaFunc;
+
 };
