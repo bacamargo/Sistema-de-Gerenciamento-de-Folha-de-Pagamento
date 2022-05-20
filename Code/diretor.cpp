@@ -5,6 +5,7 @@ using namespace std;
 
 Diretor::Diretor(){
 
+    setDesignacao("diretor");
 }
 
 
@@ -28,12 +29,12 @@ string Diretor::getAreaFormacao(){
     return areaFormacao;
 } 
 
-void Diretor::Aumento(){
+void Diretor::Aumento(Funcionario *diretor){
 
     double novoSalario;
 
-    novoSalario= diretor.getSalario() + (diretor.getSalario() * 0.2);
+    novoSalario= diretor->getSalario() + (diretor->getSalario() * 0.2);
 
-    diretor.setSalario(novoSalario);
+    diretor->setSalario(novoSalario);
 }
 

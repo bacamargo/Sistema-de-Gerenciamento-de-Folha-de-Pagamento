@@ -12,10 +12,10 @@ class Diretor : public Funcionario{
         string areaFormacao;
 
     public:
-        Funcionario diretor;
+        Diretor();
         void setAreaSupervisao(string area);
         void setAreaFormacao(string graduation);
         string getAreaSupervisao();
         string getAreaFormacao();
-        void Aumento();
+        void Aumento(Funcionario *diretor);
 };

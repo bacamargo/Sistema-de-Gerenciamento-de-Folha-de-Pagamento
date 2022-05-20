@@ -4,7 +4,8 @@
 using namespace std;
 
 Presidente::Presidente(){
-    
+
+    setDesignacao("presidente");
 }
 
 void Presidente::setAreaFormacao(string graduation){
@@ -17,11 +18,11 @@ string Presidente::getAreaFormacao(){
     return areaFormacao;
 } 
 
-void Presidente::Aumento(){
+void Presidente::Aumento(Funcionario *presid){
 
     double novoSalario;
 
-    novoSalario= presidente.getSalario() + (presidente.getSalario() * 0.3);
+    novoSalario= presid->getSalario() + (presid->getSalario() * 0.3);
 
-    presidente.setSalario(novoSalario);
+    presid->setSalario(novoSalario);
 }

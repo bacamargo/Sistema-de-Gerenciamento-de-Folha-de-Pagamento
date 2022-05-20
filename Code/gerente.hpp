@@ -10,9 +10,8 @@ class Gerente : public Funcionario{
         string areaSupervisao;
 
     public:
-        Funcionario gerente;
         Gerente();
         void setAreaSupervisao(string area);
         string getAreaSupervisao();
-        void Aumento();
+        void Aumento(Funcionario *gerente);
 };

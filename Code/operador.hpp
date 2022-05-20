@@ -8,8 +8,7 @@ using namespace std;
 class Operador : public Funcionario {
 
     public:
-        Funcionario operador;
         Operador();
-        void Aumento();
+        void Aumento(Funcionario *operad);
 
 };

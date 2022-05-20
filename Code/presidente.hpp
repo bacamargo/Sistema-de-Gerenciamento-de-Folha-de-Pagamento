@@ -11,11 +11,10 @@ class Presidente : public Funcionario{
         string formacaoAcademicaMax;
 
     public:
-        Funcionario presidente;
         Presidente();
         void setAreaFormacao(string graduation);
         void setFormacaoMax(string max);
         string getAreaFormacao();
         string getFormacaoMax();
-        void Aumento();
+        void Aumento(Funcionario *presid);
 };

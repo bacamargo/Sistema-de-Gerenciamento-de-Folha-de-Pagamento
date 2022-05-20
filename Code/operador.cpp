@@ -5,13 +5,14 @@ using namespace std;
 
 Operador::Operador(){
 
+    setDesignacao("operador");
 }
 
-void Operador::Aumento(){
+void Operador::Aumento(Funcionario *operad){
 
     double novoSalario;
 
-    novoSalario= operador.getSalario() + (operador.getSalario() * 0.05);
+    novoSalario= operad->getSalario() + (operad->getSalario() * 0.05);
 
-    operador.setSalario(novoSalario);
+    operad->setSalario(novoSalario);
 }
