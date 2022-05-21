@@ -297,19 +297,25 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
 void Gerenciamento::ImprimirFolhaSalarial(string searched){
 
     bool existeFunc= false;
+    int indice;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
         if(listaFunc[i]->getCodigo() == searched || listaFunc[i]->getNome() == searched){
 
             existeFunc= true;
+            indice= i;
             break;
         }
     }
 
     if(existeFunc){
 
-        //printar info folha salarial;
+        cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
 
     }else{
     
