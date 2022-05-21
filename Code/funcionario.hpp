@@ -13,6 +13,9 @@ class Funcionario{
         string dataIngresso;
         string designacao;
         double salario;
+        double descontoINSS;
+        double descontoImposto;
+        double salarioLiquido;
 
     public:
         Funcionario();
@@ -30,5 +33,11 @@ class Funcionario{
         string getDesignacao();
         void setSalario(double salary);
         double getSalario();
+        void setDescontoINSS(double discount);
+        double getDescontoINSS();
+        void setDescontoImposto(double tax);
+        double getDescontoImposto();
+        void setSalarioLiquido(double sal);
+        double getSalarioLiquido();
         virtual void Aumento()=0;
 };

@@ -62,3 +62,33 @@ void Funcionario::setSalario(double salary){
 double Funcionario::getSalario(){
     return salario;
 }
+
+void Funcionario::setDescontoINSS(double discount){
+
+    descontoINSS= discount;
+}
+
+double Funcionario::getDescontoINSS(){
+
+    return descontoINSS;
+}
+
+void Funcionario::setDescontoImposto(double tax){
+
+    descontoImposto= tax;
+}
+
+double Funcionario::getDescontoImposto(){
+
+    return descontoImposto;
+}
+    
+void Funcionario::setSalarioLiquido(double sal){
+
+    salarioLiquido= sal;
+}
+
+double Funcionario::getSalarioLiquido(){
+
+    return salarioLiquido;
+}

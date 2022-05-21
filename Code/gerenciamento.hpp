@@ -10,6 +10,7 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
+    void InserirFuncionario(Funcionario *newFunc);
     void EditarFuncionario(int change, string code);
     void ExcluirFuncionario(string code);
     int ExibirFuncionario(string code);
@@ -17,7 +18,7 @@ class Gerenciamento{
     void ExibirTipoFuncionario(string designation);
     void BuscarFuncionario(string search);
     double CalcularFolhaSalarial(int mes);
-    void ImprimirFolhaSalarial();
+    void ImprimirFolhaSalarial(string searched);
     void ImprimirFolhaSalarialEmpresa();
     
 

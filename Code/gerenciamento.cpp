@@ -1,11 +1,18 @@
 #include <iostream>
+#include <cstdlib>
 #include "gerenciamento.hpp"
 
 using namespace std;
 
+#define HORAS_TRABALHO 8
 
 Gerenciamento::Gerenciamento(){
 
+}
+
+void Gerenciamento::InserirFuncionario(Funcionario *newFunc){
+
+    listaFunc.push_back(newFunc);
 }
 
 void Gerenciamento::EditarFuncionario(int change, string code){
@@ -204,10 +211,110 @@ void Gerenciamento::BuscarFuncionario(string search){
 
 double Gerenciamento::CalcularFolhaSalarial(int mes){
 
+    int diasMax;
+    int diasTrabalhados, horasExtras;
+    double salarioTotal= 0;
+    double salarioFunc, valorHora;
 
+    if(mes == 2){
+        diasMax= 20;
+
+    }else {
+        diasMax= 22;
+    }
+
+    srand(time(NULL));
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        while(1){                                  //gerando os dias trabalhados aleatoriamente
+            diasTrabalhados= rand() % diasMax + 1; 
+
+            if(diasTrabalhados >= 15){
+                break;
+            }
+        }
+
+        horasExtras= rand() % (diasMax * 24 - diasTrabalhados* HORAS_TRABALHO) + 1;           //gerando as horas extras aleatoriamente
+
+        
+        //calculando o salario de cada funcionario e o total
+
+        valorHora= ((double) listaFunc[i]->getSalario() / (HORAS_TRABALHO * diasMax) );
+
+        salarioFunc= (valorHora *  diasTrabalhados) + (2.0 * valorHora * horasExtras);
+
+        if(salarioFunc <= 1100){
+            
+            listaFunc[i]->setDescontoINSS(7.5/100); 
+
+        }else if(salarioFunc <= 2203.48){
+
+            listaFunc[i]->setDescontoINSS(9.0/100); 
+
+        }else if(salarioFunc <= 3305.22){
+
+            listaFunc[i]->setDescontoINSS(12.0/100);
+
+        }else{
+
+            listaFunc[i]->setDescontoINSS(14.0/100);
+        }
+
+        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoINSS() );
+
+
+         if(salarioFunc <= 1903.98){
+            
+
+        }else if(salarioFunc <= 2826.65){
+
+            listaFunc[i]->setDescontoImposto(7.5/100); 
+
+        }else if(salarioFunc <= 3751.05){
+
+            listaFunc[i]->setDescontoImposto(15.0/100);
+
+        }else if(salarioFunc <= 4664.68){
+
+            listaFunc[i]->setDescontoImposto(22.5/100);
+
+        }else{
+
+             listaFunc[i]->setDescontoImposto(27.5/100);
+        }
+
+        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoImposto() );
+
+        listaFunc[i]->setSalarioLiquido(salarioFunc);
+
+        salarioTotal += salarioFunc;
+    }
+
+    return salarioTotal;
 }
 
-void Gerenciamento::ImprimirFolhaSalarial(){
+void Gerenciamento::ImprimirFolhaSalarial(string searched){
+
+    bool existeFunc= false;
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        if(listaFunc[i]->getCodigo() == searched || listaFunc[i]->getNome() == searched){
+
+            existeFunc= true;
+            break;
+        }
+    }
+
+    if(existeFunc){
+
+        //printar info folha salarial;
+
+    }else{
+    
+        cout << "Funcionario nao existe" << endl;
+    }
 
 }
 
