@@ -18,7 +18,7 @@ class Gerenciamento{
     void ExibirTipoFuncionario(string designation);
     void BuscarFuncionario(string search);
     double CalcularFolhaSalarial(int mes);
-    void ImprimirFolhaSalarial(string searched);
+    int ImprimirFolhaSalarial(string searched);
     void ImprimirFolhaSalarialEmpresa();
     
 

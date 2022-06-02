@@ -37,7 +37,7 @@ void Gerenciamento::EditarFuncionario(int change, string code){
 
         case 2:                       //alterar dataIngresso
             cin >> novo;
-            listaFunc[indice]->setDesignacao(novo);
+            listaFunc[indice]->setIngresso(novo);
             break;
 
         case 3:                         //alterar nome
@@ -216,7 +216,12 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
     double salarioTotal= 0;
     double salarioFunc, valorHora;
 
-    if(mes == 2){
+    if(mes <= 0 || mes > 12){
+
+        return -1;       //mes não válido
+
+    }else if(mes == 2){
+
         diasMax= 20;
 
     }else {
@@ -294,7 +299,7 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
     return salarioTotal;
 }
 
-void Gerenciamento::ImprimirFolhaSalarial(string searched){
+int Gerenciamento::ImprimirFolhaSalarial(string searched){
 
     bool existeFunc= false;
     int indice;
@@ -311,20 +316,54 @@ void Gerenciamento::ImprimirFolhaSalarial(string searched){
 
     if(existeFunc){
 
-        cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
-        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+        return indice;
+        // cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+        // cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+        // cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+        // cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        // cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
 
     }else{
     
-        cout << "Funcionario nao existe" << endl;
+        return -1;
+        // cout << "Funcionario nao existe" << endl;
     }
 
 }
 
 void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 
+    int escolha;
+    double salario= 0;
+    vector<string> meses= {"janeiro", "fevereiro", "março", "abril", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+
+    cout << "Você deseja imprimir a folha salarial anual ou de um mês específico? " << endl;
+    cout << "Digite (0)- folha anual" << endl;
+    cout << "Digite (número equivalente ao mês)- folha mensal" << endl;
+
+    cin >> escolha;
+
+    if(escolha <= 0 || escolha > 12){
+
+        throw "exception";
+
+    }else if(escolha == 0){
+
+        for(int i= 1; i <= 12; i++){
+
+            salario += CalcularFolhaSalarial(i);      //calculando a folha salarial anual
+        }
+
+        cout << "Folha Salarial Anual: RS" << salario << endl;
+
+    }else{
+
+        salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
+
+        cout << "Folha do Mês de " << meses[escolha-1] << ":   RS" << salario << endl;
+
+    }
+
+    
 }
 
