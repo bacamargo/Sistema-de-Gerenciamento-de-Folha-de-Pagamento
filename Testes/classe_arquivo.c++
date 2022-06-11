@@ -15,7 +15,7 @@ class Funcionario{
     public:
         string nome;
         string funcao;
-        int idade;
+        int idade;          ////
 
         void setNome(string Nome){
             nome = Nome;

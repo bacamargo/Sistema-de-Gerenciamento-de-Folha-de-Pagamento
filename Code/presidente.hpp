@@ -3,7 +3,7 @@
 #include <iostream>
 #include "funcionario.hpp"
 
-using namespace std;
+using namespace std;      ///// 
 
 class Presidente : public Funcionario{
     private:
