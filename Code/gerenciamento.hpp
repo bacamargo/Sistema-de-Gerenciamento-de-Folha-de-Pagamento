@@ -16,7 +16,7 @@ class Gerenciamento{
     void InserirFuncionario();
     void EditarFuncionario();
     void ExcluirFuncionario();
-    int ExibirFuncionario();
+    void ExibirFuncionario(string code);
     void ExibirListaFuncionario();
     void ExibirTipoFuncionario();
     void BuscarFuncionario();

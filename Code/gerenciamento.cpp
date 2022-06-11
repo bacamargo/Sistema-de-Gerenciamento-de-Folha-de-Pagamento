@@ -191,14 +191,10 @@ void Gerenciamento::ExcluirFuncionario(){
 
 }
 
-int Gerenciamento::ExibirFuncionario(){
+void Gerenciamento::ExibirFuncionario(string code){
 
     int indImprimir;
     bool existeFunc= false;
-    string code;
-
-    cout << "Digite o código de qual funcionário vocẽ quer excluir: " << endl;
-    cin >> code;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -212,7 +208,15 @@ int Gerenciamento::ExibirFuncionario(){
 
     if(existeFunc){
     
-    return indImprimir;
+        cout << "-----------------Funcionário " << indImprimir+1 << "-----------------" << endl;
+
+        cout << "Código: " << listaFunc[indImprimir]->getCodigo() << endl;
+        cout << "Nome: " << listaFunc[indImprimir]->getNome() << endl;
+        cout << "Endereço: " << listaFunc[indImprimir]->getEndereco() << endl;
+        cout << "Telefone: " << listaFunc[indImprimir]->getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[indImprimir]->getIngresso() << endl;
+        cout << "Designação: " << listaFunc[indImprimir]->getDesignacao() << endl;  
+        cout << "Salário: " << listaFunc[indImprimir]->getSalario() << endl; 
 
     }else{
         cout << "O funcionario de código " << code << " não existe." << endl;
@@ -225,15 +229,7 @@ void Gerenciamento::ExibirListaFuncionario(){
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        cout << "-----------------Funcionario " << i+1 << "-----------------" << endl;
-
-        cout << "Código: " << listaFunc[i]->getCodigo() << endl;
-        cout << "Nome: " << listaFunc[i]->getNome() << endl;
-        cout << "Endereço: " << listaFunc[i]->getEndereco() << endl;
-        cout << "Telefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << endl;
-        cout << "Designação: " << listaFunc[i]->getDesignacao() << endl;  
-        cout << "Salário: " << listaFunc[i]->getSalario() << endl;  
+        ExibirFuncionario(listaFunc[i]->getCodigo());
     }
 
 }
@@ -257,15 +253,8 @@ void Gerenciamento::ExibirTipoFuncionario(){
     for(int i= 0; i < listaFunc.size(); i++){
 
         if(listaFunc[i]->getDesignacao() == designation){
-        
-        cout << "-----------------Funcionário-----------------" << endl;
-        cout << " Código: " << listaFunc[i]->getCodigo() << endl;
-        cout << " Nome: " << listaFunc[i]->getNome() << endl;
-        cout << " Endereço: " << listaFunc[i]->getEndereco() << endl; 
-        cout << " Telefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << " Data de Ingresso: " << listaFunc[i]->getIngresso() << endl; 
-        cout << " Salário: " << listaFunc[i]->getSalario() << endl;  
-
+            
+            ExibirFuncionario(listaFunc[i]->getCodigo());
         }
     }
 }
@@ -275,9 +264,6 @@ void Gerenciamento::BuscarFuncionario(){
     int indBuscado;
     bool existeFunc= false;
     string search;
-
-    cout << "Qual o código do funcionário que você quer excluir: " << endl;
-    cin >> search;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -398,6 +384,7 @@ int Gerenciamento::ImprimirFolhaSalarial(){
 
     bool existeFunc= false;
     int indice;
+    string searched;
 
     cout << "Digite o nome do código ou nome do funcionário: " << endl;
     cin >> searched;

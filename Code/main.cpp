@@ -11,7 +11,7 @@ using namespace std;
 
 void ExibirMenuPrincipal(){
 
-    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: "; 
+    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: " << endl;  
 
     cout << "Funcionário: " << endl << endl;
     cout << " 1 - Cadastrar Funcionário" << endl; 
@@ -42,7 +42,7 @@ int main(){
     Gerenciamento sistema;
 
     int mes;
-
+    string procurado;
 
     setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
 
@@ -80,7 +80,9 @@ int main(){
                 break;
 
             case 3: 
-                sistema.ExibirFuncionario();
+                cout << "Digite o código de qual funcionário vocẽ quer exibir: " << endl;
+                getline(cin, procurado);
+                sistema.ExibirFuncionario(procurado);
                 break;
 
             case 4: 
@@ -92,6 +94,8 @@ int main(){
                 break;
 
             case 6:
+                cout << "Qual o código do funcionário que você quer buscar: " << endl;
+                getline(cin, procurado);
                 sistema.BuscarFuncionario();
                 break;
 
