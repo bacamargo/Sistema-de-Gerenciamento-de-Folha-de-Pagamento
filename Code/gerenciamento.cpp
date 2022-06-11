@@ -10,17 +10,78 @@ Gerenciamento::Gerenciamento(){
 
 }
 
-void Gerenciamento::InserirFuncionario(Funcionario *newFunc){
+void Gerenciamento::InserirFuncionario(){
 
-    listaFunc.push_back(newFunc);
+    Funcionario *func;
+    string codigo, data, nome, endereco, telefone, designacao, areaSupervisao, formAcademica;
+    double salario;
+
+
+    cout << "Cadastro do novo funcionário: " << endl << endl;
+
+    cout << "Digite o código: " << endl;
+    getline(cin, codigo);
+
+    cout << "Digite o nome: " << endl;
+    getline(cin, nome);
+
+    cout << "Digite o data de ingresso: " << endl;    //tem que ter tratamento pra data
+    getline(cin, data);
+
+    cout << "Digite o endereço: " << endl;
+    getline(cin, endereco);
+
+    cout << "Digite o telefone: " << endl;
+    getline(cin, telefone);
+
+    cout << "Digite a designação ('operador', 'gerente' ou 'presidente'): " << endl;
+    getline(cin, designacao);
+
+    cout << "Digite o salário inicial: " << endl;
+    cin >> salario;
+
+
+    if(designacao == "operador"){
+        func= new Operador();          //cria um novo funcionario operador
+
+    }else if(designacao == "gerente"){
+
+        Gerente gerente;    //cria um novo funcionario gerente
+
+        cin.ignore();
+
+        cout << "Digite a área de área de supervisão do Gerente: " << endl;
+        getline(cin, areaSupervisao);
+
+        gerente.setAreaSupervisao(areaSupervisao);
+
+    }else{
+
+        Presidente presid; //cria um novo funcionario presidente
+
+        cin.ignore();
+
+        cout << "Digite a área de área de supervisão do Presidente: " << endl;
+        getline(cin, areaSupervisao);
+
+        cout << "Digite a área de formação acadêmica máximo do Presidente: " << endl;
+        getline(cin, formAcademica);
+    }
+
+    listaFunc.push_back(func);
 }
 
-void Gerenciamento::EditarFuncionario(int change, string code){
+void Gerenciamento::EditarFuncionario(){
     
     int indice;
+    int change;
     string novo;
     double novoSal;
-    
+    string code;    //codigo pra pesquisar o novo funcionario
+
+    cout << "Digite o código do funcionário que irá ser editado: " << endl;
+    cin >> code;
+
     for(int i= 0; i < listaFunc.size(); i++){
         
         if(listaFunc[i]->getCodigo() == code){
@@ -31,49 +92,59 @@ void Gerenciamento::EditarFuncionario(int change, string code){
 
     switch(change){
         case 1:                        //alterar codigo 
+            cout << "Digite o novo código do funcionário: " << endl;
             cin >> novo;
             listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:                       //alterar dataIngresso
+            cout << "Digite a nova data de ingresso do funcionário: " << endl;
             cin >> novo;
             listaFunc[indice]->setIngresso(novo);
             break;
 
         case 3:                         //alterar nome
+            cout << "Digite o novo nome do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setNome(novo);
             break;
         
         case 4:                         //alterar endereco
+            cout << "Digite o novo endereço do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setEndereco(novo);
             break;
 
         case 5:                         //alterar telefone
+            cout << "Digite o novo telefone do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setTelefone(novo);
             break;
 
         case 6:                         //alterar designacao
+            cout << "Digite a nova designação do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setDesignacao(novo);
             break;
 
         case 7:                         //alterar  salario
+            cout << "Digite o novo salário do funcionário: " << endl;
             cin >> novoSal;
             listaFunc[indice]->setSalario(novoSal);
             break;
     }
 }
 
-void Gerenciamento::ExcluirFuncionario(string code){
+void Gerenciamento::ExcluirFuncionario(){
 
     string desigRemovida;
     int indRemovido;
     bool existeCod= false;
     char confirmacao;
+    string code;
 
+    cout << "Digite o código do funcionário que vocẽ quer excluir: " << endl;
+    getline(cin, code);
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -120,10 +191,14 @@ void Gerenciamento::ExcluirFuncionario(string code){
 
 }
 
-int Gerenciamento::ExibirFuncionario(string code){
+int Gerenciamento::ExibirFuncionario(){
 
     int indImprimir;
     bool existeFunc= false;
+    string code;
+
+    cout << "Digite o código de qual funcionário vocẽ quer excluir: " << endl;
+    cin >> code;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -152,15 +227,23 @@ void Gerenciamento::ExibirListaFuncionario(){
 
         cout << "-----------------Funcionario " << i+1 << "-----------------" << endl;
 
-        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
-        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pDesignação: " << listaFunc[i]->getDesignacao() << endl;  
+        cout << "Código: " << listaFunc[i]->getCodigo() << endl;
+        cout << "Nome: " << listaFunc[i]->getNome() << endl;
+        cout << "Endereço: " << listaFunc[i]->getEndereco() << endl;
+        cout << "Telefone: " << listaFunc[i]->getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << endl;
+        cout << "Designação: " << listaFunc[i]->getDesignacao() << endl;  
         cout << "Salário: " << listaFunc[i]->getSalario() << endl;  
     }
 
 }
 
-void Gerenciamento::ExibirTipoFuncionario(string designation){
+void Gerenciamento::ExibirTipoFuncionario(){
+
+    string designation;
+
+    cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente' ou 'presidente'): " << endl;
+    cout << designation;
 
     if(designation == "operador"){
 
@@ -176,18 +259,25 @@ void Gerenciamento::ExibirTipoFuncionario(string designation){
         if(listaFunc[i]->getDesignacao() == designation){
         
         cout << "-----------------Funcionário-----------------" << endl;
-        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
-        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pSalário: " << listaFunc[i]->getSalario() << endl;  
+        cout << " Código: " << listaFunc[i]->getCodigo() << endl;
+        cout << " Nome: " << listaFunc[i]->getNome() << endl;
+        cout << " Endereço: " << listaFunc[i]->getEndereco() << endl; 
+        cout << " Telefone: " << listaFunc[i]->getTelefone() << endl; 
+        cout << " Data de Ingresso: " << listaFunc[i]->getIngresso() << endl; 
+        cout << " Salário: " << listaFunc[i]->getSalario() << endl;  
 
         }
     }
 }
 
-void Gerenciamento::BuscarFuncionario(string search){
+void Gerenciamento::BuscarFuncionario(){
 
     int indBuscado;
     bool existeFunc= false;
+    string search;
+
+    cout << "Qual o código do funcionário que você quer excluir: " << endl;
+    cin >> search;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -211,10 +301,13 @@ void Gerenciamento::BuscarFuncionario(string search){
 
 double Gerenciamento::CalcularFolhaSalarial(int mes){
 
+    static int aleatorio= 56;
+
     int diasMax;
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
     double salarioFunc, valorHora;
+
 
     if(mes <= 0 || mes > 12){
 
@@ -296,13 +389,18 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
         salarioTotal += salarioFunc;
     }
 
+    aleatorio++;        //incrementar o numero aleatorio 
+
     return salarioTotal;
 }
 
-int Gerenciamento::ImprimirFolhaSalarial(string searched){
+int Gerenciamento::ImprimirFolhaSalarial(){
 
     bool existeFunc= false;
     int indice;
+
+    cout << "Digite o nome do código ou nome do funcionário: " << endl;
+    cin >> searched;
 
     for(int i= 0; i < listaFunc.size(); i++){
 

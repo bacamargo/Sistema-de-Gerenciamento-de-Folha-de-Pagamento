@@ -18,7 +18,7 @@ string Gerente::getAreaSupervisao(){
     return areaSupervisao;
 }
 
-void Gerente::Aumento(Funcionario *gerente){
+void Gerente::Aumento(){
 
     double novoSalario;
 

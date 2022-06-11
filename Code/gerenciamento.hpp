@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include "funcionario.hpp"
+#include "operador.hpp"
+#include "gerente.hpp"
+#include "presidente.hpp"
 #include <vector>
 
 using namespace std;
@@ -10,17 +13,17 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
-    void InserirFuncionario(Funcionario *newFunc);
-    void EditarFuncionario(int change, string code);
-    void ExcluirFuncionario(string code);
-    int ExibirFuncionario(string code);
+    void InserirFuncionario();
+    void EditarFuncionario();
+    void ExcluirFuncionario();
+    int ExibirFuncionario();
     void ExibirListaFuncionario();
-    void ExibirTipoFuncionario(string designation);
-    void BuscarFuncionario(string search);
+    void ExibirTipoFuncionario();
+    void BuscarFuncionario();
     double CalcularFolhaSalarial(int mes);
-    int ImprimirFolhaSalarial(string searched);
+    int ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
-    
+    void ConfigurarAumento();
 
     protected:
     std::vector <Funcionario *> listaFunc;

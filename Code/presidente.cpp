@@ -18,7 +18,7 @@ string Presidente::getAreaFormacao(){
     return areaFormacao;
 } 
 
-void Presidente::Aumento(Funcionario *presid){
+void Presidente::Aumento(){
 
     double novoSalario;
 

@@ -8,7 +8,7 @@ Operador::Operador(){
     setDesignacao("operador");
 }
 
-void Operador::Aumento(Funcionario *operad){
+void Operador::Aumento(){
 
     double novoSalario;
 
