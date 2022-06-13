@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
+#include <ctime> 
 #include "gerenciamento.hpp"
 
 using namespace std;
@@ -13,20 +15,29 @@ Gerenciamento::Gerenciamento(){
 void Gerenciamento::InserirFuncionario(){
 
     Funcionario *func;
-    string codigo, data, nome, endereco, telefone, designacao, areaSupervisao, formAcademica;
+    string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, formAcademica;
+    int dia, mes, ano;
     double salario;
 
 
     cout << "Cadastro do novo funcionário: " << endl << endl;
 
-    cout << "Digite o código: " << endl;
+    cout << "Digite o código: " << endl;    //pegando o codigo do funcionario
     getline(cin, codigo);
 
-    cout << "Digite o nome: " << endl;
+    cout << "Digite o nome: " << endl;   //pegando o nome do funcionario
     getline(cin, nome);
 
-    cout << "Digite o data de ingresso: " << endl;    //tem que ter tratamento pra data
-    getline(cin, data);
+    cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): " << endl;   //pegando o dia do funcionario
+    cin >> dia;   
+    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): " << endl;    //pegando o mes de ingresso do funcionario
+    cin >> mes;   
+    cout << "Digite o ano de ingresso do funcionário: " << endl;  //pegando o ano de ingresso do funcionario
+    cin >> ano;   
+    
+    dataIngresso= ValidaFormataData(dia, mes, ano);    //funcao pra validar a data
+
+    cin.ignore();
 
     cout << "Digite o endereço: " << endl;
     getline(cin, endereco);
@@ -41,19 +52,21 @@ void Gerenciamento::InserirFuncionario(){
     cin >> salario;
 
 
+    //criando o objeto funcionário
+
     if(designacao == "operador"){
         func= new Operador();          //cria um novo funcionario operador
 
     }else if(designacao == "gerente"){
 
-        Gerente gerente;    //cria um novo funcionario gerente
+        func= new Gerente();    //cria um novo funcionario gerente
 
         cin.ignore();
 
         cout << "Digite a área de área de supervisão do Gerente: " << endl;
         getline(cin, areaSupervisao);
 
-        gerente.setAreaSupervisao(areaSupervisao);
+        func->setAreaSupervisao(areaSupervisao);
 
     }else{
 
@@ -402,16 +415,16 @@ int Gerenciamento::ImprimirFolhaSalarial(){
     if(existeFunc){
 
         return indice;
-        // cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
-        // cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-        // cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-        // cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        // cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+        cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
 
     }else{
     
         return -1;
-        // cout << "Funcionario nao existe" << endl;
+        cout << "Funcionario nao existe" << endl;
     }
 
 }
@@ -424,7 +437,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 
     cout << "Você deseja imprimir a folha salarial anual ou de um mês específico? " << endl;
     cout << "Digite (0)- folha anual" << endl;
-    cout << "Digite (número equivalente ao mês)- folha mensal" << endl;
+    cout << "Digite (número equivalente ao mês)- folha mensal equivalente ao mês" << endl;
 
     cin >> escolha;
 
@@ -439,16 +452,61 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
             salario += CalcularFolhaSalarial(i);      //calculando a folha salarial anual
         }
 
-        cout << "Folha Salarial Anual: RS" << salario << endl;
+        cout << "Folha Salarial Anual: R$" << salario << endl;
 
     }else{
 
         salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
 
-        cout << "Folha do Mês de " << meses[escolha-1] << ":   RS" << salario << endl;
+        cout << "Folha do Mês de " << meses[escolha-1] << ":   R$" << salario << endl;
 
     }
 
-    
 }
 
+
+string Gerenciamento::ValidaFormataData(int day, int month, int year){
+
+    string dataFormatada;
+    string barra= "/";
+
+
+    time_t current_time;                           
+	struct tm *time_info;
+	char ano[5];
+
+	current_time = time(NULL);
+	time_info = localtime(&current_time);
+	strftime(ano, 5, "%Y", time_info);              //codigo pra ver se pega o ano atual
+    int anoAtual = atoi(ano);
+
+
+
+    if(month <= 0 || month > 12){
+
+        throw "mes inválido";
+
+    }else if(day <= 0 || day > 31){
+
+        throw "dia inválido";
+
+    }else if (year < 1932 || year > anoAtual){
+
+        throw "ano invalidado";
+    }
+
+
+    if(month == 2 && day > 28){            //se o ano for fevereiro e tiver dia maior que 28 (dia 29 de ano bissexto é desconsiderado), invalida! 
+
+        throw "dia invalido para mes";
+
+    }else if ( (month == 4 || month == 6 || month == 9 || month == 11) && day > 30){   //se for um mes com apenas 30 dias e tiver mais q 30, invalida!
+
+        throw "dia invalido para o mes";
+    }
+
+    //formatando a data: 
+    dataFormatada= to_string(day) + barra + to_string(month) + barra + to_string(year);
+
+    return dataFormatada;
+}

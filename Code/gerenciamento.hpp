@@ -13,6 +13,7 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
+
     void InserirFuncionario();
     void EditarFuncionario();
     void ExcluirFuncionario();
@@ -24,6 +25,8 @@ class Gerenciamento{
     int ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
+
+    string ValidaFormataData(int day, int month, int year);    //funcao pra formatar e validar a data inserida
 
     protected:
     std::vector <Funcionario *> listaFunc;
