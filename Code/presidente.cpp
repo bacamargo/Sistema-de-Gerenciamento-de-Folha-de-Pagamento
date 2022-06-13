@@ -18,11 +18,11 @@ string Presidente::getAreaFormacao(){
     return areaFormacao;
 } 
 
-void Presidente::Aumento(Funcionario *presid){
+void Presidente::Aumento(Funcionario *func){
 
     double novoSalario;
 
-    novoSalario= presid->getSalario() + (presid->getSalario() * 0.3);
+    novoSalario= func->getSalario() + (func->getSalario() * 0.3);
 
-    presid->setSalario(novoSalario);
+    func->setSalario(novoSalario);
 }

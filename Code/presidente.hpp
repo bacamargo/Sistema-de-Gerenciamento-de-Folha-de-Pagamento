@@ -3,7 +3,7 @@
 #include <iostream>
 #include "funcionario.hpp"
 
-using namespace std;
+using namespace std;     
 
 class Presidente : public Funcionario{
     private:
@@ -16,5 +16,5 @@ class Presidente : public Funcionario{
         void setFormacaoMax(string max);
         string getAreaFormacao();
         string getFormacaoMax();
-        void Aumento(Funcionario *presid);
+        void Aumento(Funcionario *func);
 };

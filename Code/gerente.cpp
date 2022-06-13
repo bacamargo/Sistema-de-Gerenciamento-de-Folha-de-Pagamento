@@ -18,11 +18,11 @@ string Gerente::getAreaSupervisao(){
     return areaSupervisao;
 }
 
-void Gerente::Aumento(Funcionario *gerente){
+void Gerente::Aumento(Funcionario *func){
 
     double novoSalario;
 
-    novoSalario= gerente->getSalario() + (gerente->getSalario() * 0.1);
+    novoSalario= func->getSalario() + (func->getSalario() * 0.1);
 
-    gerente->setSalario(novoSalario);
+    func->setSalario(novoSalario);
 }

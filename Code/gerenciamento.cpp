@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
+#include <ctime> 
 #include "gerenciamento.hpp"
 
 using namespace std;
@@ -10,17 +12,89 @@ Gerenciamento::Gerenciamento(){
 
 }
 
-void Gerenciamento::InserirFuncionario(Funcionario *newFunc){
+void Gerenciamento::InserirFuncionario(){
 
-    listaFunc.push_back(newFunc);
+    Funcionario *func;
+    string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, areaFormacao, formAcademicaMax;
+    int dia, mes, ano;
+    double salario;
+
+
+    cout << "Cadastro do novo funcionário: " << endl << endl;
+
+    cout << "Digite o código: " << endl;    //pegando o codigo do funcionario
+    getline(cin, codigo);
+
+    cout << "Digite o nome: " << endl;   //pegando o nome do funcionario
+    getline(cin, nome);
+
+    cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): " << endl;   //pegando o dia do funcionario
+    cin >> dia;   
+    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): " << endl;    //pegando o mes de ingresso do funcionario
+    cin >> mes;   
+    cout << "Digite o ano de ingresso do funcionário: " << endl;  //pegando o ano de ingresso do funcionario
+    cin >> ano;   
+    
+    dataIngresso= ValidaFormataData(dia, mes, ano);    //funcao pra validar a data
+
+    cin.ignore();
+
+    cout << "Digite o endereço: " << endl;
+    getline(cin, endereco);
+
+    cout << "Digite o telefone: " << endl;
+    getline(cin, telefone);
+
+    cout << "Digite a designação ('operador', 'gerente' ou 'presidente'): " << endl;
+    getline(cin, designacao);
+
+    cout << "Digite o salário inicial: " << endl;
+    cin >> salario;
+
+
+    //criando o objeto funcionário
+
+    if(designacao == "operador"){
+        func= new Operador();          //cria um novo funcionario operador
+
+    }else if(designacao == "gerente"){
+
+        func= new Gerente();    //cria um novo funcionario gerente
+
+        cin.ignore();
+
+        cout << "Digite a área de área de supervisão do Gerente: " << endl;
+        getline(cin, areaSupervisao);
+
+        func->setAreaSupervisao(areaSupervisao);
+
+    }else{
+
+        func= new Presidente; //cria um novo funcionario presidente
+
+        cin.ignore();
+
+        cout << "Digite a área de área de supervisão do Presidente: " << endl;
+        getline(cin, areaFormacao);
+
+        cout << "Digite a formação acadêmica máxima do Presidente: " << endl;
+        getline(cin, formAcademicaMax);
+    }
+
+    listaFunc.push_back(func);
 }
 
-void Gerenciamento::EditarFuncionario(int change, string code){
+void Gerenciamento::EditarFuncionario(){
     
     int indice;
+    int change;
     string novo;
     double novoSal;
-    
+    string code;    //codigo pra pesquisar o novo funcionario
+
+    cout << "Digite o código do funcionário que irá ser editado: " << endl;
+    cin >> code;
+
     for(int i= 0; i < listaFunc.size(); i++){
         
         if(listaFunc[i]->getCodigo() == code){
@@ -31,49 +105,59 @@ void Gerenciamento::EditarFuncionario(int change, string code){
 
     switch(change){
         case 1:                        //alterar codigo 
+            cout << "Digite o novo código do funcionário: " << endl;
             cin >> novo;
             listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:                       //alterar dataIngresso
+            cout << "Digite a nova data de ingresso do funcionário: " << endl;
             cin >> novo;
             listaFunc[indice]->setIngresso(novo);
             break;
 
         case 3:                         //alterar nome
+            cout << "Digite o novo nome do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setNome(novo);
             break;
         
         case 4:                         //alterar endereco
+            cout << "Digite o novo endereço do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setEndereco(novo);
             break;
 
         case 5:                         //alterar telefone
+            cout << "Digite o novo telefone do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setTelefone(novo);
             break;
 
         case 6:                         //alterar designacao
+            cout << "Digite a nova designação do funcionário: " << endl;
             getline(cin, novo);
             listaFunc[indice]->setDesignacao(novo);
             break;
 
         case 7:                         //alterar  salario
+            cout << "Digite o novo salário do funcionário: " << endl;
             cin >> novoSal;
             listaFunc[indice]->setSalario(novoSal);
             break;
     }
 }
 
-void Gerenciamento::ExcluirFuncionario(string code){
+void Gerenciamento::ExcluirFuncionario(){
 
     string desigRemovida;
     int indRemovido;
     bool existeCod= false;
     char confirmacao;
+    string code;
 
+    cout << "Digite o código do funcionário que vocẽ quer excluir: " << endl;
+    getline(cin, code);
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -120,7 +204,7 @@ void Gerenciamento::ExcluirFuncionario(string code){
 
 }
 
-int Gerenciamento::ExibirFuncionario(string code){
+void Gerenciamento::ExibirFuncionario(string code){
 
     int indImprimir;
     bool existeFunc= false;
@@ -137,7 +221,15 @@ int Gerenciamento::ExibirFuncionario(string code){
 
     if(existeFunc){
     
-    return indImprimir;
+        cout << "-----------------Funcionário " << indImprimir+1 << " -----------------" << endl;
+
+        cout << "Código: " << listaFunc[indImprimir]->getCodigo() << endl;
+        cout << "Nome: " << listaFunc[indImprimir]->getNome() << endl;
+        cout << "Endereço: " << listaFunc[indImprimir]->getEndereco() << endl;
+        cout << "Telefone: " << listaFunc[indImprimir]->getTelefone() << endl; 
+        cout << "Data de Ingresso: " << listaFunc[indImprimir]->getIngresso() << endl;
+        cout << "Designação: " << listaFunc[indImprimir]->getDesignacao() << endl;  
+        cout << "Salário: " << listaFunc[indImprimir]->getSalario() << endl; 
 
     }else{
         cout << "O funcionario de código " << code << " não existe." << endl;
@@ -150,17 +242,17 @@ void Gerenciamento::ExibirListaFuncionario(){
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        cout << "-----------------Funcionario " << i+1 << "-----------------" << endl;
-
-        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
-        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pDesignação: " << listaFunc[i]->getDesignacao() << endl;  
-        cout << "Salário: " << listaFunc[i]->getSalario() << endl;  
+        ExibirFuncionario(listaFunc[i]->getCodigo());
     }
 
 }
 
-void Gerenciamento::ExibirTipoFuncionario(string designation){
+void Gerenciamento::ExibirTipoFuncionario(){
+
+    string designation;
+
+    cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente' ou 'presidente'): " << endl;
+    cout << designation;
 
     if(designation == "operador"){
 
@@ -174,20 +266,17 @@ void Gerenciamento::ExibirTipoFuncionario(string designation){
     for(int i= 0; i < listaFunc.size(); i++){
 
         if(listaFunc[i]->getDesignacao() == designation){
-        
-        cout << "-----------------Funcionário-----------------" << endl;
-        cout << "Código: " << listaFunc[i]->getCodigo() << "\pNome: " << listaFunc[i]->getNome() << endl;
-        cout << "Endereço: " << listaFunc[i]->getEndereco() << "\pTelefone: " << listaFunc[i]->getTelefone() << endl; 
-        cout << "Data de Ingresso: " << listaFunc[i]->getIngresso() << "\pSalário: " << listaFunc[i]->getSalario() << endl;  
-
+            
+            ExibirFuncionario(listaFunc[i]->getCodigo());
         }
     }
 }
 
-void Gerenciamento::BuscarFuncionario(string search){
+void Gerenciamento::BuscarFuncionario(){
 
     int indBuscado;
     bool existeFunc= false;
+    string search;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -211,10 +300,13 @@ void Gerenciamento::BuscarFuncionario(string search){
 
 double Gerenciamento::CalcularFolhaSalarial(int mes){
 
+    static int aleatorio= 56;
+
     int diasMax;
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
     double salarioFunc, valorHora;
+
 
     if(mes <= 0 || mes > 12){
 
@@ -296,13 +388,19 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
         salarioTotal += salarioFunc;
     }
 
+    aleatorio++;        //incrementar o numero aleatorio 
+
     return salarioTotal;
 }
 
-int Gerenciamento::ImprimirFolhaSalarial(string searched){
+int Gerenciamento::ImprimirFolhaSalarial(){
 
     bool existeFunc= false;
     int indice;
+    string searched;
+
+    cout << "Digite o nome do código ou nome do funcionário: " << endl;
+    cin >> searched;
 
     for(int i= 0; i < listaFunc.size(); i++){
 
@@ -317,16 +415,16 @@ int Gerenciamento::ImprimirFolhaSalarial(string searched){
     if(existeFunc){
 
         return indice;
-        // cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
-        // cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-        // cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-        // cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        // cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+        cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
 
     }else{
     
         return -1;
-        // cout << "Funcionario nao existe" << endl;
+        cout << "Funcionario nao existe" << endl;
     }
 
 }
@@ -339,7 +437,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 
     cout << "Você deseja imprimir a folha salarial anual ou de um mês específico? " << endl;
     cout << "Digite (0)- folha anual" << endl;
-    cout << "Digite (número equivalente ao mês)- folha mensal" << endl;
+    cout << "Digite (número equivalente ao mês)- folha mensal equivalente ao mês" << endl;
 
     cin >> escolha;
 
@@ -354,16 +452,72 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
             salario += CalcularFolhaSalarial(i);      //calculando a folha salarial anual
         }
 
-        cout << "Folha Salarial Anual: RS" << salario << endl;
+        cout << "Folha Salarial Anual: R$" << salario << endl;
 
     }else{
 
         salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
 
-        cout << "Folha do Mês de " << meses[escolha-1] << ":   RS" << salario << endl;
+        cout << "Folha do Mês de " << meses[escolha-1] << ":   R$" << salario << endl;
 
     }
 
-    
 }
 
+
+string Gerenciamento::ValidaFormataData(int day, int month, int year){
+
+    string dataFormatada;
+    string barra= "/";
+
+
+    time_t current_time;                           
+	struct tm *time_info;
+	char ano[5];
+
+	current_time = time(NULL);
+	time_info = localtime(&current_time);
+	strftime(ano, 5, "%Y", time_info);              //codigo pra ver se pega o ano atual
+    int anoAtual = atoi(ano);
+
+
+
+    if(month <= 0 || month > 12){
+
+        throw "mes inválido";
+
+    }else if(day <= 0 || day > 31){
+
+        throw "dia inválido";
+
+    }else if (year < 1932 || year > anoAtual){
+
+        throw "ano invalidado";
+    }
+
+
+    if(month == 2 && day > 28){            //se o ano for fevereiro e tiver dia maior que 28 (dia 29 de ano bissexto é desconsiderado), invalida! 
+
+        throw "dia invalido para mes";
+
+    }else if ( (month == 4 || month == 6 || month == 9 || month == 11) && day > 30){   //se for um mes com apenas 30 dias e tiver mais q 30, invalida!
+
+        throw "dia invalido para o mes";
+    }
+
+    //formatando a data: 
+    dataFormatada= to_string(day) + barra + to_string(month) + barra + to_string(year);
+
+    return dataFormatada;
+}
+
+void Gerenciamento::ConfigurarAumento(){
+
+    int i;
+
+    for(i= 0; i < listaFunc.size(); i++){
+
+        listaFunc[i]->Aumento(listaFunc[i]);
+    }
+
+}
