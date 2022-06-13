@@ -41,7 +41,7 @@ class Funcionario{
         double getSalarioLiquido();
 
         //metodos que terao nas classes filhas:
-        virtual void Aumento()=0;
+        virtual void Aumento(Funcionario *func)=0;
         virtual void setAreaFormacao(string graduation);
         virtual void setFormacaoMax(string max);
         virtual string getAreaFormacao();

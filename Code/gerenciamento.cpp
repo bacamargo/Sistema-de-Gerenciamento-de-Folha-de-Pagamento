@@ -221,7 +221,7 @@ void Gerenciamento::ExibirFuncionario(string code){
 
     if(existeFunc){
     
-        cout << "-----------------Funcionário " << indImprimir+1 << "-----------------" << endl;
+        cout << "-----------------Funcionário " << indImprimir+1 << " -----------------" << endl;
 
         cout << "Código: " << listaFunc[indImprimir]->getCodigo() << endl;
         cout << "Nome: " << listaFunc[indImprimir]->getNome() << endl;
@@ -509,4 +509,15 @@ string Gerenciamento::ValidaFormataData(int day, int month, int year){
     dataFormatada= to_string(day) + barra + to_string(month) + barra + to_string(year);
 
     return dataFormatada;
+}
+
+void Gerenciamento::ConfigurarAumento(){
+
+    int i;
+
+    for(i= 0; i < listaFunc.size(); i++){
+
+        listaFunc[i]->Aumento(listaFunc[i]);
+    }
+
 }

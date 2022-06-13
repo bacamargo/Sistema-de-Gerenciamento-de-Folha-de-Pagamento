@@ -19,14 +19,14 @@ void ExibirMenuPrincipal(){
     cout << " 3 - Exibir Funcionário" << endl;
     cout << " 4 - Excluir Funcionário" << endl;
     cout << " 5 - Listar Funcionários Existentes" << endl; 
-    cout << " 6 - Buscar Funcionário (Nome/Ingresso/Endereço)" << endl; 
+    cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
     cout << " 7 - Aumentar salário" << endl << endl; 
     
     cout << "Folha salarial: " << endl << endl;
     cout << " 8 - Calcular Folha Salarial" << endl;
     cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
-    cout << "10 - Imprimir Folha Salarial Empresa " << endl << endl;
-    cout << "11 - Arquivo" << endl << endl;
+    cout << "10 - Imprimir Folha Salarial Empresa " << endl;
+    cout << "11 - Arquivo" << endl;
     cout << "12 - Arquivo 2" << endl << endl;
 
     cout << " 0 - Encerrar Programa" << endl << endl;
@@ -65,6 +65,8 @@ int main(){
 
         cin >> opcao_menu_principal;
 
+        cin.ignore();
+
         if(opcao_menu_principal == 0){
             break;
         }
@@ -94,7 +96,7 @@ int main(){
                 break;
 
             case 6:
-                cout << "Qual o código do funcionário que você quer buscar: " << endl;
+                cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
                 getline(cin, procurado);
                 sistema.BuscarFuncionario();
                 break;

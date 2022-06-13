@@ -9,6 +9,6 @@ class Operador : public Funcionario {
 
     public:
         Operador();
-        void Aumento();
+        void Aumento(Funcionario *func);
 
 };

@@ -16,5 +16,5 @@ class Presidente : public Funcionario{
         void setFormacaoMax(string max);
         string getAreaFormacao();
         string getFormacaoMax();
-        void Aumento();
+        void Aumento(Funcionario *func);
 };

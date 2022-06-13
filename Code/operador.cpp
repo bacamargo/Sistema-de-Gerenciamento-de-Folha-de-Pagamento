@@ -8,11 +8,11 @@ Operador::Operador(){
     setDesignacao("operador");
 }
 
-void Operador::Aumento(){
+void Operador::Aumento(Funcionario *func){
 
     double novoSalario;
 
-    novoSalario= operad->getSalario() + (operad->getSalario() * 0.05);
+    novoSalario= func->getSalario() + (func->getSalario() * 0.05);
 
-    operad->setSalario(novoSalario);
+    func->setSalario(novoSalario);
 }
