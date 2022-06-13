@@ -15,7 +15,7 @@ Gerenciamento::Gerenciamento(){
 void Gerenciamento::InserirFuncionario(){
 
     Funcionario *func;
-    string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, formAcademica;
+    string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, areaFormacao, formAcademicaMax;
     int dia, mes, ano;
     double salario;
 
@@ -70,15 +70,15 @@ void Gerenciamento::InserirFuncionario(){
 
     }else{
 
-        Presidente presid; //cria um novo funcionario presidente
+        func= new Presidente; //cria um novo funcionario presidente
 
         cin.ignore();
 
         cout << "Digite a área de área de supervisão do Presidente: " << endl;
-        getline(cin, areaSupervisao);
+        getline(cin, areaFormacao);
 
-        cout << "Digite a área de formação acadêmica máximo do Presidente: " << endl;
-        getline(cin, formAcademica);
+        cout << "Digite a formação acadêmica máxima do Presidente: " << endl;
+        getline(cin, formAcademicaMax);
     }
 
     listaFunc.push_back(func);
