@@ -54,7 +54,7 @@ int main(){
 
     cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
 
-    cout << "\p\p\pBem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
+    cout << "Bem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
    
     cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
 
@@ -97,12 +97,14 @@ int main(){
 
             case 6:
                 cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
+
                 getline(cin, procurado);
                 sistema.BuscarFuncionario();
                 break;
 
             case 7:
                 sistema.ConfigurarAumento();
+                
                 break;
 
             case 8: 

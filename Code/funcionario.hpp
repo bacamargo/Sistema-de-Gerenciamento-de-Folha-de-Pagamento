@@ -44,8 +44,8 @@ class Funcionario{
         virtual void Aumento(Funcionario *func)=0;
         virtual void setAreaFormacao(string graduation);
         virtual void setFormacaoMax(string max);
+        virtual void setAreaSupervisao(string area);
         virtual string getAreaFormacao();
         virtual string getFormacaoMax();
-        virtual void setAreaSupervisao(string area);
         virtual string getAreaSupervisao();
 };

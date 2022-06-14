@@ -3,9 +3,14 @@
 
 using namespace std;
 
-Diretor::Diretor(){
+Diretor::Diretor(string code, string name, string address, string number, string date, string designation, double salary){
 
-    setDesignacao("diretor");
+    setCodigo(code);
+    setNome(name);
+    setEndereco(address);
+    setTelefone(number);
+    setDesignacao(designation);
+    setSalario(salary);
 }
 
 
@@ -38,3 +43,11 @@ void Diretor::Aumento(Funcionario *diretor){
     diretor->setSalario(novoSalario);
 }
 
+void Diretor::setFormacaoMax(string area){
+
+}    
+
+string Diretor::getFormacaoMax(){
+
+    return "";
+}

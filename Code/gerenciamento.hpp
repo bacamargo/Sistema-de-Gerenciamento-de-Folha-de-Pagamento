@@ -5,6 +5,7 @@
 #include "operador.hpp"
 #include "gerente.hpp"
 #include "presidente.hpp"
+#include "diretor.hpp"
 #include <vector>
 
 using namespace std;
