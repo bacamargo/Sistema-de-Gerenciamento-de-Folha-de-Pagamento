@@ -9,68 +9,125 @@
 using namespace std;
  
 
-int main(){
-    string Empresa;
-    int opcao_menu_principal, opcao_menu_secundario;
-    cout << "\n";
-    cout << "Sistema de Gerenciamento de Folha de Pagamento" << endl;
-    cout << "\n";
-    cout << "/---------------------------------------------/" << endl;
-    cout << "\n";
-    cout << "Antes de começarmos, precisamos saber o nome da sua empresa." << endl;
-    cout << "\n";
+void ExibirMenuPrincipal(){
 
-    getline(cin >> ws, Empresa);
-    cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl;
-    cout << "\n";
-    cout << "\n";
-    cout << "Bem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << Empresa << endl;
-    cout << "\n";
-    cout << "\n";
-    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada."; 
-    cout << "\n";
+    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: " << endl;  
 
+    cout << "Funcionário: " << endl << endl;
+    cout << " 1 - Cadastrar Funcionário" << endl; 
+    cout << " 2 - Editar Funcionário" << endl; 
+    cout << " 3 - Exibir Funcionário" << endl;
+    cout << " 4 - Excluir Funcionário" << endl;
+    cout << " 5 - Listar Funcionários Existentes" << endl; 
+    cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
+    cout << " 7 - Aumentar salário" << endl << endl; 
     
-    cout << "1 - Funcionário" << endl;
-    cout << "2 - Folha de Pagamento" << endl;
-    cout << "0 - Encerrar Programa" << endl;
-    cout << "Opção: "; 
-    cin >> opcao_menu_principal;
-    cout << " " << endl;
+    cout << "Folha salarial: " << endl << endl;
+    cout << " 8 - Calcular Folha Salarial" << endl;
+    cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
+    cout << "10 - Imprimir Folha Salarial Empresa " << endl;
+    cout << "11 - Arquivo" << endl;
+    cout << "12 - Arquivo 2" << endl << endl;
 
-    while(opcao_menu_principal != 0){
-        switch(opcao_menu_principal){
-            case 1:
-            {
-                cout << "\n";
-                cout << "Funcionários:" << endl;
-                cout << "\n";
-                cout << "1 - Cadastrar Funcionário" << endl; // InserirFuncionario
-                cout << "2 - Editar Funcionário" << endl; // EditarFuncionario
-                cout << "3 - Exibir Funcionário por código" << endl; // ExibirFuncionario
-                cout << "4 - Exibir Tipo do Funcionário" << endl; // ExibirTipoFuncionario
-                cout << "5 - Exibir Código do Funcionário" << endl; // ExibirFuncionario
-                cout << "6 - Listar Funcionários Existentes" << endl; // ExibirListaFuncionario
-                cout << "7 - Buscar Funcionário (Nome/Ingresso/Endereço)" << endl; // BuscarFuncionario
-                cout << "8 - Excluir Funcionário" << endl;
-                cout << "0 - Voltar ao Menu Principal" << endl;
-                break;
-            }
-            case 2:
-            {
-                cout << "\n";
-                cout << "Folha de Pagamento" << endl;
-                cout << "\n";
-                cout << "1 - Calcular Folha Salarial" << endl;
-                cout << "2 - Imprimir Folha Salarial Funcionário" << endl;
-                cout << "3 - Imprimir Folha Salarial Empresa " << endl;
-                cout << "0 - Voltar ao Menu Principal" << endl;
-                break;
-            }
-        }
+    cout << " 0 - Encerrar Programa" << endl << endl;
+    
+    cout << "Opção: "; 
+}
+
+
+int main(){
+
+    string empresa;
+    int opcao_menu_principal;
+    Gerenciamento sistema;
+
+    int mes;
+    string procurado;
+
+    setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
+
+    cout << endl << "----------------------Sistema de Gerenciamento de Folha de Pagamento----------------------" << endl << endl << endl;
+
+    cout << "Antes de começarmos, precisamos saber o nome da sua empresa:" << endl << endl;
+
+    getline(cin >> ws, empresa);  //recebe o nome da empresa
+
+    cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
+
+    cout << "Bem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
+   
+    cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
+
+    while(1){
+
+        system("clear");
+        ExibirMenuPrincipal();
+
         cin >> opcao_menu_principal;
+
+        cin.ignore();
+
+        if(opcao_menu_principal == 0){
+            break;
+        }
+
+        switch(opcao_menu_principal){
+            
+            case 1:
+                sistema.InserirFuncionario();
+                break;
+
+            case 2: 
+                sistema.EditarFuncionario();
+                break;
+
+            case 3: 
+                cout << "Digite o código de qual funcionário vocẽ quer exibir: " << endl;
+                getline(cin, procurado);
+                sistema.ExibirFuncionario(procurado);
+                break;
+
+            case 4: 
+                sistema.ExcluirFuncionario();
+                break;
+
+            case 5:
+                sistema.ExibirListaFuncionario(); 
+                break;
+
+            case 6:
+                cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
+
+                getline(cin, procurado);
+                sistema.BuscarFuncionario();
+                break;
+
+            case 7:
+                sistema.ConfigurarAumento();
+                
+                break;
+
+            case 8: 
+                cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: " << endl;
+                cin >> mes;
+                sistema.CalcularFolhaSalarial(mes);
+                break;
+
+            case 9: 
+                sistema.ImprimirFolhaSalarial();
+                break;
+
+            case 10: 
+                sistema.ImprimirFolhaSalarialEmpresa();
+                break;
+
+            default:
+                cout << "A opção digitada é inexistente.";
+                break;
+        }
+
     }
 
     cout << "\n";
-    cout << "Até mais" << endl;
+    cout << "Programa encerrado. Até mais" << endl;
 }

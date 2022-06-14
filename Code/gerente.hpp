@@ -10,8 +10,14 @@ class Gerente : public Funcionario{
         string areaSupervisao;
 
     public:
-        Gerente();
+        Gerente(string code, string name, string address, string number, string date, string designation, double salary);
         void setAreaSupervisao(string area);
         string getAreaSupervisao();
-        void Aumento(Funcionario *gerente);
+
+        void setAreaFormacao(string graduation);
+        void setFormacaoMax(string max);
+        string getAreaFormacao();
+        string getFormacaoMax();
+
+        void Aumento(Funcionario *func);
 };

@@ -3,9 +3,14 @@
 
 using namespace std;
 
-Presidente::Presidente(){
+Presidente::Presidente(string code, string name, string address, string number, string date, string designation, double salary){
 
-    setDesignacao("presidente");
+    setCodigo(code);
+    setNome(name);
+    setEndereco(address);
+    setTelefone(number);
+    setDesignacao(designation);
+    setSalario(salary);
 }
 
 void Presidente::setAreaFormacao(string graduation){
@@ -18,11 +23,30 @@ string Presidente::getAreaFormacao(){
     return areaFormacao;
 } 
 
-void Presidente::Aumento(Funcionario *presid){
+void Presidente::setFormacaoMax(string max){
+
+    formacaoAcademicaMax= max;
+}
+
+string Presidente::getFormacaoMax(){
+
+    return formacaoAcademicaMax;
+} 
+
+void Presidente::Aumento(Funcionario *func){
 
     double novoSalario;
 
-    novoSalario= presid->getSalario() + (presid->getSalario() * 0.3);
+    novoSalario= func->getSalario() + (func->getSalario() * 0.3);
 
-    presid->setSalario(novoSalario);
+    func->setSalario(novoSalario);
+}
+
+void Presidente::setAreaSupervisao(string area){
+
+}
+
+string Presidente::getAreaSupervisao(){
+
+    return "";
 }

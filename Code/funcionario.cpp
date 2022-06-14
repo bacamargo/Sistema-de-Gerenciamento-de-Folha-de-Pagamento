@@ -92,3 +92,31 @@ double Funcionario::getSalarioLiquido(){
 
     return salarioLiquido;
 }
+
+void setAreaFormacao(string graduation){
+
+}
+
+void setFormacaoMax(string max){
+
+}
+
+
+void setAreaSupervisao(string area){
+
+
+}
+
+string getAreaFormacao(){
+
+    return "";
+}
+
+string getFormacaoMax(){
+
+    return "";
+}
+string getAreaSupervisao(){
+
+    return "";
+}
