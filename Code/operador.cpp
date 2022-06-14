@@ -1,16 +1,12 @@
 #include <iostream>
-#include "operador.hpp"
+#include "operador.h"
 
 using namespace std;
 
-Operador::Operador(string code, string name, string address, string number, string date, string designation, double salary){
+Operador::Operador(string code, string name, string address, string number, string date, double salary) 
+    : Funcionario(code, name, address, number , date, salary){
 
-    setCodigo(code);
-    setNome(name);
-    setEndereco(address);
-    setTelefone(number);
-    setDesignacao(designation);
-    setSalario(salary);
+    setDesignacao("operador");
 }
 
 void Operador::Aumento(Funcionario *func){
@@ -22,29 +18,3 @@ void Operador::Aumento(Funcionario *func){
     func->setSalario(novoSalario);
 }
 
-void Operador::setAreaFormacao(string graduation){
-
-}
-
-void Operador::setFormacaoMax(string max){
-
-}
-
-void Operador::setAreaSupervisao(string area){
-
-}
-
-string Operador::getAreaFormacao(){
-    
-    return "";
-}
-
-string Operador::getFormacaoMax(){
-
-    return "";
-}
-
-string Operador::getAreaSupervisao(){
-
-    return "";
-}

@@ -18,7 +18,7 @@ class Funcionario{
         double salarioLiquido;
 
     public:
-        Funcionario();
+        Funcionario(string code, string name, string address, string number, string date, double salary);
         void setCodigo(string code);
         string getCodigo();
         void setNome(string name);
@@ -29,7 +29,7 @@ class Funcionario{
         string getTelefone();
         void setIngresso(string date);
         string getIngresso();
-        string setDesignacao(string designation);
+        void setDesignacao(string designation);
         string getDesignacao();
         void setSalario(double salary);
         double getSalario();
@@ -42,10 +42,11 @@ class Funcionario{
 
         //metodos que terao nas classes filhas:
         virtual void Aumento(Funcionario *func)=0;
-        virtual void setAreaFormacao(string graduation);
-        virtual void setFormacaoMax(string max);
-        virtual void setAreaSupervisao(string area);
-        virtual string getAreaFormacao();
-        virtual string getFormacaoMax();
-        virtual string getAreaSupervisao();
+        
+        // virtual void setAreaFormacao(string graduation);
+        // virtual void setFormacaoMax(string max);
+        // virtual void setAreaSupervisao(string area);
+        // virtual string getAreaFormacao();
+        // virtual string getFormacaoMax();
+        // virtual string getAreaSupervisao();
 };

@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include <ctime> 
-#include "gerenciamento.hpp"
+#include "gerenciamento.h"
 
 using namespace std;
 
@@ -55,22 +55,21 @@ void Gerenciamento::InserirFuncionario(){
     //criando o objeto funcionário
 
     if(designacao == "operador"){
-        // func= new Operador(codigo, nome, endereco, telefone, dataIngresso, designacao, salario);          //cria um novo funcionario operador
+        func= new Operador(codigo, nome, endereco, telefone, dataIngresso, salario);          //cria um novo funcionario operador
 
     }else if(designacao == "gerente"){
-
-        // func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, designacao, salario);    //cria um novo funcionario gerente
 
         cin.ignore();
 
         cout << "Digite a área de área de supervisão do Gerente: " << endl;
         getline(cin, areaSupervisao);
 
-        func->setAreaSupervisao(areaSupervisao);
+        func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao);    //cria um novo funcionario gerente
+
+        // func->setAreaSupervisao(areaSupervisao);
 
     }else if(designacao == "diretor"){
 
-        // func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, designacao, salario);
 
         cout << "Digite a área de área de supervisão do Diretor: " << endl;
         getline(cin, areaSupervisao);
@@ -78,12 +77,12 @@ void Gerenciamento::InserirFuncionario(){
         cout << "Digite a área de área de formação do Diretor: " << endl;
         getline(cin, areaFormacao);     
 
-        func->setAreaSupervisao(areaSupervisao);   
-        func->setAreaFormacao(areaFormacao);
+        func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao, areaFormacao);
+
+        // func->setAreaSupervisao(areaSupervisao);   
+        // func->setAreaFormacao(areaFormacao);
 
     }else{
-
-        // func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, designacao, salario); //cria um novo funcionario presidente
 
         cin.ignore();
 
@@ -93,8 +92,10 @@ void Gerenciamento::InserirFuncionario(){
         cout << "Digite a formação acadêmica máxima do Presidente: " << endl;
         getline(cin, formAcademicaMax);
 
-        func->setAreaFormacao(areaSupervisao);
-        func->setFormacaoMax(formAcademicaMax);
+         func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
+
+        // func->setAreaFormacao(areaSupervisao);
+        // func->setFormacaoMax(formAcademicaMax);
     }
 
     listaFunc.push_back(func);

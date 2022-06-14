@@ -1,16 +1,14 @@
 #include <iostream>
-#include "presidente.hpp"
+#include "presidente.h"
 
 using namespace std;
 
-Presidente::Presidente(string code, string name, string address, string number, string date, string designation, double salary){
+Presidente::Presidente(string code, string name, string address, string number, string date, double salary, string graduation, string max) 
+    :Funcionario(code, name, address, number, date, salary){
 
-    setCodigo(code);
-    setNome(name);
-    setEndereco(address);
-    setTelefone(number);
-    setDesignacao(designation);
-    setSalario(salary);
+    setDesignacao("presidente");
+    areaFormacao= graduation;
+    formacaoAcademicaMax= max;
 }
 
 void Presidente::setAreaFormacao(string graduation){
@@ -42,11 +40,3 @@ void Presidente::Aumento(Funcionario *func){
     func->setSalario(novoSalario);
 }
 
-void Presidente::setAreaSupervisao(string area){
-
-}
-
-string Presidente::getAreaSupervisao(){
-
-    return "";
-}

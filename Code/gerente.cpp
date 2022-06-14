@@ -1,17 +1,15 @@
 #include <iostream>
-#include "gerente.hpp"
+#include "gerente.h"
 
 using namespace std;
 
-Gerente::Gerente(string code, string name, string address, string number, string date, string designation, double salary){
+Gerente::Gerente(string code, string name, string address, string number, string date, double salary, string supervision) 
+    : Funcionario(code, name, address, number , date, salary){
 
-    setCodigo(code);
-    setNome(name);
-    setEndereco(address);
-    setTelefone(number);
-    setDesignacao(designation);
-    setSalario(salary);
+    setDesignacao("gerente");
+    areaSupervisao= supervision;
 }
+
 
 void Gerente::setAreaSupervisao(string area){
 
@@ -30,22 +28,4 @@ void Gerente::Aumento(Funcionario *func){
     novoSalario= func->getSalario() + (func->getSalario() * 0.1);
 
     func->setSalario(novoSalario);
-}
-
-void Gerente::setAreaFormacao(string graduation){
-
-}
-
-void Gerente::setFormacaoMax(string max){
-
-}
-
-string Gerente::getAreaFormacao(){
-
-    return "";
-}
-
-string Gerente::getFormacaoMax(){
-
-    return "";
 }

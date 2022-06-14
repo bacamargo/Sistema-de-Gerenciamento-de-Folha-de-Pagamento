@@ -1,10 +1,10 @@
 #include <iostream>
-#include "gerenciamento.hpp"
-#include "funcionario.hpp"
-#include "diretor.hpp"
-#include "gerente.hpp"
-#include "operador.hpp"
-#include "presidente.hpp"
+#include "gerenciamento.h"
+#include "funcionario.h"
+#include "diretor.h"
+#include "gerente.h"
+#include "operador.h"
+#include "presidente.h"
 
 using namespace std;
  
@@ -44,7 +44,7 @@ int main(){
     int mes;
     string procurado;
 
-    setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
+    // setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
 
     cout << endl << "----------------------Sistema de Gerenciamento de Folha de Pagamento----------------------" << endl << endl << endl;
 
