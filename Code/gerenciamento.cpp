@@ -153,14 +153,12 @@ void Gerenciamento::EditarFuncionario(){
     cin >> change;
     cin.ignore();
 
+
     switch(change){
         case 1:                        //alterar codigo 
-            cout << "Digite o novo código do funcionário: ";
+            cout << endl << "Digite o novo código do funcionário: ";
             getline(cin, novo);
-            // listaFunc[indice]->setCodigo(novo);
-
-            cout << "Atributo alterado com sucesso! ";
-            sleep(10);
+            listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:                       //alterar dataIngresso
@@ -174,56 +172,46 @@ void Gerenciamento::EditarFuncionario(){
             novo= ValidaFormataData(dia, mes, ano);
 
             listaFunc[indice]->setIngresso(novo);
-
-            cout << endl << "Atributo alterado com sucesso! ";
-            sleep(2);
             break;
 
         case 3:                         //alterar nome
             cout << endl << "Digite o novo nome do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setNome(novo);
-
-            cout << endl << "Atributo alterado com sucesso! --------------------------";
-            sleep(5);
+    
             break;
         
         case 4:                         //alterar endereco
             cout << endl << "Digite o novo endereço do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setEndereco(novo);
-
-            cout << endl << "Atributo alterado com sucesso! ";
-            sleep(2);
+    
             break;
 
         case 5:                         //alterar telefone
             cout << endl << "Digite o novo telefone do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setTelefone(novo);
-
-            cout << endl << "Atributo alterado com sucesso! ";
-            sleep(2);
+    
             break;
 
         case 6:                         //alterar designacao
             cout << endl << "Digite a nova designação do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setDesignacao(novo);
-
-            cout << endl << "Atributo alterado com sucesso! ";
-            sleep(2);
+        
             break;
 
         case 7:                         //alterar  salario
             cout << endl << "Digite o novo salário do funcionário: " << endl;
             cin >> novoSal;
             listaFunc[indice]->setSalario(novoSal);
-
-            cout << endl << "Atributo alterado com sucesso! ";
-            sleep(2);
+            
             break;
     }
+
+    cout << endl << "Atributo alterado com sucesso!------------------- (Aperte uma tecla para continuar....) " << endl;
+    getchar();       
 }
 
 void Gerenciamento::ExcluirFuncionario(){
@@ -357,20 +345,19 @@ void Gerenciamento::ExibirTipoFuncionario(){
 void Gerenciamento::BuscarFuncionario(){
 
     int indBuscado;
-    bool existeFunc= false;
     string search;
 
+    indBuscado= -1; 
     for(int i= 0; i < listaFunc.size(); i++){
 
         if(listaFunc[i]->getNome() == search || listaFunc[i]->getIngresso() == search || listaFunc[i]->getEndereco()== search){
 
-            existeFunc= true;
             indBuscado= i;
             break;
         }
     }
 
-    if(existeFunc){
+    if(indBuscado != -1){
         cout << "O funcionário existe. Seu código é " << listaFunc[indBuscado]->getCodigo() << "." << endl;  
 
     }else{
