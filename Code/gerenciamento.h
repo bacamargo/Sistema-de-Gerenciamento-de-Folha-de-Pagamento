@@ -1,11 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include "funcionario.hpp"
-#include "operador.hpp"
-#include "gerente.hpp"
-#include "presidente.hpp"
-#include "diretor.hpp"
+#include "funcionario.h"
+#include "operador.h"
+#include "gerente.h"
+#include "presidente.h"
+#include "diretor.h"
 #include <vector>
 
 using namespace std;
