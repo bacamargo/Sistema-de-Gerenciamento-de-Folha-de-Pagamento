@@ -1,10 +1,10 @@
 #include <iostream>
-#include "gerenciamento.hpp"
-#include "funcionario.hpp"
-#include "diretor.hpp"
-#include "gerente.hpp"
-#include "operador.hpp"
-#include "presidente.hpp"
+#include "gerenciamento.h"
+#include "funcionario.h"
+#include "diretor.h"
+#include "gerente.h"
+#include "operador.h"
+#include "presidente.h"
 
 using namespace std;
  
@@ -44,7 +44,7 @@ int main(){
     int mes;
     string procurado;
 
-    setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
+    // setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
 
     cout << endl << "----------------------Sistema de Gerenciamento de Folha de Pagamento----------------------" << endl << endl << endl;
 
@@ -54,7 +54,7 @@ int main(){
 
     cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
 
-    cout << "\p\p\pBem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
+    cout << "Bem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
    
     cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
 
@@ -97,12 +97,14 @@ int main(){
 
             case 6:
                 cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
+
                 getline(cin, procurado);
                 sistema.BuscarFuncionario();
                 break;
 
             case 7:
                 sistema.ConfigurarAumento();
+                
                 break;
 
             case 8: 

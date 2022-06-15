@@ -1,11 +1,14 @@
 #include <iostream>
-#include "diretor.hpp"
+#include "diretor.h"
 
 using namespace std;
 
-Diretor::Diretor(){
+Diretor::Diretor(string code, string name, string address, string number, string date, double salary, string supervision, string graduation) 
+    : Funcionario(code, name, address, number, date, salary){
 
     setDesignacao("diretor");
+    areaSupervisao= supervision;
+    areaFormacao= graduation;
 }
 
 
@@ -37,4 +40,3 @@ void Diretor::Aumento(Funcionario *diretor){
 
     diretor->setSalario(novoSalario);
 }
-

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "funcionario.hpp"
+#include "funcionario.h"
 
 using namespace std;     
 
@@ -11,10 +11,13 @@ class Presidente : public Funcionario{
         string formacaoAcademicaMax;
 
     public:
-        Presidente();
+        Presidente(string code, string name, string address, string number, string date, double salary, string graduation, string max);
         void setAreaFormacao(string graduation);
         void setFormacaoMax(string max);
         string getAreaFormacao();
         string getFormacaoMax();
+
+
+
         void Aumento(Funcionario *func);
 };

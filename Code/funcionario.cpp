@@ -1,10 +1,16 @@
 #include <iostream>
-#include "funcionario.hpp"
+#include "funcionario.h"
 
 using namespace std;
 
-Funcionario::Funcionario(){
-    
+
+Funcionario::Funcionario(string code, string name, string address, string number, string date, double salary){
+
+    codigo= code;
+    nome= name;
+    endereco= address;
+    telefone= number;
+    salario= salary;
 }
 
 void Funcionario::setCodigo(string code){
@@ -46,7 +52,7 @@ string Funcionario::getIngresso(){
     return dataIngresso;
 }
 
-string Funcionario::setDesignacao(string designation){
+void Funcionario::setDesignacao(string designation){
 
     designacao= designation;
 }
@@ -91,4 +97,32 @@ void Funcionario::setSalarioLiquido(double sal){
 double Funcionario::getSalarioLiquido(){
 
     return salarioLiquido;
+}
+
+void setAreaFormacao(string graduation){
+
+}
+
+void setFormacaoMax(string max){
+
+}
+
+
+void setAreaSupervisao(string area){
+
+
+}
+
+string getAreaFormacao(){
+
+    return "";
+}
+
+string getFormacaoMax(){
+
+    return "";
+}
+string getAreaSupervisao(){
+
+    return "";
 }

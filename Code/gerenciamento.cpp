@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include <ctime> 
-#include "gerenciamento.hpp"
+#include "gerenciamento.h"
 
 using namespace std;
 
@@ -34,10 +34,10 @@ void Gerenciamento::InserirFuncionario(){
     cin >> mes;   
     cout << "Digite o ano de ingresso do funcionário: " << endl;  //pegando o ano de ingresso do funcionario
     cin >> ano;   
-    
+    cin.ignore();
+
     dataIngresso= ValidaFormataData(dia, mes, ano);    //funcao pra validar a data
 
-    cin.ignore();
 
     cout << "Digite o endereço: " << endl;
     getline(cin, endereco);
@@ -55,30 +55,47 @@ void Gerenciamento::InserirFuncionario(){
     //criando o objeto funcionário
 
     if(designacao == "operador"){
-        func= new Operador();          //cria um novo funcionario operador
+        func= new Operador(codigo, nome, endereco, telefone, dataIngresso, salario);          //cria um novo funcionario operador
 
     }else if(designacao == "gerente"){
-
-        func= new Gerente();    //cria um novo funcionario gerente
 
         cin.ignore();
 
         cout << "Digite a área de área de supervisão do Gerente: " << endl;
         getline(cin, areaSupervisao);
 
-        func->setAreaSupervisao(areaSupervisao);
+        func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao);    //cria um novo funcionario gerente
+
+        // func->setAreaSupervisao(areaSupervisao);
+
+    }else if(designacao == "diretor"){
+
+
+        cout << "Digite a área de área de supervisão do Diretor: " << endl;
+        getline(cin, areaSupervisao);
+
+        cout << "Digite a área de área de formação do Diretor: " << endl;
+        getline(cin, areaFormacao);     
+
+        func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao, areaFormacao);
+
+        // func->setAreaSupervisao(areaSupervisao);   
+        // func->setAreaFormacao(areaFormacao);
 
     }else{
 
-        func= new Presidente; //cria um novo funcionario presidente
-
         cin.ignore();
 
-        cout << "Digite a área de área de supervisão do Presidente: " << endl;
+        cout << "Digite a área de área de formação do Presidente: " << endl;
         getline(cin, areaFormacao);
 
         cout << "Digite a formação acadêmica máxima do Presidente: " << endl;
         getline(cin, formAcademicaMax);
+
+         func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
+
+        // func->setAreaFormacao(areaSupervisao);
+        // func->setFormacaoMax(formAcademicaMax);
     }
 
     listaFunc.push_back(func);
@@ -91,6 +108,7 @@ void Gerenciamento::EditarFuncionario(){
     string novo;
     double novoSal;
     string code;    //codigo pra pesquisar o novo funcionario
+    int dia, mes, ano;
 
     cout << "Digite o código do funcionário que irá ser editado: " << endl;
     cin >> code;
@@ -106,13 +124,20 @@ void Gerenciamento::EditarFuncionario(){
     switch(change){
         case 1:                        //alterar codigo 
             cout << "Digite o novo código do funcionário: " << endl;
-            cin >> novo;
+            getline(cin, novo);
             listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:                       //alterar dataIngresso
-            cout << "Digite a nova data de ingresso do funcionário: " << endl;
-            cin >> novo;
+            cout << "Digite a nova dia de ingresso do funcionário: " << endl;
+            cin >> dia;
+            cout << "Digite o novo mês de ingresso do funcionário: " << endl;
+            cin >> mes;
+            cout << "Digite o novo ano de ingresso do funcionário: " << endl;
+            cin >> ano;
+
+            ValidaFormataData(dia, mes, ano);
+
             listaFunc[indice]->setIngresso(novo);
             break;
 
@@ -307,16 +332,17 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
     double salarioTotal= 0;
     double salarioFunc, valorHora;
 
+    cin.ignore();
 
     if(mes <= 0 || mes > 12){
 
-        return -1;       //mes não válido
+        throw "mes invalidado";       //mes não válido
 
     }else if(mes == 2){
 
         diasMax= 20;
 
-    }else {
+    }else{
         diasMax= 22;
     }
 
@@ -480,7 +506,7 @@ string Gerenciamento::ValidaFormataData(int day, int month, int year){
 	strftime(ano, 5, "%Y", time_info);              //codigo pra ver se pega o ano atual
     int anoAtual = atoi(ano);
 
-
+    cin.ignore();
 
     if(month <= 0 || month > 12){
 
@@ -490,7 +516,7 @@ string Gerenciamento::ValidaFormataData(int day, int month, int year){
 
         throw "dia inválido";
 
-    }else if (year < 1932 || year > anoAtual){
+    }else if (year < 1952 || year > anoAtual){     //a pessoa pode ter no maximo 70 anos na empresa
 
         throw "ano invalidado";
     }

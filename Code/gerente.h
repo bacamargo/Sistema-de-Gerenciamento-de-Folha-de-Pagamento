@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "funcionario.hpp"
+#include "funcionario.h"
 
 using namespace std;
 
@@ -10,8 +10,9 @@ class Gerente : public Funcionario{
         string areaSupervisao;
 
     public:
-        Gerente();
+        Gerente(string code, string name, string address, string number, string date, double salary, string supervision);
         void setAreaSupervisao(string area);
         string getAreaSupervisao();
+
         void Aumento(Funcionario *func);
 };

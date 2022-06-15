@@ -1,9 +1,10 @@
 #include <iostream>
-#include "operador.hpp"
+#include "operador.h"
 
 using namespace std;
 
-Operador::Operador(){
+Operador::Operador(string code, string name, string address, string number, string date, double salary) 
+    : Funcionario(code, name, address, number , date, salary){
 
     setDesignacao("operador");
 }
@@ -16,3 +17,4 @@ void Operador::Aumento(Funcionario *func){
 
     func->setSalario(novoSalario);
 }
+
