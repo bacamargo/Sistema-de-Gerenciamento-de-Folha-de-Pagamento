@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "gerenciamento.h"
 #include "funcionario.h"
 #include "diretor.h"
@@ -9,11 +10,11 @@
 using namespace std;
  
 
-void ExibirMenuPrincipal(){
+void ExibirMenuPrincipal(string interprise){
 
-    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: " << endl;  
+    cout << "---------Bem-vindo ao Sistema de Gerenciamento da Empresa " << interprise << " ---------" << endl << endl;
 
-    cout << "Funcionário: " << endl << endl;
+    cout << "Funcionário: " << endl;
     cout << " 1 - Cadastrar Funcionário" << endl; 
     cout << " 2 - Editar Funcionário" << endl; 
     cout << " 3 - Exibir Funcionário" << endl;
@@ -22,7 +23,7 @@ void ExibirMenuPrincipal(){
     cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
     cout << " 7 - Aumentar salário" << endl << endl; 
     
-    cout << "Folha salarial: " << endl << endl;
+    cout << "Folha salarial: " << endl;
     cout << " 8 - Calcular Folha Salarial" << endl;
     cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
     cout << "10 - Imprimir Folha Salarial Empresa " << endl;
@@ -31,7 +32,7 @@ void ExibirMenuPrincipal(){
 
     cout << " 0 - Encerrar Programa" << endl << endl;
     
-    cout << "Opção: "; 
+    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: "; 
 }
 
 
@@ -44,24 +45,18 @@ int main(){
     int mes;
     string procurado;
 
-    // setlocale(LC_ALL, "pt_BR.UTF-8");  //funcao pra coisar o portugues
 
-    cout << endl << "----------------------Sistema de Gerenciamento de Folha de Pagamento----------------------" << endl << endl << endl;
+    cout << endl << "<><><><><><><><><><><><> Sistema de Gerenciamento de Folha de Pagamento <><><><><><><><><><><><>" << endl << endl << endl;
 
-    cout << "Antes de começarmos, precisamos saber o nome da sua empresa:" << endl << endl;
+    cout << "Antes de começarmos, precisamos saber o nome da sua empresa: " << endl;
 
     getline(cin >> ws, empresa);  //recebe o nome da empresa
-
-    cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
-
-    cout << "Bem-vindo ao Sistema de Gerenciamento de Folha de Pagamento da " << empresa << endl;
    
-    cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl << endl;
 
     while(1){
 
         system("clear");
-        ExibirMenuPrincipal();
+        ExibirMenuPrincipal(empresa);
 
         cin >> opcao_menu_principal;
 
@@ -97,7 +92,6 @@ int main(){
 
             case 6:
                 cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
-
                 getline(cin, procurado);
                 sistema.BuscarFuncionario();
                 break;
@@ -122,12 +116,14 @@ int main(){
                 break;
 
             default:
-                cout << "A opção digitada é inexistente.";
+                system("clear");
+                cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
+                sleep(2);
                 break;
         }
 
     }
 
     cout << "\n";
-    cout << "Programa encerrado. Até mais" << endl;
+    cout << "Programa encerrado. Até mais! " << endl << endl;
 }
