@@ -4,6 +4,7 @@
 #include <ctime> 
 #include <unistd.h>
 #include "gerenciamento.h"
+#include <fstream>
 
 using namespace std;
 
@@ -110,6 +111,8 @@ void Gerenciamento::InserirFuncionario(){
     cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
 
     sleep(2);
+
+
 }
 
 void Gerenciamento::EditarFuncionario(){
@@ -589,4 +592,41 @@ void Gerenciamento::ConfigurarAumento(){
         listaFunc[i]->Aumento(listaFunc[i]);
     }
 
+}
+
+void Gerenciamento::EscreverArquivo(Funcionario *Func){
+    ofstream write;
+    write.open("ListaFuncionarios.txt");
+
+    if(!write.is_open()){
+        cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
+    }
+    if(write.is_open()){
+        write << Func->getCodigo() << "\n";
+        write << Func->getNome() << "\n";
+        write << Func->getEndereco() << "\n";
+        write << Func->getTelefone() << "\n";
+        write << Func->getIngresso() << "\n";
+        write << Func->getDesignacao() << "\n";
+        if(Func->getDesignacao() == "gerente"){
+            // gerente = new Gerente();
+            // write << Func->get
+        }
+        write << Func->getSalarioLiquido() << "\n";
+    }
+}
+
+void Gerenciamento::LerArquivo(){
+    ifstream read;
+    vector <Funcionario> Empresa;
+    read.open("ListaFuncionarios.txt");
+    if(!read.is_open()){
+        cout << "Falha na abertura do arquivo Cadastro de Funcionários" << "\n";
+    }
+
+    // if(read.is_open()){
+    //     if(!read.eof()){
+    //         while()
+    //     }
+    // }
 }
