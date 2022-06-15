@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include <ctime> 
+#include <unistd.h>
 #include "gerenciamento.h"
 
 using namespace std;
@@ -14,6 +15,8 @@ Gerenciamento::Gerenciamento(){
 
 void Gerenciamento::InserirFuncionario(){
 
+    system("clear");
+
     Funcionario *func;
     string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, areaFormacao, formAcademicaMax;
     int dia, mes, ano;
@@ -22,34 +25,46 @@ void Gerenciamento::InserirFuncionario(){
 
     cout << "Cadastro do novo funcionário: " << endl << endl;
 
-    cout << "Digite o código: " << endl;    //pegando o codigo do funcionario
+    cout << "Digite o código do funcionário: ";    //pegando o codigo do funcionario
     getline(cin, codigo);
 
-    cout << "Digite o nome: " << endl;   //pegando o nome do funcionario
+    cout << "Digite o nome do funcionário: ";   //pegando o nome do funcionario
     getline(cin, nome);
 
-    cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): " << endl;   //pegando o dia do funcionario
+    cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): ";   //pegando o dia do funcionario
     cin >> dia;   
-    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): " << endl;    //pegando o mes de ingresso do funcionario
+    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): ";    //pegando o mes de ingresso do funcionario
     cin >> mes;   
-    cout << "Digite o ano de ingresso do funcionário: " << endl;  //pegando o ano de ingresso do funcionario
+    cout << "Digite o ano de ingresso do funcionário: ";  //pegando o ano de ingresso do funcionario
     cin >> ano;   
     cin.ignore();
 
     dataIngresso= ValidaFormataData(dia, mes, ano);    //funcao pra validar a data
 
 
-    cout << "Digite o endereço: " << endl;
+    cout << "Digite o endereço do funcionário: ";
     getline(cin, endereco);
 
-    cout << "Digite o telefone: " << endl;
+    cout << "Digite o telefone: " ;
     getline(cin, telefone);
 
-    cout << "Digite a designação ('operador', 'gerente' ou 'presidente'): " << endl;
-    getline(cin, designacao);
+    cout << "Digite a designação do funcionário ('operador', 'gerente', 'presidente' ou 'diretor'): ";
 
-    cout << "Digite o salário inicial: " << endl;
+    while(1){     //tratamento de erro para caso o usuario digite outro cargo nao esoecificado
+        getline(cin, designacao);
+
+        if(designacao != "operador" && designacao != "gerente" && designacao != "presidente" && designacao != "diretor" ){
+
+            cout << "Digite novamente um cargo válido e como especificado ('operador', 'gerente', 'presidente' ou 'diretor'): ";
+
+        }else{
+            break;
+        }
+    }
+
+    cout << "Digite o salário inicial do funcionário: ";
     cin >> salario;
+    cin.ignore();
 
 
     //criando o objeto funcionário
@@ -59,9 +74,8 @@ void Gerenciamento::InserirFuncionario(){
 
     }else if(designacao == "gerente"){
 
-        cin.ignore();
 
-        cout << "Digite a área de área de supervisão do Gerente: " << endl;
+        cout << "Digite a área de área de supervisão do Gerente: ";
         getline(cin, areaSupervisao);
 
         func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao);    //cria um novo funcionario gerente
@@ -71,34 +85,31 @@ void Gerenciamento::InserirFuncionario(){
     }else if(designacao == "diretor"){
 
 
-        cout << "Digite a área de área de supervisão do Diretor: " << endl;
+        cout << "Digite a área de área de supervisão do Diretor: ";
         getline(cin, areaSupervisao);
 
-        cout << "Digite a área de área de formação do Diretor: " << endl;
+        cout << "Digite a área de área de formação do Diretor: ";
         getline(cin, areaFormacao);     
 
         func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao, areaFormacao);
 
-        // func->setAreaSupervisao(areaSupervisao);   
-        // func->setAreaFormacao(areaFormacao);
-
     }else{
 
-        cin.ignore();
-
-        cout << "Digite a área de área de formação do Presidente: " << endl;
+        cout << "Digite a área de área de formação do Presidente: ";
         getline(cin, areaFormacao);
 
-        cout << "Digite a formação acadêmica máxima do Presidente: " << endl;
+        cout << "Digite a formação acadêmica máxima do Presidente: ";
         getline(cin, formAcademicaMax);
 
          func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
 
-        // func->setAreaFormacao(areaSupervisao);
-        // func->setFormacaoMax(formAcademicaMax);
     }
 
     listaFunc.push_back(func);
+
+    cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
+
+    sleep(2);
 }
 
 void Gerenciamento::EditarFuncionario(){
@@ -110,9 +121,12 @@ void Gerenciamento::EditarFuncionario(){
     string code;    //codigo pra pesquisar o novo funcionario
     int dia, mes, ano;
 
-    cout << "Digite o código do funcionário que irá ser editado: " << endl;
-    cin >> code;
+    system("clear");
 
+    cout << "Digite o código do funcionário que irá ser editado: " << endl;
+    getline(cin, code);
+
+    indice= -1;                        //o indice é iniciado com -1 pois se o codigo nao existir, o indice permanecerá -1 
     for(int i= 0; i < listaFunc.size(); i++){
         
         if(listaFunc[i]->getCodigo() == code){
@@ -121,54 +135,93 @@ void Gerenciamento::EditarFuncionario(){
         }
     }
 
+    if(indice == -1){     //adicionar excecao de codigo inexistente
+        
+        throw "codigo inexistente";
+    }
+
+    cout << endl << "Qual atributo do funcionário você deseja alterar? " << endl;
+    cout << "(1) alterar código " << endl;
+    cout << "(2) alterar data de ingresso " << endl;
+    cout << "(3) alterar nome " << endl;
+    cout << "(4) alterar endereço " << endl;
+    cout << "(5) alterar telefone " << endl;
+    cout << "(6) alterar designação " << endl;
+    cout << "(7) alterar salário " << endl;
+    
+    cout << "Opção: ";
+    cin >> change;
+    cin.ignore();
+
     switch(change){
         case 1:                        //alterar codigo 
-            cout << "Digite o novo código do funcionário: " << endl;
+            cout << "Digite o novo código do funcionário: ";
             getline(cin, novo);
-            listaFunc[indice]->setCodigo(novo);
+            // listaFunc[indice]->setCodigo(novo);
+
+            cout << "Atributo alterado com sucesso! ";
+            sleep(10);
             break;
 
         case 2:                       //alterar dataIngresso
-            cout << "Digite a nova dia de ingresso do funcionário: " << endl;
+            cout << "Digite a nova dia de ingresso do funcionário: ";
             cin >> dia;
-            cout << "Digite o novo mês de ingresso do funcionário: " << endl;
+            cout << "Digite o novo mês de ingresso do funcionário: ";
             cin >> mes;
-            cout << "Digite o novo ano de ingresso do funcionário: " << endl;
+            cout << "Digite o novo ano de ingresso do funcionário: ";
             cin >> ano;
 
-            ValidaFormataData(dia, mes, ano);
+            novo= ValidaFormataData(dia, mes, ano);
 
             listaFunc[indice]->setIngresso(novo);
+
+            cout << endl << "Atributo alterado com sucesso! ";
+            sleep(2);
             break;
 
         case 3:                         //alterar nome
-            cout << "Digite o novo nome do funcionário: " << endl;
+            cout << endl << "Digite o novo nome do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setNome(novo);
+
+            cout << endl << "Atributo alterado com sucesso! --------------------------";
+            sleep(5);
             break;
         
         case 4:                         //alterar endereco
-            cout << "Digite o novo endereço do funcionário: " << endl;
+            cout << endl << "Digite o novo endereço do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setEndereco(novo);
+
+            cout << endl << "Atributo alterado com sucesso! ";
+            sleep(2);
             break;
 
         case 5:                         //alterar telefone
-            cout << "Digite o novo telefone do funcionário: " << endl;
+            cout << endl << "Digite o novo telefone do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setTelefone(novo);
+
+            cout << endl << "Atributo alterado com sucesso! ";
+            sleep(2);
             break;
 
         case 6:                         //alterar designacao
-            cout << "Digite a nova designação do funcionário: " << endl;
+            cout << endl << "Digite a nova designação do funcionário: ";
             getline(cin, novo);
             listaFunc[indice]->setDesignacao(novo);
+
+            cout << endl << "Atributo alterado com sucesso! ";
+            sleep(2);
             break;
 
         case 7:                         //alterar  salario
-            cout << "Digite o novo salário do funcionário: " << endl;
+            cout << endl << "Digite o novo salário do funcionário: " << endl;
             cin >> novoSal;
             listaFunc[indice]->setSalario(novoSal);
+
+            cout << endl << "Atributo alterado com sucesso! ";
+            sleep(2);
             break;
     }
 }
@@ -184,6 +237,7 @@ void Gerenciamento::ExcluirFuncionario(){
     cout << "Digite o código do funcionário que vocẽ quer excluir: " << endl;
     getline(cin, code);
 
+
     for(int i= 0; i < listaFunc.size(); i++){
 
         if(listaFunc[i]->getCodigo() == code){
@@ -191,7 +245,7 @@ void Gerenciamento::ExcluirFuncionario(){
             existeCod= true;
             desigRemovida= listaFunc[i]->getDesignacao();
 
-            if(desigRemovida == "diretor" || desigRemovida == "Diretor" || desigRemovida == "gerente" || desigRemovida == "Gerente"){
+            if(desigRemovida == "diretor" || desigRemovida == "gerente"){
 
                 throw "nao pode ser apagado"; 
 
@@ -264,19 +318,22 @@ void Gerenciamento::ExibirFuncionario(string code){
 
 void Gerenciamento::ExibirListaFuncionario(){
 
+    system("clear");
 
     for(int i= 0; i < listaFunc.size(); i++){
 
         ExibirFuncionario(listaFunc[i]->getCodigo());
     }
 
+    
+    sleep(5);
 }
 
 void Gerenciamento::ExibirTipoFuncionario(){
 
     string designation;
 
-    cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente' ou 'presidente'): " << endl;
+    cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente', 'diretor' ou 'presidente'): " << endl;
     cout << designation;
 
     if(designation == "operador"){
@@ -506,7 +563,6 @@ string Gerenciamento::ValidaFormataData(int day, int month, int year){
 	strftime(ano, 5, "%Y", time_info);              //codigo pra ver se pega o ano atual
     int anoAtual = atoi(ano);
 
-    cin.ignore();
 
     if(month <= 0 || month > 12){
 
