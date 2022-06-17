@@ -28,7 +28,7 @@ class Gerenciamento{
     void ConfigurarAumento();
 
     string ValidaFormataData(int day, int month, int year);    //funcao pra formatar e validar a data inserida
-    void EscreverArquivo(Funcionario *func);
+    void EscreverArquivo(vector<Funcionario*> Func);
     void LerArquivo();
 
     protected:

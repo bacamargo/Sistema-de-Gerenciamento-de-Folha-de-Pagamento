@@ -5,6 +5,10 @@
 #include <unistd.h>
 #include "gerenciamento.h"
 #include <fstream>
+#include "gerente.h"
+#include "operador.h"
+#include "diretor.h"
+#include "funcionario.h"
 
 using namespace std;
 
@@ -86,10 +90,10 @@ void Gerenciamento::InserirFuncionario(){
     }else if(designacao == "diretor"){
 
 
-        cout << "Digite a área de área de supervisão do Diretor: ";
+        cout << "Digite a área de supervisão do Diretor: ";
         getline(cin, areaSupervisao);
 
-        cout << "Digite a área de área de formação do Diretor: ";
+        cout << "Digite a área de formação do Diretor: ";
         getline(cin, areaFormacao);     
 
         func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao, areaFormacao);
@@ -102,7 +106,7 @@ void Gerenciamento::InserirFuncionario(){
         cout << "Digite a formação acadêmica máxima do Presidente: ";
         getline(cin, formAcademicaMax);
 
-         func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
+        func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
 
     }
 
@@ -594,7 +598,7 @@ void Gerenciamento::ConfigurarAumento(){
 
 }
 
-void Gerenciamento::EscreverArquivo(Funcionario *Func){
+void Gerenciamento::EscreverArquivo(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
     ofstream write;
     write.open("ListaFuncionarios.txt");
 
@@ -602,31 +606,47 @@ void Gerenciamento::EscreverArquivo(Funcionario *Func){
         cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
     }
     if(write.is_open()){
-        write << Func->getCodigo() << "\n";
-        write << Func->getNome() << "\n";
-        write << Func->getEndereco() << "\n";
-        write << Func->getTelefone() << "\n";
-        write << Func->getIngresso() << "\n";
-        write << Func->getDesignacao() << "\n";
-        if(Func->getDesignacao() == "gerente"){
-            // gerente = new Gerente();
-            // write << Func->get
+        for(int i = 0; i < Func.size(); i++){
+            write << "Código: " << Func[i]->getCodigo() << "\n";
+            write << "Nome: " << Func[i]->getNome() << "\n";
+            write << "Endereço: " << Func[i]->getEndereco() << "\n";
+            write << "Telefone: " << Func[i]->getTelefone() << "\n";
+            write << "Ingresso: " << Func[i]->getIngresso() << "\n";
+            write << "Designação: " << Func[i]->getDesignacao() << "\n";
+            write << "Salário: " << Func[i]->getSalarioLiquido() << "\n";
+            
+            if(Func[i]->getDesignacao() == "gerente"){
+                write << "Área de Supervisão: " << ((Gerente*)Func[i])->getAreaSupervisao(); 
+            } else if(Func[i]->getDesignacao() == "diretor"){
+                write << "Área de Supervisão: " << ((Diretor*)Func[i])->getAreaSupervisao();
+                write << "Área de Formaçao: " << ((Diretor*)Func[i])->getAreaFormacao();
+            } else if(Func[i]->getDesignacao() == "presidente"){
+                write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao();
+                write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax();
+            }
+            write << "\n";
         }
-        write << Func->getSalarioLiquido() << "\n";
     }
 }
 
 void Gerenciamento::LerArquivo(){
     ifstream read;
-    vector <Funcionario> Empresa;
+    vector <string> Cadastro;
+    string line;
     read.open("ListaFuncionarios.txt");
     if(!read.is_open()){
         cout << "Falha na abertura do arquivo Cadastro de Funcionários" << "\n";
     }
 
-    // if(read.is_open()){
-    //     if(!read.eof()){
-    //         while()
-    //     }
-    // }
+    if(read.is_open()){
+        if(!read.eof()){
+            while(getline(read, line)){
+                Cadastro.push_back(line);
+            }
+        }
+    }
+
+    for(string linha : Cadastro){
+        cout << linha << "\n";
+    }
 }
