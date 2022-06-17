@@ -28,8 +28,10 @@ class Gerenciamento{
     void ConfigurarAumento();
 
     string ValidaFormataData(int day, int month, int year);    //funcao pra formatar e validar a data inserida
-    void EscreverArquivo(vector<Funcionario*> Func);
-    void LerArquivo();
+    void EscreverArquivoFuncionario(vector<Funcionario*> Func);
+    void LerArquivoFuncionario();
+    void EscreverArquivoFolhaSalarial(int indice);
+    void LerArquivoFolhaSalarial();
 
     protected:
     std::vector <Funcionario *> listaFunc;
