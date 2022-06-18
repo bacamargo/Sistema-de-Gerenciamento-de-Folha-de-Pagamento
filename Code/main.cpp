@@ -6,12 +6,6 @@
 #include "gerente.h"
 #include "operador.h"
 #include "presidente.h"
-#include "gerenciamento.cpp"
-#include "funcionario.cpp"
-#include "diretor.cpp"
-#include "operador.cpp"
-#include "gerente.cpp"
-#include "presidente.cpp"
 
 using namespace std;
  
@@ -19,7 +13,6 @@ using namespace std;
 void ExibirMenuPrincipal(string interprise){
 
     cout << "---------Bem-vindo ao Sistema de Gerenciamento da Empresa " << interprise << " ---------" << endl << endl;
-    sleep(1);
 
     cout << "Funcionário: " << endl;
     cout << " 1 - Cadastrar Funcionário" << endl; 
@@ -29,18 +22,19 @@ void ExibirMenuPrincipal(string interprise){
     cout << " 5 - Listar Funcionários Existentes" << endl; 
     cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
     cout << " 7 - Aumentar salário" << endl << endl; 
-    
-    sleep(1);
+
     cout << "Folha salarial: " << endl;
     cout << " 8 - Calcular Folha Salarial" << endl;
     cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
     cout << "10 - Imprimir Folha Salarial Empresa " << endl;
-    cout << "11 - Arquivo" << endl;
+
+    cout << "Arquivo: " << endl;
+    
+    cout << "11 - Salvar dados em arquivo" << endl;
     cout << "12 - Arquivo 2" << endl << endl;
 
     cout << " 0 - Encerrar Programa" << endl << endl;
     
-    sleep(1);
     cout << "No menu de opções acima, selecione a tarefa a ser realizada: "; 
 }
 
@@ -102,8 +96,23 @@ int main(){
                         cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
+
+                    if(erro == 6){
+                        cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 7){
+                        cout << endl << "ERRO 7: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 6){
+                        cout << endl << "ERRO 8: PRESIDENTE JÁ EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             case 2: 
@@ -136,8 +145,14 @@ int main(){
                         cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
+
+                    if(erro == 6){
+                        cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             case 3: 
@@ -155,7 +170,7 @@ int main(){
                     }
                 }
                 
-                sleep(4);
+                sleep(3);
                 break;
 
             case 4: 
@@ -169,7 +184,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             case 5:
@@ -190,7 +205,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             case 7:
@@ -212,7 +227,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             case 9: 
@@ -226,7 +241,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                
+                sleep(3);
                 break;
 
             case 10: 
@@ -240,7 +255,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(4);
+                sleep(3);
                 break;
 
             default:

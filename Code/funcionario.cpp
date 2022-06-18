@@ -9,6 +9,7 @@ Funcionario::Funcionario(string code, string name, string address, string number
     codigo= code;
     nome= name;
     endereco= address;
+    dataIngresso= date;
     telefone= number;
     salario= salary;
 }

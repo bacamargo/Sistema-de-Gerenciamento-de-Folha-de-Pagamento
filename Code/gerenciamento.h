@@ -14,6 +14,7 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
+    ~Gerenciamento();
 
     void InserirFuncionario();
     void EditarFuncionario();
@@ -26,6 +27,7 @@ class Gerenciamento{
     void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
+    void ConfereCodigo(string code);
 
 
     string FormataData(int day, int month, int year);

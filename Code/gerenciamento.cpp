@@ -33,6 +33,8 @@ void Gerenciamento::InserirFuncionario(){
     cout << "Digite o código do funcionário: ";    //pegando o codigo do funcionario
     getline(cin, codigo);
 
+    ConfereCodigo(codigo);  //confere se o codigo já existe, se existir dá erro
+    
     cout << "Digite o nome do funcionário: ";   //pegando o nome do funcionario
     getline(cin, nome);
 
@@ -59,18 +61,29 @@ void Gerenciamento::InserirFuncionario(){
     cout << "Digite o telefone: " ;
     getline(cin, telefone);
 
-    cout << "Digite a designação do funcionário ('operador', 'gerente', 'presidente' ou 'diretor'): ";
+    cout << "Digite a designação do funcionário com todas letras minúsculas ('operador', 'gerente', 'presidente' ou 'diretor'): ";
 
-    while(1){     //tratamento de erro para caso o usuario digite outro cargo nao esoecificado
-        getline(cin, designacao);
+   
+    getline(cin, designacao);    
 
-        if(designacao != "operador" && designacao != "gerente" && designacao != "presidente" && designacao != "diretor" ){
+    if(designacao != "operador" && designacao != "gerente" && designacao != "presidente" && designacao != "diretor" ){
 
-            cout << "Digite novamente um cargo válido e como especificado ('operador', 'gerente', 'presidente' ou 'diretor'): ";
+        throw 7;       //erro 7: DESIGNACAO NAO EXISTENTE   
+    }
 
-        }else{
+    bool existePresid= false;
+    for(int i= 0; i < listaFunc.size(); i++){                 //lançar excecao se ja existir presidente
+
+        if(listaFunc[i]->getDesignacao() == "presidente"){
+
+            existePresid= true;
             break;
         }
+    }
+    
+    if(existePresid == true){
+
+        throw 8;        //erro 8: UM PRESIDENTE JA EXISTE
     }
 
     cout << "Digite o salário inicial do funcionário: ";
@@ -148,7 +161,7 @@ void Gerenciamento::EditarFuncionario(){
         }
     }
 
-    if(indice == -1){     //adicionar excecao de codigo inexistente
+    if(indice == -1){     //significa que funcionario nao existe
         
         throw 1;    //codigo erro 1: FUNCIONARIO NAO EXISTENTE
     }
@@ -171,17 +184,21 @@ void Gerenciamento::EditarFuncionario(){
         case 1:                        //alterar codigo 
             cout << endl << "Digite o novo código do funcionário: ";
             getline(cin, novo);
+            ConfereCodigo(novo);
+
             listaFunc[indice]->setCodigo(novo);
             break;
 
         case 2:         //alterar dataIngresso
             cout << "Digite o novo ano de ingresso do funcionário: ";
             cin >> ano;      
+            ValidaAno(ano);
             cout << "Digite o novo mês de ingresso do funcionário: ";
-            cin >> mes;        
+            cin >> mes;  
+            ValidaMes(mes);      
             cout << "Digite a nova dia de ingresso do funcionário: ";
             cin >> dia;
-            
+            ValidaDia(dia, mes);
 
             novo= FormataData(dia, mes, ano);
 
@@ -230,6 +247,8 @@ void Gerenciamento::EditarFuncionario(){
 
 void Gerenciamento::ExcluirFuncionario(){
 
+    system("clear");
+
     string desigRemovida;
     int indRemovido;
     bool existeCod= false;
@@ -247,9 +266,9 @@ void Gerenciamento::ExcluirFuncionario(){
             existeCod= true;
             desigRemovida= listaFunc[i]->getDesignacao();
 
-            if(desigRemovida == "diretor" || desigRemovida == "gerente"){
+            if(desigRemovida == "diretor" || desigRemovida == "presidente"){
 
-                throw "nao pode ser apagado"; 
+                throw 7;     //diretor ou gerente nao podem ser apagados
 
             }else{
                 indRemovido= i;
@@ -342,7 +361,7 @@ void Gerenciamento::ExibirTipoFuncionario(){
     cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente', 'diretor' ou 'presidente'): " << endl;
     cout << designation;
 
-    if(designation == "operador"){
+    if(designation == "operador" || designation == "diretor"){
 
         cout << "Lista de " << designation << "(es): ";
     }else{
@@ -387,7 +406,7 @@ void Gerenciamento::BuscarFuncionario(){
 
 double Gerenciamento::CalcularFolhaSalarial(int mes){
 
-    static int aleatorio= 56;
+    static int aleatorio= 7;
 
     int diasMax;
     int diasTrabalhados, horasExtras;
@@ -398,7 +417,7 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
 
     if(mes <= 0 || mes > 12){
 
-        throw 2;        //erro 2: ERRO INVALIDO
+        throw 2;        //erro 2: ERRO MES INVALIDO
 
     }else if(mes == 2){
 
@@ -625,6 +644,25 @@ void Gerenciamento::ConfigurarAumento(){
 
 }
 
+void Gerenciamento::ConfereCodigo(string code){
+
+    int indImprimir= -1;
+    for(int i= 0; i < listaFunc.size(); i++){               //conferir se o codigo do funcionario ja existe
+
+        if(listaFunc[i]->getCodigo() == code){
+
+            indImprimir= i;
+            break;
+        }
+    }
+
+    if(indImprimir != -1){
+
+        throw 6;       //erro 6: FUNCIONARIO JA EXISTENTE
+    }
+}
+
+
 void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
     ofstream write;
     write.open("ListaFuncionarios.txt");
@@ -729,3 +767,4 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
         cout << linha;
     }
 }
+
