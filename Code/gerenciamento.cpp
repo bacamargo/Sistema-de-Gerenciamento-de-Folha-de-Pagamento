@@ -4,6 +4,11 @@
 #include <ctime> 
 #include <unistd.h>
 #include "gerenciamento.h"
+#include <fstream>
+#include "gerente.h"
+#include "operador.h"
+#include "diretor.h"
+#include "funcionario.h"
 
 using namespace std;
 
@@ -81,7 +86,7 @@ void Gerenciamento::InserirFuncionario(){
     }else if(designacao == "gerente"){
 
 
-        cout << "Digite a área de área de supervisão do Gerente: ";
+        cout << "Digite a área de supervisão do Gerente: ";
         getline(cin, areaSupervisao);
 
         func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao);    //cria um novo funcionario gerente
@@ -91,10 +96,10 @@ void Gerenciamento::InserirFuncionario(){
     }else if(designacao == "diretor"){
 
 
-        cout << "Digite a área de área de supervisão do Diretor: ";
+        cout << "Digite a área de supervisão do Diretor: ";
         getline(cin, areaSupervisao);
 
-        cout << "Digite a área de área de formação do Diretor: ";
+        cout << "Digite a área de formação do Diretor: ";
         getline(cin, areaFormacao);     
 
         func= new Diretor(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao, areaFormacao);
@@ -107,15 +112,17 @@ void Gerenciamento::InserirFuncionario(){
         cout << "Digite a formação acadêmica máxima do Presidente: ";
         getline(cin, formAcademicaMax);
 
-         func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
+        func= new Presidente(codigo, nome, endereco, telefone, dataIngresso, salario, areaFormacao, formAcademicaMax); //cria um novo funcionario presidente
 
     }
 
     listaFunc.push_back(func);
-
+    EscreverArquivoFuncionario(listaFunc);
     cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
 
     sleep(2);
+
+
 }
 
 void Gerenciamento::EditarFuncionario(){
@@ -293,6 +300,7 @@ void Gerenciamento::ExibirFuncionario(string code){
         }
     }
 
+
     if(existeFunc){
     
         cout << "-----------------Funcionário " << indImprimir+1 << " -----------------" << endl;
@@ -308,7 +316,7 @@ void Gerenciamento::ExibirFuncionario(string code){
     }else{
         throw 1;
     }
-
+    sleep(5);
 }
 
 void Gerenciamento::ExibirListaFuncionario(){
@@ -319,7 +327,10 @@ void Gerenciamento::ExibirListaFuncionario(){
 
         ExibirFuncionario(listaFunc[i]->getCodigo());
     }
+    cout << "-----" << "\n";
 
+    // LerArquivoFuncionario();
+    // Ver onde que essa função vai ser chamada. Porque os professores querem que os dados sejam gravados e lidos num arquivo. Deixa num vector ou lê os arquivo? Ambos funcionam tho
     
     sleep(5);
 }
@@ -501,6 +512,7 @@ void Gerenciamento::ImprimirFolhaSalarial(){
     
         throw 1;
     }
+    return 0;
 
 }
 
@@ -612,4 +624,109 @@ void Gerenciamento::ConfigurarAumento(){
         listaFunc[i]->Aumento(listaFunc[i]);
     }
 
+}
+
+void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
+    ofstream write;
+    write.open("ListaFuncionarios.txt");
+
+    if(!write.is_open()){
+        cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
+        return;
+    }
+    if(write.is_open()){
+        for(int i = 0; i < Func.size(); i++){
+            write << "Funcionário " << i + 1 << "\n";
+            write << "\n";
+            write << "Código: " << Func[i]->getCodigo() << "\n";
+            write << "Nome: " << Func[i]->getNome() << "\n";
+            write << "Endereço: " << Func[i]->getEndereco() << "\n";
+            write << "Telefone: " << Func[i]->getTelefone() << "\n";
+            write << "Ingresso: " << Func[i]->getIngresso() << "\n";
+            write << "Designação: " << Func[i]->getDesignacao() << "\n";
+            write << "Salário: " << Func[i]->getSalario() << "\n";
+            
+            if(Func[i]->getDesignacao() == "gerente"){
+                write << "Área de Supervisão: " << ((Gerente*)Func[i])->getAreaSupervisao() << "\n"; 
+            } else if(Func[i]->getDesignacao() == "diretor"){
+                write << "Área de Supervisão: " << ((Diretor*)Func[i])->getAreaSupervisao() << "\n";
+                write << "Área de Formaçao: " << ((Diretor*)Func[i])->getAreaFormacao() << "\n";
+            } else if(Func[i]->getDesignacao() == "presidente"){
+                write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
+                write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
+            }
+            write << "\n";
+        }
+    }
+    write.close();
+}
+
+void Gerenciamento::LerArquivoFuncionario(){
+    ifstream read;
+    vector <string> Cadastro;
+    string line;
+    read.open("ListaFuncionarios.txt");
+    if(!read.is_open()){
+        cout << "Falha na abertura do arquivo Cadastro de Funcionários" << "\n";
+    }
+
+    if(read.is_open()){
+        if(!read.eof()){
+            while(getline(read, line)){
+                Cadastro.push_back(line);
+            }
+        }
+    }
+
+    for(string linha : Cadastro){
+        cout << linha << "\n";
+    }
+}
+
+void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
+    ofstream write_folha_funcionario;
+
+    write_folha_funcionario.open("FolhaSalarialFuncionario.txt");
+    if(indice != -1){
+        if (!write_folha_funcionario.is_open()){
+            cout << "RaisedExceptionFalhaNaCriação de arquivo" << "\n";
+        }
+
+        if (write_folha_funcionario.is_open()){
+            write_folha_funcionario << "Folha salarial do funcionário: " << listaFunc[indice]->getNome() << "\n";
+            write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+            write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+            write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+            write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+            write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+
+        }
+    } else{
+        cout << "RaisedException - Funcionario Não Existe" << "\n";
+    }
+
+    write_folha_funcionario.close();
+
+}
+
+void Gerenciamento::LerArquivoFolhaSalarial(){
+    ifstream readFolhaFuncionario;
+    vector <string> vectorReadFolhaFuncionario;
+    string line;
+
+    readFolhaFuncionario.open("FolhaSalarialFuncionario.txt");
+
+    if(!readFolhaFuncionario.is_open()){
+        cout << "RaisedException - Falha na criação do arquivo" << "\n";        
+    }
+    if(readFolhaFuncionario.is_open()){
+        while(!readFolhaFuncionario.eof()){
+            getline(readFolhaFuncionario, line);
+            vectorReadFolhaFuncionario.push_back(line);
+        }
+    }
+
+    for(string linha : vectorReadFolhaFuncionario){
+        cout << linha;
+    }
 }

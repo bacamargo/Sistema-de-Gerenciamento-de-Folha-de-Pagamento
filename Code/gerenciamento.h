@@ -27,10 +27,16 @@ class Gerenciamento{
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
 
+
     string FormataData(int day, int month, int year);
     void ValidaAno(int year);
     void ValidaMes(int month);
     void ValidaDia(int day, int month);
+  
+    void EscreverArquivoFuncionario(vector<Funcionario*> Func);
+    void LerArquivoFuncionario();
+    void EscreverArquivoFolhaSalarial(int indice);
+    void LerArquivoFolhaSalarial();
 
     protected:
     std::vector <Funcionario *> listaFunc;
