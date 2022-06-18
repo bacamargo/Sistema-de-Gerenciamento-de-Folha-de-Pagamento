@@ -512,7 +512,6 @@ void Gerenciamento::ImprimirFolhaSalarial(){
     
         throw 1;
     }
-    return 0;
 
 }
 
