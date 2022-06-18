@@ -75,22 +75,22 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 2){
-                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 3){
-                        cout << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 4){
-                        cout << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
-                    if(erro == 4){
-                        cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                    if(erro == 5){
+                        cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
@@ -123,7 +123,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
 
-                    if(erro == 4){
+                    if(erro == 5){
                         cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }

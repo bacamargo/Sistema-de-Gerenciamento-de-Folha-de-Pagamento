@@ -28,7 +28,9 @@ class Gerenciamento{
     void ConfigurarAumento();
 
     string FormataData(int day, int month, int year);
-    
+    void ValidaAno(int year);
+    void ValidaMes(int month);
+    void ValidaDia(int day, int month);
 
     protected:
     std::vector <Funcionario *> listaFunc;

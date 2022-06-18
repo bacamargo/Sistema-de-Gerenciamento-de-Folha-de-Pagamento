@@ -33,11 +33,15 @@ void Gerenciamento::InserirFuncionario(){
 
     cout << "Digite o ano de ingresso do funcionário: ";  //pegando o ano de ingresso do funcionario
     cin >> ano; 
+    ValidaAno(ano);           //funcao que valida ano
+
     cout << "Digite o mês de ingresso do funcionário (de 1 a 12): ";    //pegando o mes de ingresso do funcionario
     cin >> mes; 
+    ValidaMes(mes);        //funcao que valida mes 
+
     cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): ";   //pegando o dia do funcionario
     cin >> dia;   
-      
+    ValidaDia(dia, mes);       //funcao que valida dia
       
     cin.ignore();
 
@@ -536,10 +540,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 }
 
 
-string Gerenciamento::ValidaAno(int day, int month, int year){
-
-    
-
+void Gerenciamento::ValidaAno(int year){
 
     time_t current_time;                           
 	struct tm *time_info;
@@ -551,6 +552,26 @@ string Gerenciamento::ValidaAno(int day, int month, int year){
     int anoAtual = atoi(ano);
 
 
+    if (year < 1952 || year > anoAtual){     //a pessoa pode ter no maximo 70 anos na empresa
+
+        throw 4;      //erro 4: ANO INVALIDO
+    }
+
+    //formatando a data: 
+    
+}
+
+void Gerenciamento::ValidaMes(int month){
+
+    if(month <= 0 || month > 12){
+
+        throw 2;       //erro 2: MES INVALIDO
+    }
+
+}
+
+void Gerenciamento::ValidaDia(int day, int month){
+
     if(month <= 0 || month > 12){
 
         throw 2;       //erro 2: MES INVALIDO
@@ -559,11 +580,7 @@ string Gerenciamento::ValidaAno(int day, int month, int year){
 
         throw 3;      //erro 3: DIA INVALIDO    
 
-    }else if (year < 1952 || year > anoAtual){     //a pessoa pode ter no maximo 70 anos na empresa
-
-        throw 4;      //erro 4: ANO INVALIDO
     }
-
 
     if(month == 2 && day > 28){            //se o ano for fevereiro e tiver dia maior que 28 (dia 29 de ano bissexto é desconsiderado), invalida! 
 
@@ -573,19 +590,17 @@ string Gerenciamento::ValidaAno(int day, int month, int year){
 
         throw 5;   //ERRO 5: DIA INVALDO PARA O MES
     }
-
-    //formatando a data: 
-    
-
-    return dataFormatada;
 }
 
-string FormataData(int day, int month, int year){
+
+string Gerenciamento::FormataData(int day, int month, int year){
 
     string dataFormatada;
     string barra= "/";
 
     dataFormatada= to_string(day) + barra + to_string(month) + barra + to_string(year);
+
+    return dataFormatada;
 }
 
 void Gerenciamento::ConfigurarAumento(){
