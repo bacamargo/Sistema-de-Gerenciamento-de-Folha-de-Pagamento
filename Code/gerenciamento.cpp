@@ -36,15 +36,21 @@ void Gerenciamento::InserirFuncionario(){
     cout << "Digite o nome do funcionário: ";   //pegando o nome do funcionario
     getline(cin, nome);
 
+    cout << "Digite o ano de ingresso do funcionário: ";  //pegando o ano de ingresso do funcionario
+    cin >> ano; 
+    ValidaAno(ano);           //funcao que valida ano
+
+    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): ";    //pegando o mes de ingresso do funcionario
+    cin >> mes; 
+    ValidaMes(mes);        //funcao que valida mes 
+
     cout << "Digite o dia do mês de ingresso do funcionário (de 1 a 31): ";   //pegando o dia do funcionario
     cin >> dia;   
-    cout << "Digite o mês de ingresso do funcionário (de 1 a 12): ";    //pegando o mes de ingresso do funcionario
-    cin >> mes;   
-    cout << "Digite o ano de ingresso do funcionário: ";  //pegando o ano de ingresso do funcionario
-    cin >> ano;   
+    ValidaDia(dia, mes);       //funcao que valida dia
+      
     cin.ignore();
 
-    dataIngresso= ValidaFormataData(dia, mes, ano);    //funcao pra validar a data
+    dataIngresso= FormataData(dia, mes, ano);    //funcao pra validar a data
 
 
     cout << "Digite o endereço do funcionário: ";
@@ -144,7 +150,7 @@ void Gerenciamento::EditarFuncionario(){
 
     if(indice == -1){     //adicionar excecao de codigo inexistente
         
-        throw "codigo inexistente";
+        throw 1;    //codigo erro 1: FUNCIONARIO NAO EXISTENTE
     }
 
     cout << endl << "Qual atributo do funcionário você deseja alterar? " << endl;
@@ -168,15 +174,16 @@ void Gerenciamento::EditarFuncionario(){
             listaFunc[indice]->setCodigo(novo);
             break;
 
-        case 2:                       //alterar dataIngresso
+        case 2:         //alterar dataIngresso
+            cout << "Digite o novo ano de ingresso do funcionário: ";
+            cin >> ano;      
+            cout << "Digite o novo mês de ingresso do funcionário: ";
+            cin >> mes;        
             cout << "Digite a nova dia de ingresso do funcionário: ";
             cin >> dia;
-            cout << "Digite o novo mês de ingresso do funcionário: ";
-            cin >> mes;
-            cout << "Digite o novo ano de ingresso do funcionário: ";
-            cin >> ano;
+            
 
-            novo= ValidaFormataData(dia, mes, ano);
+            novo= FormataData(dia, mes, ano);
 
             listaFunc[indice]->setIngresso(novo);
             break;
@@ -273,7 +280,7 @@ void Gerenciamento::ExcluirFuncionario(){
         
     }else{
 
-        cout << "O funcionario de código " << code << " não existe." << endl;
+        throw 1;          //erro 1: FUNCIONARIO NAO EXISTENTE
     }
 
 }
@@ -307,7 +314,7 @@ void Gerenciamento::ExibirFuncionario(string code){
         cout << "Salário: " << listaFunc[indImprimir]->getSalario() << endl; 
 
     }else{
-        cout << "O funcionario de código " << code << " não existe." << endl;
+        throw 1;
     }
     sleep(5);
 }
@@ -373,7 +380,7 @@ void Gerenciamento::BuscarFuncionario(){
 
     }else{
 
-        cout << "Não existe nenhum funcionário com a informação \" "<< search << " \" fornecida." << endl;
+        throw 1;   //erro 1: FUNCIONARIO NAO EXISTENTE;
     }
 
 }
@@ -391,7 +398,7 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
 
     if(mes <= 0 || mes > 12){
 
-        throw "mes invalidado";       //mes não válido
+        throw 2;        //erro 2: ERRO INVALIDO
 
     }else if(mes == 2){
 
@@ -474,7 +481,7 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){
     return salarioTotal;
 }
 
-int Gerenciamento::ImprimirFolhaSalarial(){
+void Gerenciamento::ImprimirFolhaSalarial(){
 
     bool existeFunc= false;
     int indice;
@@ -495,8 +502,7 @@ int Gerenciamento::ImprimirFolhaSalarial(){
 
     if(existeFunc){
 
-        return indice;
-        cout << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+        cout << "Código do funcionário: " << listaFunc[indice]->getCodigo() << endl << endl;
         cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
         cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
         cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
@@ -504,8 +510,7 @@ int Gerenciamento::ImprimirFolhaSalarial(){
 
     }else{
     
-        return -1;
-        cout << "Funcionario nao existe" << endl;
+        throw 1;
     }
     return 0;
 
@@ -523,9 +528,9 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 
     cin >> escolha;
 
-    if(escolha <= 0 || escolha > 12){
+    if(escolha < 0 || escolha > 12){
 
-        throw "exception";
+        throw 2;      //erro 2: MES INVALIDO    
 
     }else if(escolha == 0){
 
@@ -547,11 +552,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){
 }
 
 
-string Gerenciamento::ValidaFormataData(int day, int month, int year){
-
-    string dataFormatada;
-    string barra= "/";
-
+void Gerenciamento::ValidaAno(int year){
 
     time_t current_time;                           
 	struct tm *time_info;
@@ -563,30 +564,52 @@ string Gerenciamento::ValidaFormataData(int day, int month, int year){
     int anoAtual = atoi(ano);
 
 
-    if(month <= 0 || month > 12){
+    if (year < 1952 || year > anoAtual){     //a pessoa pode ter no maximo 70 anos na empresa
 
-        throw "mes inválido";
-
-    }else if(day <= 0 || day > 31){
-
-        throw "dia inválido";
-
-    }else if (year < 1952 || year > anoAtual){     //a pessoa pode ter no maximo 70 anos na empresa
-
-        throw "ano invalidado";
-    }
-
-
-    if(month == 2 && day > 28){            //se o ano for fevereiro e tiver dia maior que 28 (dia 29 de ano bissexto é desconsiderado), invalida! 
-
-        throw "dia invalido para mes";
-
-    }else if ( (month == 4 || month == 6 || month == 9 || month == 11) && day > 30){   //se for um mes com apenas 30 dias e tiver mais q 30, invalida!
-
-        throw "dia invalido para o mes";
+        throw 4;      //erro 4: ANO INVALIDO
     }
 
     //formatando a data: 
+    
+}
+
+void Gerenciamento::ValidaMes(int month){
+
+    if(month <= 0 || month > 12){
+
+        throw 2;       //erro 2: MES INVALIDO
+    }
+
+}
+
+void Gerenciamento::ValidaDia(int day, int month){
+
+    if(month <= 0 || month > 12){
+
+        throw 2;       //erro 2: MES INVALIDO
+
+    }else if(day <= 0 || day > 31){
+
+        throw 3;      //erro 3: DIA INVALIDO    
+
+    }
+
+    if(month == 2 && day > 28){            //se o ano for fevereiro e tiver dia maior que 28 (dia 29 de ano bissexto é desconsiderado), invalida! 
+
+        throw 5;    //ERRO 5
+
+    }else if ( (month == 4 || month == 6 || month == 9 || month == 11) && day > 30){   //se for um mes com apenas 30 dias e tiver mais q 30, invalida!
+
+        throw 5;   //ERRO 5: DIA INVALDO PARA O MES
+    }
+}
+
+
+string Gerenciamento::FormataData(int day, int month, int year){
+
+    string dataFormatada;
+    string barra= "/";
+
     dataFormatada= to_string(day) + barra + to_string(month) + barra + to_string(year);
 
     return dataFormatada;

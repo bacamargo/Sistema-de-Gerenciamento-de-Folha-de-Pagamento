@@ -23,11 +23,16 @@ class Gerenciamento{
     void ExibirTipoFuncionario();
     void BuscarFuncionario();
     double CalcularFolhaSalarial(int mes);
-    int ImprimirFolhaSalarial();
+    void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
 
-    string ValidaFormataData(int day, int month, int year);    //funcao pra formatar e validar a data inserida
+
+    string FormataData(int day, int month, int year);
+    void ValidaAno(int year);
+    void ValidaMes(int month);
+    void ValidaDia(int day, int month);
+  
     void EscreverArquivoFuncionario(vector<Funcionario*> Func);
     void LerArquivoFuncionario();
     void EscreverArquivoFolhaSalarial(int indice);
