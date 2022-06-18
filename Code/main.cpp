@@ -6,6 +6,12 @@
 #include "gerente.h"
 #include "operador.h"
 #include "presidente.h"
+#include "gerenciamento.cpp"
+#include "funcionario.cpp"
+#include "diretor.cpp"
+#include "operador.cpp"
+#include "gerente.cpp"
+#include "presidente.cpp"
 
 using namespace std;
  
@@ -13,6 +19,7 @@ using namespace std;
 void ExibirMenuPrincipal(string interprise){
 
     cout << "---------Bem-vindo ao Sistema de Gerenciamento da Empresa " << interprise << " ---------" << endl << endl;
+    sleep(1);
 
     cout << "Funcionário: " << endl;
     cout << " 1 - Cadastrar Funcionário" << endl; 
@@ -23,6 +30,7 @@ void ExibirMenuPrincipal(string interprise){
     cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
     cout << " 7 - Aumentar salário" << endl << endl; 
     
+    sleep(1);
     cout << "Folha salarial: " << endl;
     cout << " 8 - Calcular Folha Salarial" << endl;
     cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
@@ -32,7 +40,8 @@ void ExibirMenuPrincipal(string interprise){
 
     cout << " 0 - Encerrar Programa" << endl << endl;
     
-    cout << "No menu de opções abaixo, selecione a tarefa a ser realizada: "; 
+    sleep(1);
+    cout << "No menu de opções acima, selecione a tarefa a ser realizada: "; 
 }
 
 

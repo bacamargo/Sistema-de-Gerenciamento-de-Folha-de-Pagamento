@@ -80,7 +80,7 @@ void Gerenciamento::InserirFuncionario(){
     }else if(designacao == "gerente"){
 
 
-        cout << "Digite a área de área de supervisão do Gerente: ";
+        cout << "Digite a área de supervisão do Gerente: ";
         getline(cin, areaSupervisao);
 
         func= new Gerente(codigo, nome, endereco, telefone, dataIngresso, salario, areaSupervisao);    //cria um novo funcionario gerente
@@ -111,7 +111,7 @@ void Gerenciamento::InserirFuncionario(){
     }
 
     listaFunc.push_back(func);
-
+    EscreverArquivoFuncionario(listaFunc);
     cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
 
     sleep(2);
@@ -293,6 +293,7 @@ void Gerenciamento::ExibirFuncionario(string code){
         }
     }
 
+
     if(existeFunc){
     
         cout << "-----------------Funcionário " << indImprimir+1 << " -----------------" << endl;
@@ -308,7 +309,7 @@ void Gerenciamento::ExibirFuncionario(string code){
     }else{
         cout << "O funcionario de código " << code << " não existe." << endl;
     }
-
+    sleep(5);
 }
 
 void Gerenciamento::ExibirListaFuncionario(){
@@ -319,7 +320,10 @@ void Gerenciamento::ExibirListaFuncionario(){
 
         ExibirFuncionario(listaFunc[i]->getCodigo());
     }
+    cout << "-----" << "\n";
 
+    // LerArquivoFuncionario();
+    // Ver onde que essa função vai ser chamada. Porque os professores querem que os dados sejam gravados e lidos num arquivo. Deixa num vector ou lê os arquivo? Ambos funcionam tho
     
     sleep(5);
 }
@@ -503,6 +507,7 @@ int Gerenciamento::ImprimirFolhaSalarial(){
         return -1;
         cout << "Funcionario nao existe" << endl;
     }
+    return 0;
 
 }
 
@@ -608,22 +613,24 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
     }
     if(write.is_open()){
         for(int i = 0; i < Func.size(); i++){
+            write << "Funcionário " << i + 1 << "\n";
+            write << "\n";
             write << "Código: " << Func[i]->getCodigo() << "\n";
             write << "Nome: " << Func[i]->getNome() << "\n";
             write << "Endereço: " << Func[i]->getEndereco() << "\n";
             write << "Telefone: " << Func[i]->getTelefone() << "\n";
             write << "Ingresso: " << Func[i]->getIngresso() << "\n";
             write << "Designação: " << Func[i]->getDesignacao() << "\n";
-            write << "Salário: " << Func[i]->getSalarioLiquido() << "\n";
+            write << "Salário: " << Func[i]->getSalario() << "\n";
             
             if(Func[i]->getDesignacao() == "gerente"){
-                write << "Área de Supervisão: " << ((Gerente*)Func[i])->getAreaSupervisao(); 
+                write << "Área de Supervisão: " << ((Gerente*)Func[i])->getAreaSupervisao() << "\n"; 
             } else if(Func[i]->getDesignacao() == "diretor"){
-                write << "Área de Supervisão: " << ((Diretor*)Func[i])->getAreaSupervisao();
-                write << "Área de Formaçao: " << ((Diretor*)Func[i])->getAreaFormacao();
+                write << "Área de Supervisão: " << ((Diretor*)Func[i])->getAreaSupervisao() << "\n";
+                write << "Área de Formaçao: " << ((Diretor*)Func[i])->getAreaFormacao() << "\n";
             } else if(Func[i]->getDesignacao() == "presidente"){
-                write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao();
-                write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax();
+                write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
+                write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
             }
             write << "\n";
         }
@@ -663,7 +670,6 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro 
         }
 
         if (write_folha_funcionario.is_open()){
-
             write_folha_funcionario << "Folha salarial do funcionário: " << listaFunc[indice]->getNome() << "\n";
             write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
             write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
