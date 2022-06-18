@@ -23,11 +23,12 @@ class Gerenciamento{
     void ExibirTipoFuncionario();
     void BuscarFuncionario();
     double CalcularFolhaSalarial(int mes);
-    int ImprimirFolhaSalarial();
+    void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
 
-    string ValidaFormataData(int day, int month, int year);    //funcao pra formatar e validar a data inserida
+    string FormataData(int day, int month, int year);
+    
 
     protected:
     std::vector <Funcionario *> listaFunc;

@@ -69,21 +69,98 @@ int main(){
         switch(opcao_menu_principal){
             
             case 1:
-                sistema.InserirFuncionario();
+                try{
+                    sistema.InserirFuncionario();
+
+                }catch(int erro){
+
+                    if(erro == 2){
+                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 3){
+                        cout << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 4){
+                        cout << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 4){
+                        cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             case 2: 
-                sistema.EditarFuncionario();
+                try{
+                    sistema.EditarFuncionario();
+
+                }catch(int erro){
+
+                    if(erro == 1){
+                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 2){
+                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 3){
+                        cout << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 4){
+                        cout << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 4){
+                        cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             case 3: 
                 cout << "Digite o código de qual funcionário vocẽ quer exibir: " << endl;
                 getline(cin, procurado);
-                sistema.ExibirFuncionario(procurado);
+
+                try{
+                    sistema.ExibirFuncionario(procurado);
+
+                }catch(int erro){
+
+                    if(erro == 1){
+                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                
+                sleep(4);
                 break;
 
             case 4: 
-                sistema.ExcluirFuncionario();
+                try{
+                    sistema.ExcluirFuncionario();
+
+                }catch(int erro){
+
+                    if(erro == 1){
+                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             case 5:
@@ -93,7 +170,18 @@ int main(){
             case 6:
                 cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
                 getline(cin, procurado);
-                sistema.BuscarFuncionario();
+
+                try{
+                    sistema.BuscarFuncionario();
+
+                }catch(int erro){
+
+                    if(erro == 1){
+                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             case 7:
@@ -104,15 +192,46 @@ int main(){
             case 8: 
                 cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: " << endl;
                 cin >> mes;
-                sistema.CalcularFolhaSalarial(mes);
+
+                try{
+                    sistema.CalcularFolhaSalarial(mes);
+
+                }catch(int erro){
+                    
+                    if(erro == 2){
+                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             case 9: 
-                sistema.ImprimirFolhaSalarial();
+                try{
+                    sistema.ImprimirFolhaSalarial();
+
+                }catch(int erro){
+
+                    if(erro == 1){
+                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                
                 break;
 
             case 10: 
-                sistema.ImprimirFolhaSalarialEmpresa();
+                try{
+                    sistema.ImprimirFolhaSalarialEmpresa();
+
+                }catch(int erro){
+
+                    if(erro == 2){
+                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                sleep(4);
                 break;
 
             default:
