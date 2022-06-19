@@ -134,7 +134,7 @@ void Gerenciamento::EditarFuncionario(){
 
     system("clear");
 
-    cout << "Digite o código do funcionário que irá ser editado: " << endl;
+    cout << "Digite o código do funcionário que irá ser editado: ";
     getline(cin, code);
 
     indice= -1;                   
@@ -223,6 +223,12 @@ void Gerenciamento::EditarFuncionario(){
         case 6:                         //alterar designacao
             cout << endl << "Digite a nova designação do funcionário: ";
             getline(cin, novo);
+
+
+            if(novo != "operador" && novo != "gerente" && novo != "presidente" && novo != "diretor" ){  
+
+                throw 8;       //erro 8: DESIGNACAO NAO EXISTENTE   
+            }
 
             if(novo == "presidente"){
 
@@ -413,6 +419,12 @@ void Gerenciamento::ExibirListaFuncionario(){
 
     system("clear");
 
+    if(listaFunc.empty() == true){
+
+        cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
+        return;
+    }
+
     for(int i= 0; i < listaFunc.size(); i++){
 
         ExibirFuncionario(listaFunc[i]->getCodigo());
@@ -433,6 +445,12 @@ void Gerenciamento::ExibirTipoFuncionario(){
 
     cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente', 'diretor' ou 'presidente'): " ;
     getline(cin, designation);
+
+    if(listaFunc.empty() == true){
+
+        cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------" ;
+        return;
+    }
 
     if(designation == "operador" || designation == "diretor"){
 
@@ -460,7 +478,8 @@ void Gerenciamento::BuscarFuncionario(string search){
 
     for(int i= 0; i < listaFunc.size(); i++){
 
-        if(listaFunc[i]->getNome() == search || listaFunc[i]->getIngresso() == search || listaFunc[i]->getEndereco() == search){
+        if( (listaFunc[i]->getNome().find(search) != string::npos) || (listaFunc[i]->getIngresso().find(search) != string::npos) || 
+            (listaFunc[i]->getEndereco().find(search) != string::npos) ){
 
             indBuscado.push_back(i);
         }
@@ -492,6 +511,11 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
     double salarioFunc, valorHora;
+
+    if(listaFunc.empty() == true){
+
+        throw 10; 
+    }
 
     if(mes <= 0 || mes > 12){
 
@@ -662,10 +686,18 @@ void Gerenciamento::ConfigurarAumento(){
 
     system("clear");
 
+    if(listaFunc.empty() == true){
+
+        cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
+        return;
+    }
+
     for(i= 0; i < listaFunc.size(); i++){
 
         listaFunc[i]->Aumento(listaFunc[i]);
     }
+
+    cout << endl << "-------------O aumento foi configurado a todos os funcionários-------------" << endl;
 
 }
 

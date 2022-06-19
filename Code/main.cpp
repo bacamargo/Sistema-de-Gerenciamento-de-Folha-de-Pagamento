@@ -40,7 +40,7 @@ int main(){
     string empresa;
     int opcao_menu_principal;
     Gerenciamento sistema;
-
+    int retorno;
     int mes;
     string procurado;
 
@@ -70,6 +70,7 @@ int main(){
             case 1:
                 try{
                     sistema.InserirFuncionario();
+                    sleep(2);
 
                 }catch(int erro){
 
@@ -107,8 +108,9 @@ int main(){
                         cout << endl << "ERRO 9: PRESIDENTE JÁ EXISTENTE" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
+                    sleep(3);
                 }
-                sleep(3);
+                
                 break;
 
             case 2: 
@@ -147,6 +149,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
 
+                    sleep(3);
                 }
                 break;
 
@@ -165,7 +168,7 @@ int main(){
                     if(erro == 1){
                         cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
-                        sleep(3);
+                        sleep(2);
                     }
                 }
                 
@@ -188,7 +191,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(3);
+                sleep(2);
                 break;
 
             case 5:
@@ -224,30 +227,36 @@ int main(){
 
             case 8: 
                 sistema.ConfigurarAumento();
-                cout << "-------------O aumento foi configurado a todos os funcionários-------------" << endl;
-                sleep(3);               
+                sleep(2);               
                 break;
 
             case 9: 
                 system("clear");
-                cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: " << endl;
+                cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: ";
                 cin >> mes;
                 cin.ignore();
 
                 try{
                     sistema.CalcularFolhaSalarial(mes);
-                    cout << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
-                    sleep(2);
+        
+                    cout << endl << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
+
 
                 }catch(int erro){
                     
                     if(erro == 2){
                         cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
-                        sleep(3);
+                    }
+
+                    if(erro == 10){
+
+                        cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
                     }
                 }
-
+                
+                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                getchar();
                 break;
 
             case 10: 
@@ -262,8 +271,9 @@ int main(){
                         cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
+                    sleep(2);
                 }
-                sleep(3);
+                
                 break;
 
             case 11:
@@ -277,7 +287,7 @@ int main(){
                     if(erro == 2){
                         cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
-                        sleep(3);
+                        sleep(2);
                     }
                 }
                 

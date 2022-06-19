@@ -1,33 +1,20 @@
 Funcionário 1
 
 Código: 1
-Nome: dsjdsk
-Endereço: fdfjd
-Telefone: 8394839
+Nome: joleana
+Endereço: rua josefa taveira
+Telefone: 9384394
 Ingresso: 01/01/2000
-Designação: presidente
-Salário: 3000
-Área de Formação: djskjds
-Formação Máxima: djskjdsk
+Designação: operador
+Salário: 2000
 
 Funcionário 2
 
 Código: 2
-Nome: jo
-Endereço: dsdjshdsj
-Telefone: 394839
-Ingresso: 01/01/2000
+Nome: pedro
+Endereço: rua josefa taveirnha
+Telefone: 48398439
+Ingresso: 02/02/2000
 Designação: operador
-Salário: 1000
-
-Funcionário 3
-
-Código: 4
-Nome: kdsjkdjsk
-Endereço: nfjdfnjdf
-Telefone: 4938493
-Ingresso: 02/01/2000
-Designação: gerente
-Salário: 2000
-Área de Supervisão: kjdsk
+Salário: 3000
 
