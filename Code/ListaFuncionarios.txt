@@ -1,0 +1,21 @@
+Funcionário 1
+
+Código: 1
+Nome: j
+Endereço: dfdfdkmfd
+Telefone: 323232
+Ingresso: 01/01/2000
+Designação: operador
+Salário: 2000
+
+Funcionário 2
+
+Código: 32
+Nome: juliana
+Endereço: jfjfodf
+Telefone: 323232
+Ingresso: 03/03/2000
+Designação: gerente
+Salário: 2000
+Área de Supervisão: djfdkjfd
+

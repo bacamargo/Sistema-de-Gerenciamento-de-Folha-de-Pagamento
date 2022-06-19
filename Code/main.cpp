@@ -20,18 +20,14 @@ void ExibirMenuPrincipal(string interprise){
     cout << " 3 - Exibir Funcionário" << endl;
     cout << " 4 - Excluir Funcionário" << endl;
     cout << " 5 - Listar Funcionários Existentes" << endl; 
-    cout << " 6 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
-    cout << " 7 - Aumentar salário" << endl << endl; 
+    cout << " 6 - Listar Funcionários por Tipo" << endl; 
+    cout << " 7 - Buscar Funcionário (Nome/Data de Ingresso/Endereço)" << endl; 
+    cout << " 8 - Aumentar salário" << endl << endl; 
 
     cout << "Folha salarial: " << endl;
-    cout << " 8 - Calcular Folha Salarial" << endl;
-    cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
-    cout << "10 - Imprimir Folha Salarial Empresa " << endl;
-
-    cout << "Arquivo: " << endl;
-    
-    cout << "11 - Salvar dados em arquivo" << endl;
-    cout << "12 - Arquivo 2" << endl << endl;
+    cout << " 9 - Calcular Folha Salarial" << endl;
+    cout << "10 - Imprimir Folha Salarial Funcionário" << endl;
+    cout << "11 - Imprimir Folha Salarial Empresa " << endl;
 
     cout << " 0 - Encerrar Programa" << endl << endl;
     
@@ -102,17 +98,17 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
 
-                    if(erro == 7){
-                        cout << endl << "ERRO 7: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                    if(erro == 8){
+                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
-                    if(erro == 6){
-                        cout << endl << "ERRO 8: PRESIDENTE JÁ EXISTENTE" << endl << endl;
+                    if(erro == 9){
+                        cout << endl << "ERRO 9: PRESIDENTE JÁ EXISTENTE" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(3);
+                sleep(2);
                 break;
 
             case 2: 
@@ -156,7 +152,8 @@ int main(){
                 break;
 
             case 3: 
-                cout << "Digite o código de qual funcionário vocẽ quer exibir: " << endl;
+                system("clear");
+                cout << "Digite o código de qual funcionário vocẽ quer exibir: ";
                 getline(cin, procurado);
 
                 try{
@@ -183,20 +180,31 @@ int main(){
                         cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
+
+                    if(erro == 7){
+                        cout << "ERRO 7: DIRETOR OU PRESIDENTE NÃO PODEM SER EXCLUÍDOS" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
                 }
                 sleep(3);
                 break;
 
             case 5:
                 sistema.ExibirListaFuncionario(); 
+                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                getchar();
                 break;
 
             case 6:
-                cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso (dd/mm/aaaa) ou endereço: " << endl;
+                
+
+            case 7:
+                system("clear");
+                cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso como ao lado (dd/mm/aaaa) ou endereço: " << endl;
                 getline(cin, procurado);
 
                 try{
-                    sistema.BuscarFuncionario();
+                    sistema.BuscarFuncionario(procurado);
 
                 }catch(int erro){
 
@@ -208,18 +216,21 @@ int main(){
                 sleep(3);
                 break;
 
-            case 7:
+            case 8: 
                 sistema.ConfigurarAumento();
-                
+                cout << "-------------O aumento foi configurado a todos os funcionários-------------" << endl;
+                sleep(3);               
                 break;
 
-            case 8: 
+            case 9: 
+                system("clear");
                 cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: " << endl;
                 cin >> mes;
+                cin.ignore();
 
                 try{
                     sistema.CalcularFolhaSalarial(mes);
-
+                    cout << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
                 }catch(int erro){
                     
                     if(erro == 2){
@@ -227,10 +238,11 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(3);
+
+                sleep(2);
                 break;
 
-            case 9: 
+            case 10: 
                 try{
                     sistema.ImprimirFolhaSalarial();
 
@@ -244,7 +256,7 @@ int main(){
                 sleep(3);
                 break;
 
-            case 10: 
+            case 11:
                 try{
                     sistema.ImprimirFolhaSalarialEmpresa();
 
