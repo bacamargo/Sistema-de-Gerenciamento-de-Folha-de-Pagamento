@@ -1,21 +1,33 @@
 Funcionário 1
 
 Código: 1
-Nome: j
-Endereço: dfdfdkmfd
-Telefone: 323232
+Nome: dsjdsk
+Endereço: fdfjd
+Telefone: 8394839
 Ingresso: 01/01/2000
-Designação: operador
-Salário: 2000
+Designação: presidente
+Salário: 3000
+Área de Formação: djskjds
+Formação Máxima: djskjdsk
 
 Funcionário 2
 
-Código: 32
-Nome: juliana
-Endereço: jfjfodf
-Telefone: 323232
-Ingresso: 03/03/2000
+Código: 2
+Nome: jo
+Endereço: dsdjshdsj
+Telefone: 394839
+Ingresso: 01/01/2000
+Designação: operador
+Salário: 1000
+
+Funcionário 3
+
+Código: 4
+Nome: kdsjkdjsk
+Endereço: nfjdfnjdf
+Telefone: 4938493
+Ingresso: 02/01/2000
 Designação: gerente
 Salário: 2000
-Área de Supervisão: djfdkjfd
+Área de Supervisão: kjdsk
 

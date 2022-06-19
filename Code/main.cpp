@@ -108,7 +108,7 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(2);
+                sleep(3);
                 break;
 
             case 2: 
@@ -118,27 +118,27 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 2){
-                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 3){
-                        cout << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 4){
-                        cout << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 5){
-                        cout << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                        cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
@@ -148,7 +148,6 @@ int main(){
                     }
 
                 }
-                sleep(3);
                 break;
 
             case 3: 
@@ -158,16 +157,19 @@ int main(){
 
                 try{
                     sistema.ExibirFuncionario(procurado);
+                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    getchar();
 
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
+                        sleep(3);
                     }
                 }
                 
-                sleep(3);
+                
                 break;
 
             case 4: 
@@ -177,12 +179,12 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 7){
-                        cout << "ERRO 7: DIRETOR OU PRESIDENTE NÃO PODEM SER EXCLUÍDOS" << endl << endl;
+                        cout << endl << "ERRO 7: DIRETOR OU PRESIDENTE NÃO PODEM SER EXCLUÍDOS" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
@@ -196,7 +198,10 @@ int main(){
                 break;
 
             case 6:
-                
+                sistema.ExibirTipoFuncionario();
+                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                getchar();
+                break;
 
             case 7:
                 system("clear");
@@ -209,11 +214,12 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
-                sleep(3);
+                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                getchar();
                 break;
 
             case 8: 
@@ -231,25 +237,29 @@ int main(){
                 try{
                     sistema.CalcularFolhaSalarial(mes);
                     cout << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
+                    sleep(2);
+
                 }catch(int erro){
                     
                     if(erro == 2){
-                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
+                        sleep(3);
                     }
                 }
 
-                sleep(2);
                 break;
 
             case 10: 
                 try{
                     sistema.ImprimirFolhaSalarial();
+                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    getchar();
 
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         cout << "Retornando ao menu..." << endl;
                     }
                 }
@@ -259,15 +269,18 @@ int main(){
             case 11:
                 try{
                     sistema.ImprimirFolhaSalarialEmpresa();
+                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    getchar();
 
                 }catch(int erro){
 
                     if(erro == 2){
-                        cout << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
                         cout << "Retornando ao menu..." << endl;
+                        sleep(3);
                     }
                 }
-                sleep(3);
+                
                 break;
 
             default:
