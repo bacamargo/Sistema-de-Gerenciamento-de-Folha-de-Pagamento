@@ -18,6 +18,15 @@ Gerenciamento::Gerenciamento(){
 
 }
 
+
+Gerenciamento::~Gerenciamento(){
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        delete listaFunc[i];
+    }
+}
+
 void Gerenciamento::InserirFuncionario(){
 
     system("clear");

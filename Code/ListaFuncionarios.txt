@@ -2,19 +2,33 @@ Funcionário 1
 
 Código: 1
 Nome: joleana
-Endereço: hsjdhsjd
-Telefone: 48934839
-Ingresso: 03/03/2000
+Endereço: djsjdisdjs
+Telefone: 323829
+Ingresso: 02/02/2000
 Designação: operador
-Salário: 1.1025
+Salário: 2000
 
 Funcionário 2
 
-Código: 2
-Nome: pedrin
-Endereço: rua olenaa
-Telefone: 8394839
-Ingresso: 03/06/1970
-Designação: operador
-Salário: 1050
+Código: 3
+Nome: hfjdhfjd
+Endereço: dkdkdjsk
+Telefone: 84394839
+Ingresso: 03/03/2002
+Designação: diretor
+Salário: 3999
+Área de Supervisão: ndjfndjfn
+Área de Formaçao: dhfdhf
+
+Funcionário 3
+
+Código: 22
+Nome: ddskdjskd
+Endereço: dsds
+Telefone: 2
+Ingresso: 02/02/2000
+Designação: diretor
+Salário: 3000
+Área de Supervisão: dksjdks
+Área de Formaçao: dksdjsk
 

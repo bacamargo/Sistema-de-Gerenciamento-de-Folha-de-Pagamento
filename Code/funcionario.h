@@ -19,6 +19,7 @@ class Funcionario{
 
     public:
         Funcionario(string code, string name, string address, string number, string date, double salary);
+
         void setCodigo(string code);
         string getCodigo();
         void setNome(string name);
