@@ -2,19 +2,19 @@ Funcionário 1
 
 Código: 1
 Nome: joleana
-Endereço: rua josefa taveira
-Telefone: 9384394
-Ingresso: 01/01/2000
+Endereço: hsjdhsjd
+Telefone: 48934839
+Ingresso: 03/03/2000
 Designação: operador
-Salário: 2000
+Salário: 1.1025
 
 Funcionário 2
 
 Código: 2
-Nome: pedro
-Endereço: rua josefa taveirnha
-Telefone: 48398439
-Ingresso: 02/02/2000
+Nome: pedrin
+Endereço: rua olenaa
+Telefone: 8394839
+Ingresso: 03/06/1970
 Designação: operador
-Salário: 3000
+Salário: 1050
 

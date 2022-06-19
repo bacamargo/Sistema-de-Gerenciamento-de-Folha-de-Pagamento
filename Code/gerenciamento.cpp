@@ -72,7 +72,7 @@ void Gerenciamento::InserirFuncionario(){
         ExistePresid();     //valida se existe presidente
     }
     
-    cout << "Digite o salário inicial do funcionário: ";
+    cout << "Digite o salário inicial do funcionário (utilize ponto ao invés de vírgula caso necessário): ";
     cin >> salario;
     cin.ignore();
 
@@ -281,8 +281,9 @@ void Gerenciamento::EditarFuncionario(){
             break;
 
         case 7:                         //alterar  salario
-            cout << endl << "Digite o novo salário do funcionário: " << endl;
+            cout << endl << "Digite o novo salário do funcionário (utilize ponto ao invés de vírgula caso necessário): " << endl;
             cin >> novoSal;
+            cin.ignore();
             listaFunc[indice]->setSalario(novoSal);
 
             cout << endl << "Atributo alterado com sucesso!------------------- ";
@@ -292,6 +293,8 @@ void Gerenciamento::EditarFuncionario(){
             cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
             break;
     }
+
+    EscreverArquivoFuncionario(listaFunc);
 
     cout << " (Aperte uma tecla para continuar....) " << endl;
     getchar();       
@@ -361,6 +364,8 @@ void Gerenciamento::ExcluirFuncionario(){
 
         throw 1;          //erro 1: FUNCIONARIO NAO EXISTENTE
     }
+
+    EscreverArquivoFuncionario(listaFunc);
 
 }
 
@@ -699,6 +704,7 @@ void Gerenciamento::ConfigurarAumento(){
 
     cout << endl << "-------------O aumento foi configurado a todos os funcionários-------------" << endl;
 
+    EscreverArquivoFuncionario(listaFunc);
 }
 
 //funcoes extra
