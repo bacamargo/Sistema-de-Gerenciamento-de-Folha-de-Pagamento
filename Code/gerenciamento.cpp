@@ -41,7 +41,7 @@ void Gerenciamento::InserirFuncionario(){
 
     cout << "Digite o código do funcionário: ";   
     getline(cin, codigo);
-    ConfereCodigo(codigo);  //confere se o codigo já existe, se existir dá err
+    ConfereCodigo(codigo);  //confere se o codigo já existe, se existir dá erro
     
     cout << "Digite o nome do funcionário: ";  
     getline(cin, nome);
