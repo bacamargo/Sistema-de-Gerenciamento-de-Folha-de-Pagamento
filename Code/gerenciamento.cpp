@@ -19,6 +19,15 @@ Gerenciamento::Gerenciamento(){
 
 }
 
+
+Gerenciamento::~Gerenciamento(){
+
+    for(int i= 0; i < listaFunc.size(); i++){
+
+        delete listaFunc[i];
+    }
+}
+
 void Gerenciamento::InserirFuncionario(){
 
     system("clear");
@@ -34,7 +43,7 @@ void Gerenciamento::InserirFuncionario(){
 
     cout << "Digite o código do funcionário: ";   
     getline(cin, codigo);
-    ConfereCodigo(codigo);  //confere se o codigo já existe, se existir dá err
+    ConfereCodigo(codigo);  //confere se o codigo já existe, se existir dá erro
     
     cout << "Digite o nome do funcionário: ";  
     getline(cin, nome);
@@ -75,7 +84,7 @@ void Gerenciamento::InserirFuncionario(){
         ExistePresid();     //valida se existe presidente
     }
     
-    cout << "Digite o salário inicial do funcionário: ";
+    cout << "Digite o salário inicial do funcionário (utilize ponto ao invés de vírgula caso necessário): ";
     cin >> salario;
     cin.ignore();
 
@@ -285,8 +294,9 @@ void Gerenciamento::EditarFuncionario(){
             break;
 
         case 7:                         //alterar  salario
-            cout << endl << "Digite o novo salário do funcionário: " << endl;
+            cout << endl << "Digite o novo salário do funcionário (utilize ponto ao invés de vírgula caso necessário): " << endl;
             cin >> novoSal;
+            cin.ignore();
             listaFunc[indice]->setSalario(novoSal);
 
             cout << endl << "Atributo alterado com sucesso!------------------- ";
@@ -296,7 +306,7 @@ void Gerenciamento::EditarFuncionario(){
             cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
             break;
     }
-    EscreverArquivoFuncionario(listaFunc);
+
     cout << " (Aperte uma tecla para continuar....) " << endl;
     getchar();       
 }
@@ -365,6 +375,7 @@ void Gerenciamento::ExcluirFuncionario(){
 
         throw 1;          //erro 1: FUNCIONARIO NAO EXISTENTE
     }
+
 }
 
 void Gerenciamento::ExibirFuncionario(string code){
@@ -449,6 +460,11 @@ void Gerenciamento::ExibirTipoFuncionario(){
     cout << "Digite o tipo do funcionário que vocẽ quer exibir  (digite 'operador', 'gerente', 'diretor' ou 'presidente'): " ;
     getline(cin, designation);
 
+    if(designation != "operador" && designation != "gerente" && designation != "presidente" && designation != "diretor" ){  //verificando existencia da designacao
+
+        throw 8;       //erro 8: DESIGNACAO NAO EXISTENTE   
+    }
+
     if(listaFunc.empty() == true){
 
         cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------" ;
@@ -513,7 +529,8 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
     int diasMax;
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
-    double salarioFunc, valorHora;
+    double salarioFunc, valorHoraExtra;
+    double valor;
 
     if(listaFunc.empty() == true){
 
@@ -544,56 +561,65 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
             }
         }
 
-        horasExtras= rand() % (diasMax * 24 - diasTrabalhados* HORAS_TRABALHO) + 1;           //gerando as horas extras aleatoriamente
+        horasExtras= rand() % 3 + 1;  //so pode no maximo4 horas diarias 
 
+        salarioFunc= (listaFunc[i]->getSalario() / diasMax) * diasTrabalhados;
         
         //calculando o salario de cada funcionario e o total
 
-        valorHora= ((double) listaFunc[i]->getSalario() / (HORAS_TRABALHO * diasMax) );
+        valorHoraExtra= listaFunc[i]->getSalario() / (diasMax * 8.0);
+        valorHoraExtra= valorHoraExtra * 2.0 * horasExtras;
 
-        salarioFunc= (valorHora *  diasTrabalhados) + (2.0 * valorHora * horasExtras);
+        salarioFunc += valorHoraExtra;
+
+        listaFunc[i]->setDescontoINSS(0); 
 
         if(salarioFunc <= 1100){
             
-            listaFunc[i]->setDescontoINSS(7.5/100); 
+            valor= salarioFunc * 7.5/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else if(salarioFunc <= 2203.48){
 
-            listaFunc[i]->setDescontoINSS(9.0/100); 
+            valor= salarioFunc * 9.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else if(salarioFunc <= 3305.22){
-
-            listaFunc[i]->setDescontoINSS(12.0/100);
+            
+            valor= salarioFunc * 12.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else{
-
-            listaFunc[i]->setDescontoINSS(14.0/100);
+            valor= salarioFunc * 14.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
         }
 
-        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoINSS() );
 
-
-         if(salarioFunc <= 1903.98){
+        if(salarioFunc <= 1903.98){
             
+            listaFunc[i]->setDescontoImposto(0); 
 
         }else if(salarioFunc <= 2826.65){
 
-            listaFunc[i]->setDescontoImposto(7.5/100); 
+            valor= salarioFunc * 7.5/100;
+            listaFunc[i]->setDescontoImposto(valor); 
 
         }else if(salarioFunc <= 3751.05){
 
-            listaFunc[i]->setDescontoImposto(15.0/100);
+            valor= salarioFunc * 15.0/100;
+            listaFunc[i]->setDescontoImposto(valor); 
 
         }else if(salarioFunc <= 4664.68){
 
-            listaFunc[i]->setDescontoImposto(22.5/100);
+            valor= salarioFunc * 22.5/100;
+            listaFunc[i]->setDescontoImposto(valor);
 
         }else{
-
-             listaFunc[i]->setDescontoImposto(27.5/100);
+            valor= salarioFunc * 27.5/100;
+            listaFunc[i]->setDescontoImposto(valor);
         }
 
-        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoImposto() );
+        salarioFunc -= (listaFunc[i]->getDescontoImposto() + listaFunc[i]->getDescontoINSS());
 
         listaFunc[i]->setSalarioLiquido(salarioFunc);
 
@@ -613,7 +639,7 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
 
     system("clear");
 
-    cout << "Digite o nome do código ou nome do funcionário: " << endl;
+    cout << "Digite o nome do código ou nome completo cadastrado do funcionário: " << endl;
     getline(cin, searched);
 
     for(int i= 0; i < listaFunc.size(); i++){
@@ -659,6 +685,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
     cout << "Digite o número equivalente ao mês (de 1 a 12)- folha mensal do mês" << endl;
 
     cin >> escolha;
+    cin.ignore();
 
     if(escolha < 0 || escolha > 12){
 
@@ -668,7 +695,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
 
         for(int i= 1; i <= 12; i++){
 
-            salario += CalcularFolhaSalarial(i);      //calculando a folha salarial anual
+            salario += CalcularFolhaSalarial(i);      //pegar do arquivo 
         }
 
         cout << "Folha Salarial Anual: R$" << salario << endl; 
@@ -704,6 +731,7 @@ void Gerenciamento::ConfigurarAumento(){
 
     cout << endl << "-------------O aumento foi configurado a todos os funcionários-------------" << endl;
 
+    EscreverArquivoFuncionario(listaFunc);
 }
 
 //funcoes extra
