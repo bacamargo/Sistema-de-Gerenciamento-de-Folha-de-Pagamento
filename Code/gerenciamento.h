@@ -36,8 +36,8 @@ class Gerenciamento{
   
     void EscreverArquivoFuncionario(vector<Funcionario*> Func);
     void LerArquivoFuncionario();
-    void EscreverArquivoFolhaSalarial(int indice);
-    void LerArquivoFolhaSalarial();
+    void EscreverArquivoFolhaSalarialFuncionario(int indice);
+    void LerArquivoFolhaSalarialFuncionario();
 
     string EnderecoCEP(string CEP);
     protected:

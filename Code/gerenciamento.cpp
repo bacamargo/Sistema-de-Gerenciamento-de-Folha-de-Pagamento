@@ -627,17 +627,17 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
     }
 
     if(existeFunc){
-        
-        cout << "--------------------------------Funcionário--------------------------------" << endl;
-        cout << "Código: " << listaFunc[indice]->getCodigo() << endl;
-        cout << "Nome: " << listaFunc[indice]->getNome() << endl;
-        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        cout << "Total de descontos: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl;
-        cout << "----------------------------------------------------------------------------" << endl << endl;
-
+        EscreverArquivoFolhaSalarialFuncionario(indice);
+        // cout << "--------------------------------Funcionário--------------------------------" << endl;
+        // cout << "Código: " << listaFunc[indice]->getCodigo() << endl;
+        // cout << "Nome: " << listaFunc[indice]->getNome() << endl;
+        // cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
+        // cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
+        // cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        // cout << "Total de descontos: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
+        // cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl;
+        // cout << "----------------------------------------------------------------------------" << endl << endl;
+        LerArquivoFolhaSalarialFuncionario();
     }else{
     
         throw 1;       //erro 1: funcionario nao existe
@@ -671,13 +671,15 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
             salario += CalcularFolhaSalarial(i);      //calculando a folha salarial anual
         }
 
-        cout << "Folha Salarial Anual: R$" << salario << endl;
+        cout << "Folha Salarial Anual: R$" << salario << endl; 
+        sleep(5);
 
     }else{
 
         salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
 
         cout << "Folha do Mês de " << meses[escolha-1] << ":   R$" << salario << endl;
+        sleep(5);
 
     }
 
@@ -826,7 +828,7 @@ void Gerenciamento::ExistePresid(){
 //funcoes arquivo
 void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
     ofstream write;
-    write.open("ListaFuncionarios.txt");
+    write.open("ListaFuncionarios.txt", ofstream::trunc);
 
     if(!write.is_open()){
         cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
@@ -881,7 +883,7 @@ void Gerenciamento::LerArquivoFuncionario(){
     }
 }
 
-void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
+void Gerenciamento::EscreverArquivoFolhaSalarialFuncionario(int indice){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
     ofstream write_folha_funcionario;
 
     write_folha_funcionario.open("FolhaSalarialFuncionario.txt", ofstream::trunc);
@@ -891,12 +893,15 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro 
         }
 
         if (write_folha_funcionario.is_open()){
-            write_folha_funcionario << "Folha salarial do funcionário: " << listaFunc[indice]->getNome() << "\n";
-            write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
-            write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-            write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-            write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-            write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+            write_folha_funcionario << "------------- Folha Salarial: " << listaFunc[indice]->getNome() << "-------------" << "\n";
+            write_folha_funcionario << "\n";
+            write_folha_funcionario << "Nome: " << listaFunc[indice]->getNome() << "\n";
+            write_folha_funcionario << "Código: " << listaFunc[indice]->getCodigo() << "\n";
+            write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << "\n";
+            write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << "\n";
+            write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << "\n";
+            write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << "\n";
+            write_folha_funcionario << "-------------------------------------------------------------------" << "\n";
 
         }
     } else{
@@ -907,7 +912,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro 
 
 }
 
-void Gerenciamento::LerArquivoFolhaSalarial(){
+void Gerenciamento::LerArquivoFolhaSalarialFuncionario(){
     ifstream readFolhaFuncionario;
     vector <string> vectorReadFolhaFuncionario;
     string line;
@@ -925,10 +930,11 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
     }
 
     for(string linha : vectorReadFolhaFuncionario){
-        cout << linha;
+        cout << linha << "\n";
     }
 }
 
+// Função CEP
 string Gerenciamento::EnderecoCEP(string CEP){ // esperando apenas um funcionário tava dando problema com a instanciação desse funcionário. (testar e colocar uma condicional para caso a opção tenha sido por endereco)
 // Colocar um tratamento pra caso não retorne nada.
     string cep;
@@ -937,7 +943,7 @@ string Gerenciamento::EnderecoCEP(string CEP){ // esperando apenas um funcionár
     string address;
     cep = CEP;
 
-    system(("wget viacep.com.br/ws/" + cep + "/json/ -O " + cep + ".json").c_str());
+    system(("wget viacep.com.br/ws/" + cep + "/json/ -q -O " + cep + ".json").c_str());
     string read_file = cep + ".json";
 
     read.open(read_file);
@@ -950,7 +956,7 @@ string Gerenciamento::EnderecoCEP(string CEP){ // esperando apenas um funcionár
         string cidade = jfile["localidade"];
         string uf = jfile["uf"];
         string cep = jfile["cep"];
-        address = string("Rua: ") + rua + ("/ Bairro: ") + bairro + "/ Cidade: " + cidade + "/ UF: " + uf + "/ CEP: " + cep;
+        address = string("Rua: ") + rua + (" / Bairro: ") + bairro + " / Cidade: " + cidade + " / UF: " + uf + " / CEP: " + cep;
 
         // for(int i = 0; i < Lista.size(); i++){
         //     Lista[i]->setEndereco(address);
@@ -962,3 +968,4 @@ string Gerenciamento::EnderecoCEP(string CEP){ // esperando apenas um funcionár
     
     return address;
 }
+
