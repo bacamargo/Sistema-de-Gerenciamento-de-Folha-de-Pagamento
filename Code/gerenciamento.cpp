@@ -639,7 +639,7 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
 
     system("clear");
 
-    cout << "Digite o nome do código ou nome completo cadastrado do funcionário: " << endl;
+    cout << "Digite o código ou nome completo do funcionário: " << endl;
     getline(cin, searched);
 
     for(int i= 0; i < listaFunc.size(); i++){
@@ -698,14 +698,48 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
             salario += CalcularFolhaSalarial(i);      //pegar do arquivo 
         }
 
-        cout << "Folha Salarial Anual: R$" << salario << endl; 
+        cout << "Folha Salarial Anual" << "\n";
+        for(int a = 1; a <= 12; a++){
+            CalcularFolhaSalarial(a);
+            cout << "Mês: " << meses[a - 1] << "\n";
+            cout << "-----------------" << "\n";
+            for(int j = 0; j <= listaFunc.size(); j++){
+                cout << "Nome: " << listaFunc[j]->getNome() << "\n";
+                cout << "Salário Bruto: " << listaFunc[j]->getSalario() << "\n";
+                cout << "Desconto INSS: " << listaFunc[j]->getDescontoINSS() << "\n";
+                cout << "Desconto Imposto de Renda: " << listaFunc[j]->getDescontoImposto() << "\n";
+                cout << "Salário Líquido: " << listaFunc[j]->getSalarioLiquido() << "\n";
+                cout << "----------------------" << "\n";
+
+                if(j == listaFunc.size() - 1){
+                    break;
+                }
+            }
+            if(a == 11){
+                break;
+            }
+        }
+        
+
+        cout << "Folha Salarial Anual Total: R$" << salario << endl; 
         sleep(5);
 
     }else{
 
         salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
-
+        cout << "Folha Salarial Mês " << meses[escolha + 1] << "\n";
+        for(int i = 0; i < listaFunc.size(); i++){
+            CalcularFolhaSalarial(escolha);
+            cout << "-----------------" << "\n";
+            cout << "Nome: " << listaFunc[i]->getNome() << "\n";
+            cout << "Salário Bruto: " << listaFunc[i]->getSalario() << "\n";
+            cout << "Desconto INSS: " << listaFunc[i]->getDescontoINSS() << "\n";
+            cout << "Desconto Imposto de Renda: " << listaFunc[i]->getDescontoImposto() << "\n";
+            cout << "Salário Líquido: " << listaFunc[i]->getSalarioLiquido() << "\n";
+            cout << "-----------------" << "\n";
+        }
         cout << "Folha do Mês de " << meses[escolha-1] << ":   R$" << salario << endl;
+        cout << "-------------------------------" << "\n";
         sleep(5);
 
     }
@@ -864,6 +898,7 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
     }
     if(write.is_open()){
         for(int i = 0; i < Func.size(); i++){
+            write << "------------------------------- Funcionário -------------------------------" << "\n";
             write << "Funcionário " << i + 1 << "\n";
             write << "\n";
             write << "Código: " << Func[i]->getCodigo() << "\n";
@@ -883,6 +918,7 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
                 write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
                 write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
             }
+            write << "--------------------------------------------------------" << "\n";
             write << "\n";
         }
     }
@@ -929,7 +965,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarialFuncionario(int indice){  // cha
             write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << "\n";
             write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << "\n";
             write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << "\n";
-            write_folha_funcionario << "-------------------------------------------------------------------" << "\n";
+            write_folha_funcionario << "-------------------------------------------------------" << "\n";
 
         }
     } else{
