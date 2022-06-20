@@ -525,6 +525,7 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
     double salarioFunc, valorHora;
+    double valor;
 
     if(listaFunc.empty() == true){
 
@@ -566,45 +567,52 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
 
         if(salarioFunc <= 1100){
             
-            listaFunc[i]->setDescontoINSS(7.5/100); 
+            valor= listaFunc[i]->getSalario() * 7.5/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else if(salarioFunc <= 2203.48){
 
-            listaFunc[i]->setDescontoINSS(9.0/100); 
+            valor= listaFunc[i]->getSalario() * 9.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else if(salarioFunc <= 3305.22){
-
-            listaFunc[i]->setDescontoINSS(12.0/100);
+            
+            valor= listaFunc[i]->getSalario() * 12.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
 
         }else{
 
-            listaFunc[i]->setDescontoINSS(14.0/100);
+            valor= listaFunc[i]->getSalario() * 14.0/100;
+            listaFunc[i]->setDescontoINSS(valor); 
         }
 
-        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoINSS() );
 
-
-         if(salarioFunc <= 1903.98){
+        if(salarioFunc <= 1903.98){
             
+            listaFunc[i]->setDescontoINSS(0); 
 
         }else if(salarioFunc <= 2826.65){
 
-            listaFunc[i]->setDescontoImposto(7.5/100); 
+            valor= listaFunc[i]->getSalario() * 7.5/100;
+            listaFunc[i]->setDescontoImposto(valor); 
 
         }else if(salarioFunc <= 3751.05){
 
-            listaFunc[i]->setDescontoImposto(15.0/100);
+            valor= listaFunc[i]->getSalario() * 15.0/100;
+            listaFunc[i]->setDescontoImposto(valor); 
 
         }else if(salarioFunc <= 4664.68){
 
-            listaFunc[i]->setDescontoImposto(22.5/100);
+            valor= listaFunc[i]->getSalario() * 22.5/100;
+            listaFunc[i]->setDescontoImposto(valor);
 
         }else{
-
-             listaFunc[i]->setDescontoImposto(27.5/100);
+            
+            valor= listaFunc[i]->getSalario() * 27.5/100;
+            listaFunc[i]->setDescontoImposto(valor);
         }
 
-        salarioFunc -= ((double)salarioFunc * listaFunc[i]->getDescontoImposto() );
+        salarioFunc -= (listaFunc[i]->getDescontoImposto() + listaFunc[i]->getDescontoINSS());
 
         listaFunc[i]->setSalarioLiquido(salarioFunc);
 
