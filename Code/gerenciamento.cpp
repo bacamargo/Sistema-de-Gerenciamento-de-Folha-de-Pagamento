@@ -898,8 +898,8 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
     }
     if(write.is_open()){
         for(int i = 0; i < Func.size(); i++){
-            write << "------------------------------- Funcionário -------------------------------" << "\n";
-            write << "Funcionário " << i + 1 << "\n";
+            write << "------------------------------- Funcionário " << i + 1 << " -------------------------------" << "\n";
+            // write << "Funcionário " << i + 1 << "\n";
             write << "\n";
             write << "Código: " << Func[i]->getCodigo() << "\n";
             write << "Nome: " << Func[i]->getNome() << "\n";
@@ -957,7 +957,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarialFuncionario(int indice){  // cha
         }
 
         if (write_folha_funcionario.is_open()){
-            write_folha_funcionario << "------------- Folha Salarial: " << listaFunc[indice]->getNome() << "-------------" << "\n";
+            write_folha_funcionario << "------------- Folha Salarial: " << listaFunc[indice]->getNome() << " -------------" << "\n";
             write_folha_funcionario << "\n";
             write_folha_funcionario << "Nome: " << listaFunc[indice]->getNome() << "\n";
             write_folha_funcionario << "Código: " << listaFunc[indice]->getCodigo() << "\n";
@@ -965,7 +965,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarialFuncionario(int indice){  // cha
             write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << "\n";
             write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << "\n";
             write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << "\n";
-            write_folha_funcionario << "-------------------------------------------------------" << "\n";
+            write_folha_funcionario << "-----------------------------------------------------------------" << "\n";
 
         }
     } else{
