@@ -1,34 +1,10 @@
 Funcionário 1
 
-Código: 1
-Nome: joleana
-Endereço: djsjdisdjs
-Telefone: 323829
+Código: 2121
+Nome: joao
+Endereço: fdf
+Telefone: fdf
 Ingresso: 02/02/2000
 Designação: operador
-Salário: 2000
-
-Funcionário 2
-
-Código: 3
-Nome: hfjdhfjd
-Endereço: dkdkdjsk
-Telefone: 84394839
-Ingresso: 03/03/2002
-Designação: diretor
-Salário: 3999
-Área de Supervisão: ndjfndjfn
-Área de Formaçao: dhfdhf
-
-Funcionário 3
-
-Código: 22
-Nome: ddskdjskd
-Endereço: dsds
-Telefone: 2
-Ingresso: 02/02/2000
-Designação: diretor
-Salário: 3000
-Área de Supervisão: dksjdks
-Área de Formaçao: dksdjsk
+Salário: 1000
 

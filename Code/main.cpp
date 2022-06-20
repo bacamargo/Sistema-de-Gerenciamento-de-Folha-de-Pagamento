@@ -149,6 +149,11 @@ int main(){
                         cout << "Retornando ao menu..." << endl;
                     }
 
+                    if(erro == 8){
+                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+
                     sleep(3);
                 }
                 break;
@@ -201,7 +206,17 @@ int main(){
                 break;
 
             case 6:
-                sistema.ExibirTipoFuncionario();
+                try{
+                    sistema.ExibirTipoFuncionario();
+
+                }catch(int erro){
+
+                    if(erro == 8){
+                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        cout << "Retornando ao menu..." << endl;
+                    }
+                }
+                
                 cout << endl << endl << "Aperte uma tecla para continuar...";    
                 getchar();
                 break;
