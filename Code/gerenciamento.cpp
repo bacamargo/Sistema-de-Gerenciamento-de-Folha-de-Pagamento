@@ -9,6 +9,7 @@
 #include "operador.h"
 #include "diretor.h"
 #include "funcionario.h"
+#include "nlohmann/json.hpp"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ void Gerenciamento::InserirFuncionario(){
     string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, areaFormacao, formAcademicaMax;
     int dia, mes, ano;
     double salario;
+    string cep;
 
 
     cout << "Cadastro do novo funcionário: " << endl << endl;
@@ -55,7 +57,8 @@ void Gerenciamento::InserirFuncionario(){
 
 
     cout << "Digite o endereço do funcionário: ";
-    getline(cin, endereco);
+    getline(cin, cep);
+    endereco = EnderecoCEP(cep);
 
     cout << "Digite o telefone: " ;
     getline(cin, telefone);
@@ -116,6 +119,7 @@ void Gerenciamento::InserirFuncionario(){
     }
 
     listaFunc.push_back(func);
+    EnderecoCEP(endereco);
     EscreverArquivoFuncionario(listaFunc);
     cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
 
@@ -926,3 +930,36 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
     }
 }
 
+string Gerenciamento::EnderecoCEP(string CEP){ // esperando apenas um funcionário tava dando problema com a instanciação desse funcionário. (testar e colocar uma condicional para caso a opção tenha sido por endereco)
+// Colocar um tratamento pra caso não retorne nada.
+    string cep;
+    ifstream read;
+    nlohmann::json jfile;
+    string address;
+    cep = CEP;
+
+    system(("wget viacep.com.br/ws/" + cep + "/json/ -O " + cep + ".json").c_str());
+    string read_file = cep + ".json";
+
+    read.open(read_file);
+
+    if(read.is_open()){
+        jfile = nlohmann::json::parse(read);
+
+        string rua = jfile["logradouro"];
+        string bairro = jfile["bairro"];
+        string cidade = jfile["localidade"];
+        string uf = jfile["uf"];
+        string cep = jfile["cep"];
+        address = string("Rua: ") + rua + ("/ Bairro: ") + bairro + "/ Cidade: " + cidade + "/ UF: " + uf + "/ CEP: " + cep;
+
+        // for(int i = 0; i < Lista.size(); i++){
+        //     Lista[i]->setEndereco(address);
+        // }
+    } else{
+        // cout << "RaiseException Endereço inválido" << "\n";
+        address = "Não encontrado";
+    }
+    
+    return address;
+}
