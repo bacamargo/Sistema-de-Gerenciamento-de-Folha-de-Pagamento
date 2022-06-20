@@ -885,7 +885,7 @@ void Gerenciamento::LerArquivoFuncionario(){
 void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
     ofstream write_folha_funcionario;
 
-    write_folha_funcionario.open("FolhaSalarialFuncionario.txt");
+    write_folha_funcionario.open("FolhaSalarialFuncionario.txt", ofstream::trunc);
     if(indice != -1){
         if (!write_folha_funcionario.is_open()){
             cout << "RaisedExceptionFalhaNaCriação de arquivo" << "\n";
