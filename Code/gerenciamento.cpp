@@ -296,7 +296,7 @@ void Gerenciamento::EditarFuncionario(){
             cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
             break;
     }
-
+    EscreverArquivoFuncionario(listaFunc);
     cout << " (Aperte uma tecla para continuar....) " << endl;
     getchar();       
 }
@@ -349,7 +349,7 @@ void Gerenciamento::ExcluirFuncionario(){
 
                 if(confirmacao == 's'){
                     listaFunc.erase(listaFunc.begin()+ indRemovido);  //apaga o funcioanario
-                
+                    EscreverArquivoFuncionario(listaFunc);                
                     cout << endl << "----------Funcionário removido com sucesso!----------" << endl; 
 
                 }else{
@@ -365,7 +365,6 @@ void Gerenciamento::ExcluirFuncionario(){
 
         throw 1;          //erro 1: FUNCIONARIO NAO EXISTENTE
     }
-
 }
 
 void Gerenciamento::ExibirFuncionario(string code){
