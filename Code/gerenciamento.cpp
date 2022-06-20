@@ -956,3 +956,12 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
     }
 }
 
+//salvar folhas salariais
+
+void Gerenciamento::SalvarFolhaSalarial(int mes){
+
+    vector <string> infoFuncionarios(12);
+
+    
+
+}

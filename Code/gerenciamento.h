@@ -23,10 +23,12 @@ class Gerenciamento{
     void ExibirListaFuncionario();
     void ExibirTipoFuncionario();
     void BuscarFuncionario(string search);
+
     double CalcularFolhaSalarial(int mes);
     void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
+    void SalvarFolhaSalarial(int mes);
     void ConfereCodigo(string code);
     void ExistePresid();
 

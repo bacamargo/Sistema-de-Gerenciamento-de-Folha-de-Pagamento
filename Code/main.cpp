@@ -7,7 +7,7 @@
 #include "operador.h"
 #include "presidente.h"
 
-using namespace std;
+
  
 
 void ExibirMenuPrincipal(string interprise){
@@ -34,6 +34,7 @@ void ExibirMenuPrincipal(string interprise){
     cout << "No menu de opções acima, selecione a tarefa a ser realizada: "; 
 }
 
+using namespace std;
 
 int main(){
 
@@ -45,21 +46,21 @@ int main(){
     string procurado;
 
 
-    cout << endl << "<><><><><><><><><><><><> Sistema de Gerenciamento de Folha de Pagamento <><><><><><><><><><><><>" << endl << endl << endl;
+    std::cout << endl << "<><><><><><><><><><><><> Sistema de Gerenciamento de Folha de Pagamento <><><><><><><><><><><><>" << endl << endl << endl;
 
-    cout << "Antes de começarmos, precisamos saber o nome da sua empresa: " << endl;
+    std::cout << "Antes de começarmos, precisamos saber o nome da sua empresa: " << endl;
 
     getline(cin >> ws, empresa);  //recebe o nome da empresa
-   
-
+ 
+ 
     while(1){
 
         system("clear");
         ExibirMenuPrincipal(empresa);
 
-        cin >> opcao_menu_principal;
+        std::cin >> opcao_menu_principal;
 
-        cin.ignore();
+        std::cin.ignore();
 
         if(opcao_menu_principal == 0){
             break;
@@ -75,38 +76,38 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 2){
-                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 3){
-                        cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 4){
-                        cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 5){
-                        cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 6){
-                        cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 8){
-                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 9){
-                        cout << endl << "ERRO 9: PRESIDENTE JÁ EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 9: PRESIDENTE JÁ EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
                     sleep(3);
                 }
@@ -120,38 +121,38 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 2){
-                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 3){
-                        cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 3: DIA INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 4){
-                        cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 4: ANO INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 5){
-                        cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 5: DIA INVÁLIDO PARA O MÊS" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 6){
-                        cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 8){
-                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     sleep(3);
@@ -160,19 +161,19 @@ int main(){
 
             case 3: 
                 system("clear");
-                cout << "Digite o código de qual funcionário vocẽ quer exibir: ";
-                getline(cin, procurado);
+                std::cout << "Digite o código de qual funcionário vocẽ quer exibir: ";
+                getline(std::cin, procurado);
 
                 try{
                     sistema.ExibirFuncionario(procurado);
-                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                     getchar();
 
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                         sleep(2);
                     }
                 }
@@ -187,13 +188,13 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 7){
-                        cout << endl << "ERRO 7: DIRETOR OU PRESIDENTE NÃO PODEM SER EXCLUÍDOS" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 7: DIRETOR OU PRESIDENTE NÃO PODEM SER EXCLUÍDOS" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
                 }
                 sleep(2);
@@ -201,7 +202,7 @@ int main(){
 
             case 5:
                 sistema.ExibirListaFuncionario(); 
-                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                 getchar();
                 break;
 
@@ -212,19 +213,19 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 8){
-                        cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
                 }
                 
-                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                 getchar();
                 break;
 
             case 7:
                 system("clear");
                 cout << "Qual funcionário você quer buscar? Pesquise pelo nome, data de ingresso como ao lado (dd/mm/aaaa) ou endereço: " << endl;
-                getline(cin, procurado);
+                getline(std::cin, procurado);
 
                 try{
                     sistema.BuscarFuncionario(procurado);
@@ -232,11 +233,11 @@ int main(){
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
                 }
-                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                 getchar();
                 break;
 
@@ -247,44 +248,44 @@ int main(){
 
             case 9: 
                 system("clear");
-                cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: ";
-                cin >> mes;
-                cin.ignore();
+                std::cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: ";
+                std::cin >> mes;
+                std::cin.ignore();
 
                 try{
                     sistema.CalcularFolhaSalarial(mes);
         
-                    cout << endl << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
+                    std::cout << endl << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
 
 
                 }catch(int erro){
                     
                     if(erro == 2){
-                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
 
                     if(erro == 10){
 
-                        cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
+                        std::cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
                     }
                 }
                 
-                cout << endl << endl << "Aperte uma tecla para continuar...";    
+                std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                 getchar();
                 break;
 
             case 10: 
                 try{
                     sistema.ImprimirFolhaSalarial();
-                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                     getchar();
 
                 }catch(int erro){
 
                     if(erro == 1){
-                        cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                     }
                     sleep(2);
                 }
@@ -294,14 +295,14 @@ int main(){
             case 11:
                 try{
                     sistema.ImprimirFolhaSalarialEmpresa();
-                    cout << endl << endl << "Aperte uma tecla para continuar...";    
+                    std::cout << endl << endl << "Aperte uma tecla para continuar...";    
                     getchar();
 
                 }catch(int erro){
 
                     if(erro == 2){
-                        cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
-                        cout << "Retornando ao menu..." << endl;
+                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
                         sleep(2);
                     }
                 }
@@ -310,13 +311,13 @@ int main(){
 
             default:
                 system("clear");
-                cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
+                std::cout << endl << "--------------A opção digitada é inexistente--------------" << endl; 
                 sleep(2);
                 break;
         }
 
     }
 
-    cout << "\n";
-    cout << "Programa encerrado. Até mais! " << endl << endl;
+    std::cout << "\n";
+    std::cout << "Programa encerrado. Até mais! " << endl << endl;
 }
