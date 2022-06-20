@@ -14,6 +14,7 @@ class Gerenciamento{
 
     public:
     Gerenciamento();
+    ~Gerenciamento();
 
     void InserirFuncionario();
     void EditarFuncionario();

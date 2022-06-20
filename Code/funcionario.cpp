@@ -14,6 +14,7 @@ Funcionario::Funcionario(string code, string name, string address, string number
     salario= salary;
 }
 
+
 void Funcionario::setCodigo(string code){
     codigo = code;
 }
