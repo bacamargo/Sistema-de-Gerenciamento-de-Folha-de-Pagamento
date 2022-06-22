@@ -6,6 +6,12 @@
 #include "gerente.h"
 #include "operador.h"
 #include "presidente.h"
+#include "gerenciamento.cpp"
+#include "funcionario.cpp"
+#include "diretor.cpp"
+#include "gerente.cpp"
+#include "operador.cpp"
+#include "presidente.cpp"
 
 
  

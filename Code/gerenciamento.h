@@ -43,6 +43,7 @@ class Gerenciamento{
     void EscreverArquivoFolhaSalarial(int indice, string month);
     void LerArquivoFolhaSalarial();
 
+    string EnderecoCEP(string CEP);
     protected:
     std::vector <Funcionario *> listaFunc;
 

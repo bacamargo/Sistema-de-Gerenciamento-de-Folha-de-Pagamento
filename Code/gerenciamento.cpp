@@ -9,6 +9,7 @@
 #include "operador.h"
 #include "diretor.h"
 #include "funcionario.h"
+//#include "nlohmann/json.hpp"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ void Gerenciamento::InserirFuncionario(){
     string codigo, dataIngresso, nome, endereco, telefone, designacao, areaSupervisao, areaFormacao, formAcademicaMax;
     int dia, mes, ano;
     double salario;
+    string cep;
 
 
     cout << "Cadastro do novo funcionário: " << endl << endl;
@@ -64,7 +66,8 @@ void Gerenciamento::InserirFuncionario(){
 
 
     cout << "Digite o endereço do funcionário: ";
-    getline(cin, endereco);
+    getline(cin, cep);
+    endereco = EnderecoCEP(cep);
 
     cout << "Digite o telefone: " ;
     getline(cin, telefone);
@@ -125,6 +128,7 @@ void Gerenciamento::InserirFuncionario(){
     }
 
     listaFunc.push_back(func);
+    EnderecoCEP(endereco);
     EscreverArquivoFuncionario(listaFunc);
     cout << endl << "---------------- Cadastro feito com sucesso! ----------------" << endl;
 
@@ -303,8 +307,6 @@ void Gerenciamento::EditarFuncionario(){
             break;
     }
 
-    EscreverArquivoFuncionario(listaFunc);
-
     cout << " (Aperte uma tecla para continuar....) " << endl;
     getchar();       
 }
@@ -357,7 +359,7 @@ void Gerenciamento::ExcluirFuncionario(){
 
                 if(confirmacao == 's'){
                     listaFunc.erase(listaFunc.begin()+ indRemovido);  //apaga o funcioanario
-                
+                    EscreverArquivoFuncionario(listaFunc);                
                     cout << endl << "----------Funcionário removido com sucesso!----------" << endl; 
 
                 }else{
@@ -373,8 +375,6 @@ void Gerenciamento::ExcluirFuncionario(){
 
         throw 1;          //erro 1: FUNCIONARIO NAO EXISTENTE
     }
-
-    EscreverArquivoFuncionario(listaFunc);
 
 }
 
@@ -938,7 +938,7 @@ void Gerenciamento::ExistePresid(){
 //funcoes arquivo
 void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
     ofstream write;
-    write.open("ListaFuncionarios.txt");
+    write.open("ListaFuncionarios.txt", ofstream::trunc);
 
     if(!write.is_open()){
         cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
@@ -946,7 +946,8 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
     }
     if(write.is_open()){
         for(int i = 0; i < Func.size(); i++){
-            write << "Funcionário " << i + 1 << "\n";
+            write << "------------------------------- Funcionário " << i + 1 << " -------------------------------" << "\n";
+            // write << "Funcionário " << i + 1 << "\n";
             write << "\n";
             write << "Código: " << Func[i]->getCodigo() << "\n";
             write << "Nome: " << Func[i]->getNome() << "\n";
@@ -965,6 +966,7 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
                 write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
                 write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
             }
+            write << "--------------------------------------------------------" << "\n";
             write << "\n";
         }
     }
@@ -996,7 +998,7 @@ void Gerenciamento::LerArquivoFuncionario(){
 void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
     ofstream write_folha_funcionario;
 
-    write_folha_funcionario.open("FolhaSalarialFuncionario.txt");
+    write_folha_funcionario.open("FolhaSalarialFuncionario.txt", ofstream::trunc);
     if(indice != -1){
         if (!write_folha_funcionario.is_open()){
             cout << "RaisedExceptionFalhaNaCriação de arquivo" << "\n";
@@ -1020,7 +1022,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // 
 
 }
 
-void Gerenciamento::LerArquivoFolhaSalarial(){
+void Gerenciamento::LerArquivoFolhaSalarialFuncionario(){
     ifstream readFolhaFuncionario;
     vector <string> vectorReadFolhaFuncionario;
     string line;
@@ -1038,7 +1040,7 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
     }
 
     for(string linha : vectorReadFolhaFuncionario){
-        cout << linha;
+        cout << linha << "\n";
     }
 }
 
