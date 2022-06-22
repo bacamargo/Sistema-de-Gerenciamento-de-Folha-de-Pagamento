@@ -9,7 +9,7 @@
 #include "operador.h"
 #include "diretor.h"
 #include "funcionario.h"
-//#include "nlohmann/json.hpp"
+#include "nlohmann/json.hpp"
 
 using namespace std;
 
@@ -65,8 +65,13 @@ void Gerenciamento::InserirFuncionario(){
     dataIngresso= FormataData(dia, mes, ano);    //funcao pra validar a data
 
 
-    cout << "Digite o endereço do funcionário: ";
+    cout << "Digite o CEP do funcionário: ";
     getline(cin, cep);
+
+    if(cep.length() != 8){
+        throw 11; //erro no cep
+    }
+
     endereco = EnderecoCEP(cep);
 
     cout << "Digite o telefone: " ;
@@ -721,7 +726,7 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
             cout << "  -------------------------------------------------------------------------------------------------------------" << endl;
             cout << endl << "Folha mensal de " << meses[escolha-1] << ": " << endl << endl;
             cout << "Funcionário: " << listaFunc[indice]->getNome() << endl;
-            cout << "Salário Bruto, Desconto INSS, Desconto Imposto, Salário Líquido em R$: " << endl;
+            cout << "Salário Bruto, Desconto INSS, Desconto Imposto, Salário Líquido (em R$): " << endl << endl;
             cout << listaFunc[indice]->getFolhaMensal(escolha) << endl;
             cout << "  --------------------------------------------------------------------------------------------------------------" << endl << endl;
         }
@@ -946,53 +951,121 @@ void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // L�
     }
     if(write.is_open()){
         for(int i = 0; i < Func.size(); i++){
-            write << "------------------------------- Funcionário " << i + 1 << " -------------------------------" << "\n";
-            // write << "Funcionário " << i + 1 << "\n";
-            write << "\n";
-            write << "Código: " << Func[i]->getCodigo() << "\n";
-            write << "Nome: " << Func[i]->getNome() << "\n";
-            write << "Endereço: " << Func[i]->getEndereco() << "\n";
-            write << "Telefone: " << Func[i]->getTelefone() << "\n";
-            write << "Ingresso: " << Func[i]->getIngresso() << "\n";
-            write << "Designação: " << Func[i]->getDesignacao() << "\n";
-            write << "Salário: " << Func[i]->getSalario() << "\n";
+
+            write << "///////" << "\n";
+            write << Func[i]->getCodigo() << "\n";
+            write << Func[i]->getNome() << "\n";
+            write << Func[i]->getEndereco() << "\n";
+            write << Func[i]->getTelefone() << "\n";
+            write << Func[i]->getIngresso() << "\n";
+            write << Func[i]->getDesignacao() << "\n";
+            write << Func[i]->getSalario() << "\n";
             
             if(Func[i]->getDesignacao() == "gerente"){
-                write << "Área de Supervisão: " << ((Gerente*)Func[i])->getAreaSupervisao() << "\n"; 
+                write << ((Gerente*)Func[i])->getAreaSupervisao() << "\n"; 
             } else if(Func[i]->getDesignacao() == "diretor"){
-                write << "Área de Supervisão: " << ((Diretor*)Func[i])->getAreaSupervisao() << "\n";
-                write << "Área de Formaçao: " << ((Diretor*)Func[i])->getAreaFormacao() << "\n";
+                write << ((Diretor*)Func[i])->getAreaSupervisao() << "\n";
+                write << ((Diretor*)Func[i])->getAreaFormacao() << "\n";
             } else if(Func[i]->getDesignacao() == "presidente"){
-                write << "Área de Formação: " << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
-                write << "Formação Máxima: " << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
+                write << ((Presidente*)Func[i])->getAreaFormacao() << "\n";
+                write << ((Presidente*)Func[i])->getFormacaoMax() << "\n";
             }
-            write << "--------------------------------------------------------" << "\n";
-            write << "\n";
+        
         }
     }
     write.close();
 }
 
 void Gerenciamento::LerArquivoFuncionario(){
-    ifstream read;
-    vector <string> Cadastro;
-    string line;
-    read.open("ListaFuncionarios.txt");
-    if(!read.is_open()){
-        cout << "Falha na abertura do arquivo Cadastro de Funcionários" << "\n";
-    }
 
-    if(read.is_open()){
-        if(!read.eof()){
-            while(getline(read, line)){
-                Cadastro.push_back(line);
+    int i = 0;
+    int quantTem = 0; 
+    int quantLeu = 0;
+    std::fstream fs;
+   
+    
+        fs.open("ListaFuncionarios.txt", std::fstream::in);
+        if(!fs.is_open()){
+            std::cout << "Erro ao abrir arquivo para leitura\n";
+        }
+        while(1){
+            if(fs.eof()){
+                break;
+            }
+            std::string linha;
+            getline(fs, linha);
+            if(linha == "///////"){
+                quantTem++;
             }
         }
-    }
+        fs.close();
+    
+    
+    
+        fs.open("ListaFuncionarios.txt", std::fstream::in);
+        if(!fs.is_open()){
+            std::cout << "Erro ao abrir arquivo para leitura\n";
+        }
+        while(1){
+            if(quantLeu == quantTem){
+                break;
+            }
+            i++;
+            std::string linha;
+            string codigo;
+            string nome;
+            string endereco;
+            string numero;
+            string telefone;
+            string areaSupervisao;
+            int dia, mes, ano;
+            string data, designacao;
+            float salario;
+            
+            getline(fs, linha);
+            quantLeu++;
 
-    for(string linha : Cadastro){
-        cout << linha << "\n";
-    }
+            getline(fs, codigo);
+            getline(fs, nome);
+            getline(fs, endereco);
+            getline(fs, telefone);
+            getline(fs, data);
+            getline(fs, designacao);
+            fs >> salario;
+            fs.ignore();
+
+            Funcionario *func;
+            std::string areaFormacao, formacaoMaxima;
+
+            if (designacao == "operador"){
+
+                func= new Operador(codigo, nome, endereco, telefone, data, salario);
+                break;
+            
+            }else if(designacao == "gerente"){
+
+                getline(fs, areaSupervisao);
+                func = new Gerente(codigo, nome, endereco, telefone, data, salario, areaSupervisao);
+                break;getline(fs, areaSupervisao);
+                func = new Gerente(codigo, nome, endereco, telefone, data, salario, areaSupervisao);
+                break;
+
+            }else if(designacao == "diretor"){
+
+                getline(fs, areaSupervisao);
+                getline(fs, areaFormacao);
+                func = new Diretor(codigo, nome, endereco, telefone, data, salario, areaSupervisao, areaFormacao);
+                break;
+            }else if(designacao == "presidente"){
+                getline(fs, areaFormacao);
+                getline(fs, formacaoMaxima);
+                func = new Presidente(codigo, nome, endereco, telefone, data, salario, areaFormacao, formacaoMaxima);
+                break;
+            }
+
+            listaFunc.push_back(func);
+        }
+        fs.close();
 }
 
 void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
@@ -1022,7 +1095,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // 
 
 }
 
-void Gerenciamento::LerArquivoFolhaSalarialFuncionario(){
+void Gerenciamento::LerArquivoFolhaSalarial(){
     ifstream readFolhaFuncionario;
     vector <string> vectorReadFolhaFuncionario;
     string line;
@@ -1172,5 +1245,44 @@ vector <double> Gerenciamento::ConsultarFolhaSalarial(int mes, int indice){
             return dados;
     }
 
+}
 
+
+// Função CEP
+string Gerenciamento::EnderecoCEP(string CEP){ 
+    string cep;
+    ifstream read;
+    nlohmann::json jfile;
+    string address;
+    cep = CEP;
+
+    system(("wget viacep.com.br/ws/" + cep + "/json/ -q -O " + cep + ".json").c_str());
+    string read_file = cep + ".json";
+
+    read.open(read_file);
+
+    if(read.is_open()){
+
+        jfile = nlohmann::json::parse(read);
+
+        string rua = jfile["logradouro"];
+        if(rua == ""){
+            throw 11;
+        }
+        string bairro = jfile["bairro"];
+        string cidade = jfile["localidade"];
+        string uf = jfile["uf"];
+        string cep = jfile["cep"];
+        //address = string("Rua: ") + rua + (" / Bairro: ") + bairro + " / Cidade: " + cidade + " / UF: " + uf + " / CEP: " + cep;
+        address = rua + (", ") + bairro + ", " + cidade + "," + uf;
+
+
+        // for(int i = 0; i < Lista.size(); i++){
+        //     Lista[i]->setEndereco(address);
+        // }
+    } else{
+        address = "Não encontrado";
+    }
+    
+    return address;
 }

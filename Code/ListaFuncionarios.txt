@@ -1,27 +1,16 @@
-Funcionário 1
-
-Código: 1
-<<<<<<< HEAD
-Nome: ju
-Endereço: fdfdf
-Telefone: 2323
-Ingresso: 01/01/2000
-=======
-Nome: joleana
-Endereço: rua josefa taveira
-Telefone: 9384394
-Ingresso: 01/01/2000
-Designação: operador
-Salário: 2000
-
-Funcionário 2
-
-Código: 2
-Nome: pedro
-Endereço: rua josefa taveirnha
-Telefone: 48398439
-Ingresso: 02/02/2000
->>>>>>> ed62db7658f3885542ad245a50023ade50b5c9e0
-Designação: operador
-Salário: 3000
-
+///////
+1
+gabriel 
+Rua Etelvina Macedo de Mendonça, Torre, João Pessoa,PB
+348394
+20/02/2000
+operador
+3000
+///////
+3
+gabreil
+Rua Etelvina Macedo de Mendonça, Torre, João Pessoa,PB
+4389483
+04/03/2012
+operador
+30000

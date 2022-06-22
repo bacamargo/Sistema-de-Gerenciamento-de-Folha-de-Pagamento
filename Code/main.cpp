@@ -6,12 +6,12 @@
 #include "gerente.h"
 #include "operador.h"
 #include "presidente.h"
-#include "gerenciamento.cpp"
-#include "funcionario.cpp"
-#include "diretor.cpp"
-#include "gerente.cpp"
-#include "operador.cpp"
-#include "presidente.cpp"
+// #include "gerenciamento.cpp"
+// #include "funcionario.cpp"
+// #include "diretor.cpp"
+// #include "gerente.cpp"
+// #include "operador.cpp"
+// #include "presidente.cpp"
 
 
  
@@ -43,6 +43,7 @@ using namespace std;
 
 int main(){
 
+
     string empresa;
     int opcao_menu_principal;
     Gerenciamento sistema;
@@ -50,6 +51,7 @@ int main(){
     int mes;
     string procurado;
 
+    sistema.LerArquivoFuncionario();
 
     std::cout << endl << "<><><><><><><><><><><><> Sistema de Gerenciamento de Folha de Pagamento <><><><><><><><><><><><>" << endl << endl << endl;
 
@@ -114,6 +116,12 @@ int main(){
                         std::cout << endl << "ERRO 9: PRESIDENTE JÁ EXISTENTE" << endl << endl;
                         std::cout << "Retornando ao menu..." << endl;
                     }
+
+                    if(erro == 11){
+                        std::cout << endl << "ERRO 11: CEP INEXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
+                    }
+
                     sleep(3);
                 }
                 
