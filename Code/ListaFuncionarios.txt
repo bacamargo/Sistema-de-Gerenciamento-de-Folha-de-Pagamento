@@ -1,10 +1,10 @@
 Funcionário 1
 
-Código: 2121
-Nome: joao
-Endereço: fdf
-Telefone: fdf
-Ingresso: 02/02/2000
+Código: 1
+Nome: ju
+Endereço: fdfdf
+Telefone: 2323
+Ingresso: 01/01/2000
 Designação: operador
 Salário: 1000
 

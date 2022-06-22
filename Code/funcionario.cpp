@@ -101,30 +101,13 @@ double Funcionario::getSalarioLiquido(){
     return salarioLiquido;
 }
 
-void setAreaFormacao(string graduation){
 
+void Funcionario::setFolhaMensal(string paper, int month){
+
+     folhasMensais[month-1]= paper;
 }
 
-void setFormacaoMax(string max){
+string Funcionario::getFolhaMensal(int month){
 
-}
-
-
-void setAreaSupervisao(string area){
-
-
-}
-
-string getAreaFormacao(){
-
-    return "";
-}
-
-string getFormacaoMax(){
-
-    return "";
-}
-string getAreaSupervisao(){
-
-    return "";
-}
+    return folhasMensais[month-1];
+}   

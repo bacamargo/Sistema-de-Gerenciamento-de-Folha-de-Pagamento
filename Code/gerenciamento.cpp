@@ -522,15 +522,21 @@ void Gerenciamento::BuscarFuncionario(string search){
 
 
 //funcoes folha salarial
-double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
+void Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
 
     static int aleatorio= 7;
+
+    vector<string> meses= {"janeiro", "fevereiro", "março", "abril", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
 
     int diasMax;
     int diasTrabalhados, horasExtras;
     double salarioTotal= 0;
     double salarioFunc, valorHoraExtra;
     double valor;
+    string sBruto, descINSS, descImposto, sLiquido;
+    string folha;
+    string indexacao;
+    string formato= "    ";
 
     if(listaFunc.empty() == true){
 
@@ -549,9 +555,11 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
         diasMax= 22;
     }
 
-    srand(time(NULL)+aleatorio);
+    
 
     for(int i= 0; i < listaFunc.size(); i++){
+
+        srand(time(NULL)+aleatorio);
 
         while(1){                                  //gerando os dias trabalhados aleatoriamente
             diasTrabalhados= rand() % diasMax + 1; 
@@ -570,7 +578,9 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
         valorHoraExtra= listaFunc[i]->getSalario() / (diasMax * 8.0);
         valorHoraExtra= valorHoraExtra * 2.0 * horasExtras;
 
-        salarioFunc += valorHoraExtra;
+        salarioFunc += valorHoraExtra;       //salario bruto
+
+        listaFunc[i]->setSalario(salarioFunc);      //setando salario bruto
 
         listaFunc[i]->setDescontoINSS(0); 
 
@@ -623,12 +633,27 @@ double Gerenciamento::CalcularFolhaSalarial(int mes){     //revisar esse metodo
 
         listaFunc[i]->setSalarioLiquido(salarioFunc);
 
-        salarioTotal += salarioFunc;
+        sBruto= to_string(listaFunc[i]->getSalario());  //transformando em string
+        
+        //indexacao= "Taxa INSS: R$";
+        descINSS= to_string(listaFunc[i]->getDescontoINSS());       //transformando em string
+
+        //indexacao= "Taxa Imposto: R$";
+        descImposto= to_string(listaFunc[i]->getDescontoImposto()); //transformando em string
+
+
+        sLiquido= to_string(listaFunc[i]->getSalarioLiquido());     //transformando em string 
+
+        folha= sBruto + formato + descINSS + formato + descImposto + formato + sLiquido + formato;
+
+        listaFunc[i]->setFolhaMensal(folha, mes);
+
+
+        EscreverArquivoFolhaSalarial(i, meses[mes-1]);               //escrevendo no arquivo da folha;
+
+         aleatorio++;        //incrementar o numero aleatorio 
     }
 
-    aleatorio++;        //incrementar o numero aleatorio 
-
-    return salarioTotal;
 }
 
 void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
@@ -636,14 +661,32 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
     bool existeFunc= false;
     int indice;
     string searched;
+    int escolha;
+    vector<string> meses= {"janeiro", "fevereiro", "março", "abril", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+    vector<double> dadosAnuais;
 
     system("clear");
 
-    cout << "Digite o nome do código ou nome completo cadastrado do funcionário: " << endl;
+    cout << "Digite o nome do código ou nome completo cadastrado do funcionário: ";
     getline(cin, searched);
 
-    for(int i= 0; i < listaFunc.size(); i++){
+    cout << "Você deseja imprimir a folha salarial anual ou de um mês específico? " << endl << endl;
 
+    cout << "Digite (0)- folha anual" << endl;
+    cout << "Digite o número equivalente ao mês (de 1 a 12)- folha mensal do mês" << endl;
+    cout << "Escolha: ";
+
+    cin >> escolha;
+    cin.ignore();
+
+    if(escolha < 0 || escolha > 12){
+
+        throw 2;      //erro 2: MES INVALIDO    
+
+    }
+
+    for(int i= 0; i < listaFunc.size(); i++){          //procurando o funcionario
+ 
         if(listaFunc[i]->getCodigo() == searched || listaFunc[i]->getNome() == searched){
 
             existeFunc= true;
@@ -654,14 +697,34 @@ void Gerenciamento::ImprimirFolhaSalarial(){     //revisar esse metodo
 
     if(existeFunc){
         
-        cout << "--------------------------------Funcionário--------------------------------" << endl;
-        cout << "Código: " << listaFunc[indice]->getCodigo() << endl;
-        cout << "Nome: " << listaFunc[indice]->getNome() << endl;
-        cout << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
-        cout << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
-        cout << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-        cout << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl;
-        cout << "----------------------------------------------------------------------------" << endl << endl;
+        if(escolha == 0){
+
+            dadosAnuais= ConsultarFolhaSalarial(escolha, indice);   //
+
+            if(dadosAnuais.size() == 0){
+
+                cout << "-------Você não calculou todas as folhas mensais. Não é possível calcular folha anual-------" << endl;
+
+            }else{
+
+                cout << "----------------Folha Anual do Funcionário " << listaFunc[indice]->getNome() << "--------------" << endl;
+                cout << "Salário bruto anual: " << dadosAnuais[0] << endl;
+                cout << "Salário líquido anual: " << dadosAnuais[1] << endl;
+            }
+
+        }else{          //a escolha foi de um mes específico
+            
+            if(listaFunc[indice]->getFolhaMensal(escolha) == ""){
+                CalcularFolhaSalarial(escolha);
+            }
+
+            cout << "  -------------------------------------------------------------------------------------------------------------" << endl;
+            cout << endl << "Folha mensal de " << meses[escolha-1] << ": " << endl << endl;
+            cout << "Funcionário: " << listaFunc[indice]->getNome() << endl;
+            cout << "Salário Bruto, Desconto INSS, Desconto Imposto, Salário Líquido em R$: " << endl;
+            cout << listaFunc[indice]->getFolhaMensal(escolha) << endl;
+            cout << "  --------------------------------------------------------------------------------------------------------------" << endl << endl;
+        }
 
     }else{
     
@@ -677,6 +740,7 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
     int escolha;
     double salario= 0;
     vector<string> meses= {"janeiro", "fevereiro", "março", "abril", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+    vector<double> dados;
 
     cout << "Você deseja imprimir a folha salarial anual ou de um mês específico? " << endl << endl;
 
@@ -686,25 +750,46 @@ void Gerenciamento::ImprimirFolhaSalarialEmpresa(){   //revisar esse metodo
     cin >> escolha;
     cin.ignore();
 
+    if(listaFunc.size() == 0){
+
+        cout << endl << "------------------Não existe funcionários cadastrados------------------" << endl;
+        sleep(2);
+        return;
+    }
+
     if(escolha < 0 || escolha > 12){
 
         throw 2;      //erro 2: MES INVALIDO    
 
     }else if(escolha == 0){
+    
 
-        for(int i= 1; i <= 12; i++){
+        dados= ConsultarFolhaSalarial(escolha, 0);
 
-            salario += CalcularFolhaSalarial(i);      //pegar do arquivo 
-        }
+        if(dados.size() == 0){
 
-        cout << endl << "Folha Salarial Anual: R$" << salario << endl;
+                cout << "-------Você não calculou todas as folhas mensais. Não é possível calcular folha anual-------" << endl;
+
+        }else{
+
+                cout << "------------------------Folha Anual------------------------" << endl;
+                cout << "Gasto Salarial Bruto Anual Empresa: R$" << dados[0] << endl;
+                cout << "Gasto Salarial Liquido Anual Empresa: R$" << dados[1] << endl;
+        }    
+
+        
 
     }else{
 
-        salario = CalcularFolhaSalarial(escolha);      //calculando a folha salarial mensal
+        if(listaFunc[0]->getFolhaMensal(escolha) == ""){
+            CalcularFolhaSalarial(escolha);
+        }
 
-        cout << endl << "Folha do Mês de " << meses[escolha-1] << ":   R$" << salario << endl;
+        dados= ConsultarFolhaSalarial(escolha, 0);      //calculando a folha salarial mensal
 
+
+        cout << endl << "Folha Salarial Bruto Anual Empresa: R$" << dados[0] << endl;
+        cout << endl << "Folha Salarial Liquido Anual Empresa: R$" << dados[1] << endl;
     }
 
 }
@@ -908,7 +993,7 @@ void Gerenciamento::LerArquivoFuncionario(){
     }
 }
 
-void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
+void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // chamar dentro da função de ImprimirFolhaSalarial. Usar o i da função. 
     ofstream write_folha_funcionario;
 
     write_folha_funcionario.open("FolhaSalarialFuncionario.txt");
@@ -918,6 +1003,7 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice){  // chamar dentro 
         }
 
         if (write_folha_funcionario.is_open()){
+            write_folha_funcionario << month << "\n";
             write_folha_funcionario << "Folha salarial do funcionário: " << listaFunc[indice]->getNome() << "\n";
             write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
             write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
@@ -958,10 +1044,131 @@ void Gerenciamento::LerArquivoFolhaSalarial(){
 
 //salvar folhas salariais
 
-void Gerenciamento::SalvarFolhaSalarial(int mes){
+vector <double> Gerenciamento::ConsultarFolhaSalarial(int mes, int indice){
 
-    vector <string> infoFuncionarios(12);
+    string folhaMes;
+    vector<string> dadosFolha;
+    size_t pos = 0;
+    string delimitador= "    ";
+    double brutoAnual, liquidoAnual;
+    vector <double> dados;
+    bool info;
 
-    
+
+    if(mes == 0){
+
+        if(indice != 0){
+
+            brutoAnual= 0;
+            liquidoAnual= 0;
+            info= true;
+            for(int i= 1; i < 13; i++){
+
+                folhaMes= listaFunc[indice]->getFolhaMensal(i);
+                
+                if(folhaMes == ""){
+                    info= false;
+                    break;
+                }
+
+                pos= 0;
+                while ((pos = folhaMes.find(delimitador)) != string::npos) {
+                    
+                    dadosFolha.push_back(folhaMes.substr(0, pos));
+                    
+                    folhaMes.erase(0, pos + delimitador.length());
+                }
+
+                brutoAnual += stod(dadosFolha[0]);       //pq o bruto é o primeiro dado a ser setado
+                liquidoAnual += stod(dadosFolha[3]);       //pq o bruto é o primeiro dado a ser setado
+            }
+
+
+                if(info != false){
+                
+                    dados.push_back(brutoAnual);
+                    dados.push_back(liquidoAnual);
+                } 
+
+                return dados;
+
+            }else{               //calculando folha ANUAL para todos os usuarios
+
+            brutoAnual= 0;
+            liquidoAnual= 0;
+            
+            for(int i= 0; i < listaFunc.size(); i++){
+
+                info= true;
+                for(int j= 1; j < 13; j++){
+
+                    folhaMes= listaFunc[i]->getFolhaMensal(j);
+
+                    if(folhaMes == ""){
+                        info= false;
+                        break;
+                    }
+
+                    pos= 0;
+                    while ((pos = folhaMes.find(delimitador)) != string::npos) {
+
+                        dadosFolha.push_back(folhaMes.substr(0, pos));
+                        folhaMes.erase(0, pos + delimitador.length());
+                    }
+
+                    brutoAnual += stod(dadosFolha[0]);       //pq o bruto é o primeiro dado a ser setado
+                    liquidoAnual += stod(dadosFolha[3]);       //pq o bruto é o primeiro dado a ser setado
+                }
+
+                if(info == false){
+                    break;
+                }     
+            }
+
+            if(info != false){
+            
+                dados.push_back(brutoAnual);
+                dados.push_back(liquidoAnual);
+            }
+
+            return dados;
+        }
+        
+    }else{
+
+            brutoAnual= 0;
+            liquidoAnual= 0;
+            info= true;
+            for(int i= 0; i < listaFunc.size(); i++){
+
+                folhaMes= listaFunc[i]->getFolhaMensal(mes);
+
+                if(folhaMes == ""){
+                    info= false;
+                    break;
+                }
+
+             
+                pos= 0;
+                while ((pos = folhaMes.find(delimitador)) != string::npos) {
+
+                    dadosFolha.push_back(folhaMes.substr(0, pos));
+                    folhaMes.erase(0, pos + delimitador.length());
+                }
+
+                brutoAnual += stod(dadosFolha[0]);       //pq o bruto é o primeiro dado a ser setado
+                liquidoAnual += stod(dadosFolha[3]);       //pq o bruto é o primeiro dado a ser setado
+            }
+
+
+            if(info != false){
+            
+                dados.push_back(brutoAnual);
+                dados.push_back(liquidoAnual);
+            }
+            
+            return dados;
+    }
+
 
 }

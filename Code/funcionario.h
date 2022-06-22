@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Funcionario{
         double descontoINSS;
         double descontoImposto;
         double salarioLiquido;
+        vector<string> folhasMensais= {"","", "","","","","","","","","",""};
 
     public:
         Funcionario(string code, string name, string address, string number, string date, double salary);
@@ -40,6 +42,9 @@ class Funcionario{
         double getDescontoImposto();
         void setSalarioLiquido(double sal);
         double getSalarioLiquido();
+
+        void setFolhaMensal(string paper, int month);
+        string getFolhaMensal(int month);
 
         //metodos que terao nas classes filhas:
         virtual void Aumento(Funcionario *func)=0;

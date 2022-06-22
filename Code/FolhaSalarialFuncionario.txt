@@ -1,0 +1,9 @@
+janeiroju
+Folha salarial do funcionário: ju
+Funcionário código 1
+
+Salário bruto: R$ 965.909
+Desconto Previdência Social (INSS): R$ 72.4432
+Desconto Imposto de Renda: R$ 0
+Salário líquido: R$ 893.466
+

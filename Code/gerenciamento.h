@@ -24,13 +24,14 @@ class Gerenciamento{
     void ExibirTipoFuncionario();
     void BuscarFuncionario(string search);
 
-    double CalcularFolhaSalarial(int mes);
+    void CalcularFolhaSalarial(int mes);
     void ImprimirFolhaSalarial();
     void ImprimirFolhaSalarialEmpresa();
     void ConfigurarAumento();
-    void SalvarFolhaSalarial(int mes);
     void ConfereCodigo(string code);
     void ExistePresid();
+
+    vector<double> ConsultarFolhaSalarial(int mes, int indice);
 
     string FormataData(int day, int month, int year);
     void ValidaAno(int year);
@@ -39,7 +40,7 @@ class Gerenciamento{
   
     void EscreverArquivoFuncionario(vector<Funcionario*> Func);
     void LerArquivoFuncionario();
-    void EscreverArquivoFolhaSalarial(int indice);
+    void EscreverArquivoFolhaSalarial(int indice, string month);
     void LerArquivoFolhaSalarial();
 
     protected:

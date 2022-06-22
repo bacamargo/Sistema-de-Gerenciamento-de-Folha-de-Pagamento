@@ -25,9 +25,8 @@ void ExibirMenuPrincipal(string interprise){
     cout << " 8 - Aumentar salário" << endl << endl; 
 
     cout << "Folha salarial: " << endl;
-    cout << " 9 - Calcular Folha Salarial" << endl;
-    cout << "10 - Imprimir Folha Salarial Funcionário" << endl;
-    cout << "11 - Imprimir Folha Salarial Empresa " << endl;
+    cout << "9 - Imprimir Folha Salarial Funcionário" << endl;
+    cout << "10 - Imprimir Folha Salarial Empresa " << endl;
 
     cout << " 0 - Encerrar Programa" << endl << endl;
     
@@ -247,35 +246,6 @@ int main(){
                 break;
 
             case 9: 
-                system("clear");
-                std::cout << "Digite o número (de 1 a 12) equivalente ao mês pra calcular a folha salarial: ";
-                std::cin >> mes;
-                std::cin.ignore();
-
-                try{
-                    sistema.CalcularFolhaSalarial(mes);
-        
-                    std::cout << endl << "---------------Folha salarial foi calculada com sucesso!---------------" << endl;
-
-
-                }catch(int erro){
-                    
-                    if(erro == 2){
-                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
-                        std::cout << "Retornando ao menu..." << endl;
-                    }
-
-                    if(erro == 10){
-
-                        std::cout << endl << "-------------------Não há nenhum funcionário cadastrado-------------------";
-                    }
-                }
-                
-                std::cout << endl << endl << "Aperte uma tecla para continuar...";    
-                getchar();
-                break;
-
-            case 10: 
                 try{
                     sistema.ImprimirFolhaSalarial();
                     std::cout << endl << endl << "Aperte uma tecla para continuar...";    
@@ -287,12 +257,18 @@ int main(){
                         std::cout << endl << "ERRO 1: FUNCIONÁRIO NÃO EXISTENTE " << endl << endl;
                         std::cout << "Retornando ao menu..." << endl;
                     }
+
+                    if(erro == 2){
+                        std::cout << endl << "ERRO 2: MÊS INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
+                    }
+                    
                     sleep(2);
                 }
                 
                 break;
 
-            case 11:
+            case 10: 
                 try{
                     sistema.ImprimirFolhaSalarialEmpresa();
                     std::cout << endl << endl << "Aperte uma tecla para continuar...";    
