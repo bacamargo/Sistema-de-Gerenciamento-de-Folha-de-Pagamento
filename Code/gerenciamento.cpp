@@ -77,6 +77,10 @@ void Gerenciamento::InserirFuncionario(){
     cout << "Digite o telefone: " ;
     getline(cin, telefone);
 
+    if(telefone.length() < 10 || telefone.length() > 15){
+        throw 12; //erro no telegone
+    }
+
     cout << "Digite a designação do funcionário com todas letras minúsculas ('operador', 'gerente', 'presidente' ou 'diretor'): ";
     getline(cin, designacao);    
 
@@ -233,6 +237,11 @@ void Gerenciamento::EditarFuncionario(){
         case 5:                         //alterar telefone
             cout << endl << "Digite o novo telefone do funcionário: ";
             getline(cin, novo);
+
+            if(novo.length() < 10 || novo.length() > 15){
+                throw 12; //erro no telegone
+            }
+            
             listaFunc[indice]->setTelefone(novo);
 
             cout << endl << "Atributo alterado com sucesso!------------------- ";
@@ -1078,13 +1087,14 @@ void Gerenciamento::EscreverArquivoFolhaSalarial(int indice, string month){  // 
         }
 
         if (write_folha_funcionario.is_open()){
+            write_folha_funcionario << "////////" << endl;
             write_folha_funcionario << month << "\n";
             write_folha_funcionario << "Folha salarial do funcionário: " << listaFunc[indice]->getNome() << "\n";
-            write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl << endl;
+            write_folha_funcionario << "Funcionário código " << listaFunc[indice]->getCodigo() << endl;
             write_folha_funcionario << "Salário bruto: R$ " <<  listaFunc[indice]->getSalario() << endl;
             write_folha_funcionario << "Desconto Previdência Social (INSS): R$ " <<  listaFunc[indice]->getDescontoINSS() << endl;
             write_folha_funcionario << "Desconto Imposto de Renda: R$ " <<  listaFunc[indice]->getDescontoImposto() << endl;
-            write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl << endl;
+            write_folha_funcionario << "Salário líquido: R$ " <<  listaFunc[indice]->getSalarioLiquido() << endl;
 
         }
     } else{

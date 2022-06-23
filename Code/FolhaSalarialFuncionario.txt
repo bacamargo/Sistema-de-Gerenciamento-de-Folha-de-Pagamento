@@ -1,9 +1,9 @@
-janeiroju
-Folha salarial do funcionário: ju
-Funcionário código 1
+janeiro
+Folha salarial do funcionário: jdkjfkd
+Funcionário código 2
 
-Salário bruto: R$ 965.909
-Desconto Previdência Social (INSS): R$ 72.4432
+Salário bruto: R$ 1613.64
+Desconto Previdência Social (INSS): R$ 145.227
 Desconto Imposto de Renda: R$ 0
-Salário líquido: R$ 893.466
+Salário líquido: R$ 1468.41
 

@@ -31,7 +31,7 @@ void ExibirMenuPrincipal(string interprise){
     cout << " 8 - Aumentar salário" << endl << endl; 
 
     cout << "Folha salarial: " << endl;
-    cout << "9 - Imprimir Folha Salarial Funcionário" << endl;
+    cout << " 9 - Imprimir Folha Salarial Funcionário" << endl;
     cout << "10 - Imprimir Folha Salarial Empresa " << endl;
 
     cout << " 0 - Encerrar Programa" << endl << endl;
@@ -122,6 +122,11 @@ int main(){
                         std::cout << "Retornando ao menu..." << endl;
                     }
 
+                    if(erro == 12){
+                        std::cout << endl << "ERRO 12: TELEFONE INVÁLIDO" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
+                    }
+
                     sleep(3);
                 }
                 
@@ -165,6 +170,11 @@ int main(){
 
                     if(erro == 8){
                         std::cout << endl << "ERRO 8: DESIGNAÇÃO NÃO EXISTENTE" << endl << endl;
+                        std::cout << "Retornando ao menu..." << endl;
+                    }
+
+                    if(erro == 12){
+                        std::cout << endl << "ERRO 12: TELEFONE INVÁLIDO" << endl << endl;
                         std::cout << "Retornando ao menu..." << endl;
                     }
 
