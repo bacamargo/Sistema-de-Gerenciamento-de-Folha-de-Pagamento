@@ -951,8 +951,8 @@ void Gerenciamento::ExistePresid(){
 
 //funcoes arquivo
 void Gerenciamento::EscreverArquivoFuncionario(vector<Funcionario*> Func){ // Lê um vetor atualizado. Pra atualizar essa lista, só chamar essa função de novo.
-    ofstream write;
-    write.open("ListaFuncionarios.txt", ofstream::trunc);
+    fstream write;
+    write.open("ListaFuncionarios.txt", fstream::out);
 
     if(!write.is_open()){
         cout << "Falha na criação/abertura do arquivo Cadastro de Funcionários" << endl;
@@ -991,7 +991,7 @@ void Gerenciamento::LerArquivoFuncionario(){
     int quantTem = 0; 
     int quantLeu = 0;
     std::fstream fs;
-   
+        {
     
         fs.open("ListaFuncionarios.txt", std::fstream::in);
         if(!fs.is_open()){
@@ -1009,7 +1009,7 @@ void Gerenciamento::LerArquivoFuncionario(){
         }
         fs.close();
     
-    
+        }
     
         fs.open("ListaFuncionarios.txt", std::fstream::in);
         if(!fs.is_open()){
@@ -1049,27 +1049,23 @@ void Gerenciamento::LerArquivoFuncionario(){
             if (designacao == "operador"){
 
                 func= new Operador(codigo, nome, endereco, telefone, data, salario);
-                break;
             
             }else if(designacao == "gerente"){
 
                 getline(fs, areaSupervisao);
                 func = new Gerente(codigo, nome, endereco, telefone, data, salario, areaSupervisao);
-                break;getline(fs, areaSupervisao);
-                func = new Gerente(codigo, nome, endereco, telefone, data, salario, areaSupervisao);
-                break;
+        
 
             }else if(designacao == "diretor"){
 
                 getline(fs, areaSupervisao);
                 getline(fs, areaFormacao);
                 func = new Diretor(codigo, nome, endereco, telefone, data, salario, areaSupervisao, areaFormacao);
-                break;
+                
             }else if(designacao == "presidente"){
                 getline(fs, areaFormacao);
                 getline(fs, formacaoMaxima);
                 func = new Presidente(codigo, nome, endereco, telefone, data, salario, areaFormacao, formacaoMaxima);
-                break;
             }
 
             listaFunc.push_back(func);

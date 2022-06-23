@@ -163,6 +163,7 @@ int main(){
                         std::cout << "Retornando ao menu..." << endl;
                     }
 
+
                     if(erro == 6){
                         std::cout << endl << "ERRO 6: CÓDIGO JÁ EXISTENTE" << endl << endl;
                         std::cout << "Retornando ao menu..." << endl;
