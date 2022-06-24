@@ -1280,7 +1280,7 @@ string Gerenciamento::EnderecoCEP(string CEP){
         string uf = jfile["uf"];
         string cep = jfile["cep"];
         //address = string("Rua: ") + rua + (" / Bairro: ") + bairro + " / Cidade: " + cidade + " / UF: " + uf + " / CEP: " + cep;
-        address = rua + (", ") + bairro + ", " + cidade + "," + uf;
+        address = rua + (", ") + bairro + ", " + cidade + ", " + uf;
 
 
         // for(int i = 0; i < Lista.size(); i++){

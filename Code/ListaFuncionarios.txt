@@ -8,14 +8,6 @@ gerente
 2000
 administracao
 ///////
-3
-joao
-Rua Cidade de Princesa Isabel, Mumbaba, João Pessoa,PB
-89 8888 8888
-02/02/2001
-operador
-1000
-///////
 5
 larissa gomes
 Rua Edson Figueiredo, Ernani Sátiro, João Pessoa,PB
@@ -35,3 +27,13 @@ diretor
 3000
 computacao
 sistemas
+///////
+123
+peppa pig
+Avenida Cabo Branco, Cabo Branco, João Pessoa,PB
+99 9999 9999
+01/01/2021
+diretor
+200000
+infantil
+suina

@@ -1,9 +1,8 @@
+////////
 janeiro
-Folha salarial do funcionário: jdkjfkd
-Funcionário código 2
-
-Salário bruto: R$ 1613.64
-Desconto Previdência Social (INSS): R$ 145.227
-Desconto Imposto de Renda: R$ 0
-Salário líquido: R$ 1468.41
-
+Folha salarial do funcionário: peppa pig
+Funcionário código 123
+Salário bruto: R$ 186364
+Desconto Previdência Social (INSS): R$ 26090.9
+Desconto Imposto de Renda: R$ 51250
+Salário líquido: R$ 109023
